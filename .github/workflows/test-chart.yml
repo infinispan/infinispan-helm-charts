@@ -1,4 +1,4 @@
-name: "Create cluster using KinD for the Infinispan Helm Charts test"
+name: Testsuite
 on:
   push:
     branches:
@@ -16,9 +16,16 @@ jobs:
         with:
           version: "v0.11.0"
           image: kindest/node:v1.18.19@sha256:530378628c7c518503ade70b1df698b5de5585dcdba4f349328d986b8849b1ee
-      - name: Testing
+      - name: Display cluster settings
         run: |
           kubectl cluster-info
           kubectl get pods -n kube-system
           echo "current-context:" $(kubectl config current-context)
           echo "environment-kubeconfig:" ${KUBECONFIG}
+      - uses: azure/setup-helm@v1
+        id: install
+      - name: Testing
+        run: |
+            kubectl create namespace helm-test
+            helm install example-infinispan . -n helm-test --set replicas=2
+            kubectl wait --for=condition=Ready pods -lapp=infinispan-pod -n helm-test --timeout=300s

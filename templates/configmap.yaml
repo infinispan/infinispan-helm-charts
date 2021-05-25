@@ -9,9 +9,7 @@ data:
   infinispan.yaml: |
     infinispan:
       clusterName: {{ include "infinispan-helm-charts.name" . }}
-      zeroCapacityNode: false
     jgroups:
-      transport: tcp
       dnsPing:
         query: {{ printf "%s-ping.%s.svc.cluster.local" (include "infinispan-helm-charts.name" .) .Release.Namespace }}
       diagnostics: false
