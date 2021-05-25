@@ -1,0 +1,44 @@
+# Default values for infinispan-helm-charts.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image: quay.io/infinispan/server:12.1
+initContainerImage: busybox
+
+replicas: 1
+
+service:
+  type: DataGrid
+  container:
+    storage: 1Gi
+    storageClassName: ""
+    ephemeralStorage: false
+  resources:
+    extraJvmOpts: ""
+    cpu: 500m
+    memory: 512Mi
+
+security:
+  endpointAuthentication: true
+  endpointSecretName: ""
+  endpointSecretPassword: ""
+
+expose:
+  type: Route
+  nodePort: 0
+  host: ""
+  annotations: {}
+
+logging:
+  categories: {}
+
+cloudEvents:
+  bootstrapServers: ""
+  acks: ""
+  cacheEntriesTopic: ""
+
+affinity: {}
+
+makeDataDirWritable: false
+
+nameOverride: ""

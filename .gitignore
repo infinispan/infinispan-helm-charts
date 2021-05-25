@@ -1,0 +1,5 @@
+# Various IDEs
+.project
+.idea/
+*.tmproj
+.vscode/
