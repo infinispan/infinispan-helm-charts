@@ -18,7 +18,7 @@ spec:
     metadata:
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
-        {{- if not (.Values.security.endpointSecretName) }}
+        {{- if not (.Values.security.secretName) }}
         checksum/identities: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
       {{- end }}
       labels:
@@ -56,12 +56,7 @@ spec:
             - name: CONFIG_PATH
               value: /etc/config/infinispan.yaml
             - name: JAVA_OPTIONS
-              {{- if eq (.Values.service.type) "Cache" }}
-              value: {{ printf "-Xmx200M -Xms200M -XX:MaxRAM=420M -Dsun.zip.disableMemoryMapping=true -XX:+UseSerialGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 %s" (.Values.service.resources.extraJvmOpts) }}
-              {{- end }}
-              {{- if eq (.Values.service.type) "DataGrid" }}
-              value: {{ .Values.service.resources.extraJvmOpts }}
-            {{- end }}
+              value: {{ .Values.container.extraJvmOpts }}
             - name: IDENTITIES_PATH
               value: /etc/security/user/identities.yaml
           image: {{ .Values.image }}
@@ -105,12 +100,16 @@ spec:
             successThreshold: 1
             timeoutSeconds: 80
           resources:
+            {{- if .Values.container.resources.limits }}
             limits:
-              cpu: {{ .Values.service.resources.cpu }}
-              memory: {{ .Values.service.resources.memory }}
+              cpu: {{ .Values.container.resources.limits.cpu }}
+              memory: {{ .Values.container.resources.limits.memory }}
+            {{- end }}
+            {{- if .Values.container.resources.requests }}
             requests:
-              cpu: {{ .Values.service.resources.cpu }}
-              memory: {{ .Values.service.resources.memory }}
+              cpu: {{ .Values.container.resources.requests.cpu }}
+              memory: {{ .Values.container.resources.requests.memory }}
+          {{- end }}
           volumeMounts:
             - mountPath: /etc/config
               name: config-volume
@@ -124,28 +123,30 @@ spec:
           name: config-volume
         - name: identities-volume
           secret:
-            {{- if eq (.Values.security.endpointSecretName) "" }}
+            {{- if eq (.Values.security.secretName) "" }}
             secretName: {{ printf "%s-generated-secret" (include "infinispan-helm-charts.name" .) }}
             {{- else }}
-            secretName: {{ .Values.security.endpointSecretName }}
+            secretName: {{ .Values.security.secretName }}
         {{- end }}
-        {{- if .Values.service.container.ephemeralStorage }}
+        {{- if .Values.container.storage.ephemeral }}
         - name: data-volume
           emptyDir: { }
   {{- end }}
   updateStrategy:
     type: RollingUpdate
-  {{- if not .Values.service.container.ephemeralStorage }}
+  {{- if not .Values.container.storage.ephemeral }}
   volumeClaimTemplates:
     - apiVersion: v1
       kind: PersistentVolumeClaim
       metadata:
         name: data-volume
       spec:
-        storageClassName: {{ .Values.service.container.storageClassName }}
+        {{- if .Values.container.storage.storageClassName }}
+        storageClassName: {{ .Values.container.storage.storageClassName }}
+        {{- end }}
         accessModes:
           - ReadWriteOnce
         resources:
           requests:
-            storage: {{ .Values.service.container.storage }}
+            storage: {{ .Values.container.storage.size }}
   {{- end }}

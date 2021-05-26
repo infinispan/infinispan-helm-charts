@@ -21,7 +21,7 @@ data:
     {{- end }}
     {{- end }}
     endpoints:
-      auth: {{ .Values.security.endpointAuthentication }}
+      auth: {{ .Values.security.authentication }}
     {{- if and (.Values.cloudEvents.bootstrapServers) (.Values.cloudEvents.acks) (.Values.cloudEvents.cacheEntriesTopic) }}
     cloudEvents:
       bootstrapServers: {{ .Values.cloudEvents.bootstrapServers }}

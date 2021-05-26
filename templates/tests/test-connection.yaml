@@ -10,7 +10,7 @@ metadata:
 spec:
   containers:
     - name: wget
-      image: {{ .Values.initContainerImage }}
+      image: {{ .Values.testContainerImage }}
       command: ['wget']
       args: ['{{ include "infinispan-helm-charts.name" . }}:11222/console']
   restartPolicy: Never
