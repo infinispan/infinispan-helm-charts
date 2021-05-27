@@ -1,0 +1,34 @@
+{{/* vim: set filetype=mustache: */}}
+{{/*
+Expand the name of the chart.
+*/}}
+{{- define "infinispan-helm-charts.name" -}}
+{{- default .Release.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Create chart name and version as used by the chart label.
+*/}}
+{{- define "infinispan-helm-charts.chart" -}}
+{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Common labels
+*/}}
+{{- define "infinispan-helm-charts.labels" -}}
+clusterName: {{ include "infinispan-helm-charts.name" . }}
+helm.sh/chart: {{ include "infinispan-helm-charts.chart" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{/*
+Service selector labels
+*/}}
+{{- define "infinispan-helm-charts.selectorLabels" -}}
+clusterName: {{ include "infinispan-helm-charts.name" . }}
+app: infinispan-pod
+{{- end }}

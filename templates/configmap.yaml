@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ printf "%s-configuration" (include "infinispan-helm-charts.name" .) }}
+  labels:
+    app: infinispan-configmap-configuration
+  {{- include "infinispan-helm-charts.labels" . | nindent 4 }}
+data:
+  infinispan.yaml: |
+    infinispan:
+      clusterName: {{ include "infinispan-helm-charts.name" . }}
+    jgroups:
+      dnsPing:
+        query: {{ printf "%s-ping.%s.svc.cluster.local" (include "infinispan-helm-charts.name" .) .Release.Namespace }}
+      diagnostics: false
+    {{- if .Values.logging.categories }}
+    logging:
+      categories:
+    {{- range $loggerName, $loggingLevel := .Values.logging.categories }}
+    {{ $loggerName | indent 4 }}: {{ $loggingLevel }}
+    {{- end }}
+    {{- end }}
+    endpoints:
+      auth: {{ .Values.security.authentication }}
+    {{- if and (.Values.cloudEvents.bootstrapServers) (.Values.cloudEvents.acks) (.Values.cloudEvents.cacheEntriesTopic) }}
+    cloudEvents:
+      bootstrapServers: {{ .Values.cloudEvents.bootstrapServers }}
+      acks: {{ .Values.cloudEvents.acks }}
+      cacheEntriesTopic: {{ .Values.cloudEvents.cacheEntriesTopic }}
+    {{- end }}
