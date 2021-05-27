@@ -25,10 +25,7 @@ container:
 security:
   authentication: true
   secretName: ""
-  identities:
-    credentials:
-    - username: ""
-      password: ""
+  identities: ""
 
 expose:
   type: Route
