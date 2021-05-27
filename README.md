@@ -16,3 +16,5 @@ helm test <cluster name> -n <namespace>
 ```
 helm uninstall <cluster name> -n <namespace>
 ```
+
+#DON'T MERGE!
