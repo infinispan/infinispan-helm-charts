@@ -1,7 +1,0 @@
-credentials:
-- username: developer
-  password: devpassword
-- username: administrator
-  password: adminpassword
-  roles:
-    - admin

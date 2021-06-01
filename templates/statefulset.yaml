@@ -53,14 +53,22 @@ spec:
       {{- end }}
       containers:
         - env:
-            - name: CONFIG_PATH
-              value: /etc/config/infinispan.yaml
             - name: JAVA_OPTIONS
               value: {{ .Values.container.extraJvmOpts }}
-            - name: IDENTITIES_PATH
-              value: /etc/security/user/identities.yaml
           image: {{ .Values.image }}
           imagePullPolicy: IfNotPresent
+          command:
+            - /bin/sh
+          args:
+            - -c
+            - >-
+              /opt/infinispan/bin/cli.sh --file /etc/security/user/identities-batch &&
+              /opt/infinispan/bin/server.sh
+              --cluster-name={{ include "infinispan-helm-charts.name" . }}
+              --server-config=/etc/config/infinispan.xml
+              --logging-config=/etc/config/log4j2.xml
+              --bind-address=0.0.0.0
+              -Djgroups.dns.query={{ printf "%s-ping.%s.svc.cluster.local" (include "infinispan-helm-charts.name" .) .Release.Namespace }}
           ports:
             - containerPort: 8888
               name: ping
