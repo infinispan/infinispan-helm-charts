@@ -4,6 +4,7 @@ metadata:
   name: {{ include "infinispan-helm-charts.name" . }}
   labels:
     app: infinispan-service
+    clusterName: {{ include "infinispan-helm-charts.name" . }}
   {{- include "infinispan-helm-charts.labels" . | nindent 4 }}
 spec:
   {{- if or (eq (.Values.expose.type) "LoadBalancer") (eq (.Values.expose.type) "NodePort") }}
@@ -17,9 +18,9 @@ spec:
       name: infinispan
       {{- if and (eq (.Values.expose.type) "NodePort") (.Values.expose.nodePort) }}
       nodePort: {{ .Values.expose.nodePort }}
+      {{- end}}
     - port: 11223
       protocol: TCP
-      name: infinispan-monitoring
-  {{- end }}
+      name: infinispan-met
   selector:
   {{- include "infinispan-helm-charts.selectorLabels" . | nindent 4 }}
