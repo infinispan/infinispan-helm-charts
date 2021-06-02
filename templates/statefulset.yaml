@@ -67,7 +67,7 @@ spec:
               --cluster-name={{ include "infinispan-helm-charts.name" . }}
               --server-config=/etc/config/infinispan.xml
               --logging-config=/etc/config/log4j2.xml
-              --bind-address=0.0.0.0
+              --bind-address=$HOSTNAME
               -Djgroups.dns.query={{ printf "%s-ping.%s.svc.cluster.local" (include "infinispan-helm-charts.name" .) .Release.Namespace }}
           ports:
             - containerPort: 8888
@@ -75,6 +75,9 @@ spec:
               protocol: TCP
             - containerPort: 11222
               name: infinispan
+              protocol: TCP
+            - containerPort: 11223
+              name: infinispan-met
               protocol: TCP
           livenessProbe:
             failureThreshold: 5
@@ -131,11 +134,7 @@ spec:
           name: config-volume
         - name: identities-volume
           secret:
-            {{- if eq (.Values.security.secretName) "" }}
-            secretName: {{ printf "%s-generated-secret" (include "infinispan-helm-charts.name" .) }}
-            {{- else }}
-            secretName: {{ .Values.security.secretName }}
-        {{- end }}
+            secretName: {{ include "infinispan-helm-charts.secret" . }}
         {{- if .Values.container.storage.ephemeral }}
         - name: data-volume
           emptyDir: { }

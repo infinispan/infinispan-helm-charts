@@ -14,6 +14,17 @@ Create chart name and version as used by the chart label.
 {{- end }}
 
 {{/*
+Generated Secret Name
+*/}}
+{{- define "infinispan-helm-charts.secret" -}}
+{{- if eq (.Values.security.secretName) "" }}
+{{- printf "%s-generated-secret" (include "infinispan-helm-charts.name" .) }}
+{{- else }}
+{{- .Values.security.secretName }}
+{{- end }}
+{{- end }}
+
+{{/*
 Common labels
 */}}
 {{- define "infinispan-helm-charts.labels" -}}

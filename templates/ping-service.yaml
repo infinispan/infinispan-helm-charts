@@ -4,6 +4,7 @@ metadata:
   name: {{ printf "%s-ping" (include "infinispan-helm-charts.name" .) }}
   labels:
     app: infinispan-service-ping
+    clusterName: {{ include "infinispan-helm-charts.name" . }}
     {{- include "infinispan-helm-charts.labels" . | nindent 4 }}
 spec:
   type: ClusterIP
