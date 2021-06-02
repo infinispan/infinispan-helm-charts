@@ -17,6 +17,9 @@ spec:
       name: infinispan
       {{- if and (eq (.Values.expose.type) "NodePort") (.Values.expose.nodePort) }}
       nodePort: {{ .Values.expose.nodePort }}
+    - port: 11223
+      protocol: TCP
+      name: infinispan-monitoring
   {{- end }}
   selector:
   {{- include "infinispan-helm-charts.selectorLabels" . | nindent 4 }}

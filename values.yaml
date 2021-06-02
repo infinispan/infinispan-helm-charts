@@ -25,7 +25,7 @@ container:
 security:
   authentication: true
   secretName: ""
-  identities: ""
+  batch: ""
 
 expose:
   type: Route
@@ -35,11 +35,6 @@ expose:
 
 logging:
   categories: {}
-
-cloudEvents:
-  bootstrapServers: ""
-  acks: ""
-  cacheEntriesTopic: ""
 
 affinity: {}
 

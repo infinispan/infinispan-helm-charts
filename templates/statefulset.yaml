@@ -62,7 +62,7 @@ spec:
           args:
             - -c
             - >-
-              /opt/infinispan/bin/cli.sh --file /etc/security/user/identities-batch &&
+              /opt/infinispan/bin/cli.sh --file /etc/security/identities-batch &&
               /opt/infinispan/bin/server.sh
               --cluster-name={{ include "infinispan-helm-charts.name" . }}
               --server-config=/etc/config/infinispan.xml
@@ -123,7 +123,7 @@ spec:
               name: config-volume
             - mountPath: /opt/infinispan/server/data
               name: data-volume
-            - mountPath: /etc/security/user
+            - mountPath: /etc/security
               name: identities-volume
       volumes:
         - configMap:
