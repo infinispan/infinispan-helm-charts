@@ -41,3 +41,5 @@ affinity: {}
 makeDataDirWritable: false
 
 nameOverride: ""
+
+resourceLabels: {}
