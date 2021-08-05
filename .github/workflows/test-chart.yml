@@ -27,5 +27,5 @@ jobs:
       - name: Testing
         run: |
             kubectl create namespace helm-test
-            helm install example-infinispan . -n helm-test --set replicas=2
+            helm install example-infinispan . -n helm-test --set deploy.replicas=2
             kubectl wait --for=condition=Ready pods -lapp=infinispan-pod -n helm-test --timeout=300s

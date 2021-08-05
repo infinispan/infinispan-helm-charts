@@ -3,7 +3,7 @@
 Expand the name of the chart.
 */}}
 {{- define "infinispan-helm-charts.name" -}}
-{{- default .Release.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- default .Release.Name .Values.deploy.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
@@ -17,10 +17,10 @@ Create chart name and version as used by the chart label.
 Generated Secret Name
 */}}
 {{- define "infinispan-helm-charts.secret" -}}
-{{- if eq (.Values.security.secretName) "" }}
+{{- if eq (.Values.deploy.security.secretName) "" }}
 {{- printf "%s-generated-secret" (include "infinispan-helm-charts.name" .) }}
 {{- else }}
-{{- .Values.security.secretName }}
+{{- .Values.deploy.security.secretName }}
 {{- end }}
 {{- end }}
 
@@ -34,7 +34,7 @@ helm.sh/chart: {{ include "infinispan-helm-charts.chart" . }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
-{{- range $labelName, $labelVal := .Values.resourceLabels }}
+{{- range $labelName, $labelVal := .Values.deploy.resourceLabels }}
 {{ $labelName }}: {{ $labelVal }}
 {{- end }}
 {{- end }}

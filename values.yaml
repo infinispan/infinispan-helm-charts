@@ -2,44 +2,45 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-image: quay.io/infinispan/server:12.1
-initContainerImage: registry.access.redhat.com/ubi8-micro
-testContainerImage: quay.io/repository/quay/busybox
+images:
+  server: quay.io/infinispan/server:12.1
+  initContainer: registry.access.redhat.com/ubi8-micro
 
-replicas: 1
+deploy:
+  replicas: 1
 
-container:
-  extraJvmOpts: ""
-  storage:
-    size: 1Gi
-    storageClassName: ""
-    ephemeral: false
-  resources:
-    limits:
-      cpu: 500m
-      memory: 512Mi
-    requests:
-      cpu: 500m
-      memory: 512Mi
+  container:
+    extraJvmOpts: ""
+    storage:
+      size: 1Gi
+      storageClassName: ""
+      ephemeral: false
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 500m
+        memory: 512Mi
 
-security:
-  authentication: true
-  secretName: ""
-  batch: ""
+  security:
+    authentication: true
+    secretName: ""
+    batch: ""
 
-expose:
-  type: Route
-  nodePort: 0
-  host: ""
-  annotations: {}
+  expose:
+    type: Route
+    nodePort: 0
+    host: ""
+    annotations: {}
 
-logging:
-  categories: {}
+  logging:
+    categories: {}
 
-affinity: {}
+  affinity: {}
 
-makeDataDirWritable: false
+  makeDataDirWritable: false
 
-nameOverride: ""
+  nameOverride: ""
 
-resourceLabels: {}
+  resourceLabels: {}

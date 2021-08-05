@@ -1,4 +1,4 @@
-{{- if eq (.Values.expose.type) "Route" }}
+{{- if eq (.Values.deploy.expose.type) "Route" }}
   {{- if .Capabilities.APIVersions.Has "route.openshift.io/v1/Route" }}
 apiVersion: route.openshift.io/v1
 kind: Route
@@ -7,15 +7,15 @@ metadata:
   labels:
     app: infinispan-route
   {{- include "infinispan-helm-charts.labels" . | nindent 4 }}
-  {{- if .Values.expose.annotations }}
+  {{- if .Values.deploy.expose.annotations }}
   annotations:
-    {{- range $annotationName, $annotationValue := .Values.expose.annotations }}
+    {{- range $annotationName, $annotationValue := .Values.deploy.expose.annotations }}
     {{ $annotationName | quote }}: {{ $annotationValue | quote }}
   {{- end }}
   {{- end }}
 spec:
-  {{- if .Values.expose.host }}
-  host: {{ .Values.expose.host | quote }} }
+  {{- if .Values.deploy.expose.host }}
+  host: {{ .Values.deploy.expose.host | quote }} }
   {{- end }}
   port:
     targetPort: 11222
@@ -30,16 +30,16 @@ metadata:
   labels:
     app: infinispan-ingress
   {{- include "infinispan-helm-charts.labels" . | nindent 4 }}
-  {{- if .Values.expose.annotations }}
+  {{- if .Values.deploy.expose.annotations }}
   annotations:
-    {{- range $annotationName, $annotationValue := .Values.expose.annotations }}
+    {{- range $annotationName, $annotationValue := .Values.deploy.expose.annotations }}
     {{ $annotationName | quote }}: {{ $annotationValue | quote }}
   {{- end }}
   {{- end }}
 spec:
   rules:
-    {{- if .Values.expose.host }}
-    - host: {{ .Values.expose.host | quote }}
+    {{- if .Values.deploy.expose.host }}
+    - host: {{ .Values.deploy.expose.host | quote }}
       http:
         paths:
           - path: /

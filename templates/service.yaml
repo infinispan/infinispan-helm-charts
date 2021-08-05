@@ -7,8 +7,8 @@ metadata:
     clusterName: {{ include "infinispan-helm-charts.name" . }}
   {{- include "infinispan-helm-charts.labels" . | nindent 4 }}
 spec:
-  {{- if or (eq (.Values.expose.type) "LoadBalancer") (eq (.Values.expose.type) "NodePort") }}
-  type: {{ .Values.expose.type }}
+  {{- if or (eq (.Values.deploy.expose.type) "LoadBalancer") (eq (.Values.deploy.expose.type) "NodePort") }}
+  type: {{ .Values.deploy.expose.type }}
   {{- else }}
   type: ClusterIP
   {{- end }}
@@ -16,8 +16,8 @@ spec:
     - port: 11222
       protocol: TCP
       name: infinispan
-      {{- if and (eq (.Values.expose.type) "NodePort") (.Values.expose.nodePort) }}
-      nodePort: {{ .Values.expose.nodePort }}
+      {{- if and (eq (.Values.deploy.expose.type) "NodePort") (.Values.deploy.expose.nodePort) }}
+      nodePort: {{ .Values.deploy.expose.nodePort }}
       {{- end}}
     - port: 11223
       protocol: TCP

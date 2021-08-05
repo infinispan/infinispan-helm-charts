@@ -10,7 +10,7 @@ metadata:
 spec:
   containers:
     - name: wget
-      image: {{ .Values.testContainerImage }}
+      image: quay.io/repository/quay/busybox
       command: ['wget']
       args: ['{{ include "infinispan-helm-charts.name" . }}:11222/console']
   restartPolicy: Never

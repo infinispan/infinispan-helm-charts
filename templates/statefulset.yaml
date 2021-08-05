@@ -9,7 +9,7 @@ metadata:
     "openshift.io/documentation-url": "http://infinispan.org/documentation/"
 spec:
   serviceName: ""
-  replicas: {{ .Values.replicas }}
+  replicas: {{ .Values.deploy.replicas }}
   selector:
     matchLabels:
       app: infinispan-pod
@@ -18,15 +18,15 @@ spec:
     metadata:
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
-        {{- if not (.Values.security.secretName) }}
+        {{- if not (.Values.deploy.security.secretName) }}
         checksum/identities: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
       {{- end }}
       labels:
         app: infinispan-pod
         clusterName: {{ include "infinispan-helm-charts.name" . }}
     spec:
-      {{- if .Values.affinity }}
-      {{ .Values.affinity }}
+      {{- if .Values.deploy.affinity }}
+      {{ .Values.deploy.affinity }}
       {{- else }}
       affinity:
         podAntiAffinity:
@@ -39,14 +39,14 @@ spec:
                 topologyKey: kubernetes.io/hostname
               weight: 100
       {{- end }}
-      {{if .Values.makeDataDirWritable }}
+      {{if .Values.deploy.makeDataDirWritable }}
       initContainers:
         - name: data-chmod-pv
           command:
             - sh
             - -c
             - chmod -R g+w /opt/infinispan/server/data
-          image: {{ .Values.initContainerImage }}
+          image: {{ .Values.images.initContainer }}
           volumeMounts:
             - mountPath: /opt/infinispan/server/data
               name: data-volume
@@ -54,8 +54,8 @@ spec:
       containers:
         - env:
             - name: JAVA_OPTIONS
-              value: {{ .Values.container.extraJvmOpts }}
-          image: {{ .Values.image }}
+              value: {{ .Values.deploy.container.extraJvmOpts }}
+          image: {{ .Values.images.server }}
           imagePullPolicy: Always
           command:
             - /bin/sh
@@ -111,15 +111,15 @@ spec:
             successThreshold: 1
             timeoutSeconds: 80
           resources:
-            {{- if .Values.container.resources.limits }}
+            {{- if .Values.deploy.container.resources.limits }}
             limits:
-              cpu: {{ .Values.container.resources.limits.cpu }}
-              memory: {{ .Values.container.resources.limits.memory }}
+              cpu: {{ .Values.deploy.container.resources.limits.cpu }}
+              memory: {{ .Values.deploy.container.resources.limits.memory }}
             {{- end }}
-            {{- if .Values.container.resources.requests }}
+            {{- if .Values.deploy.container.resources.requests }}
             requests:
-              cpu: {{ .Values.container.resources.requests.cpu }}
-              memory: {{ .Values.container.resources.requests.memory }}
+              cpu: {{ .Values.deploy.container.resources.requests.cpu }}
+              memory: {{ .Values.deploy.container.resources.requests.memory }}
           {{- end }}
           volumeMounts:
             - mountPath: /etc/config
@@ -135,25 +135,25 @@ spec:
         - name: identities-volume
           secret:
             secretName: {{ include "infinispan-helm-charts.secret" . }}
-        {{- if .Values.container.storage.ephemeral }}
+        {{- if .Values.deploy.container.storage.ephemeral }}
         - name: data-volume
           emptyDir: { }
   {{- end }}
   updateStrategy:
     type: RollingUpdate
-  {{- if not .Values.container.storage.ephemeral }}
+  {{- if not .Values.deploy.container.storage.ephemeral }}
   volumeClaimTemplates:
     - apiVersion: v1
       kind: PersistentVolumeClaim
       metadata:
         name: data-volume
       spec:
-        {{- if .Values.container.storage.storageClassName }}
-        storageClassName: {{ .Values.container.storage.storageClassName }}
+        {{- if .Values.deploy.container.storage.storageClassName }}
+        storageClassName: {{ .Values.deploy.container.storage.storageClassName }}
         {{- end }}
         accessModes:
           - ReadWriteOnce
         resources:
           requests:
-            storage: {{ .Values.container.storage.size }}
+            storage: {{ .Values.deploy.container.storage.size }}
   {{- end }}
