@@ -9,8 +9,8 @@ metadata:
   {{- include "infinispan-helm-charts.labels" . | nindent 4 }}
   {{- if .Values.deploy.expose.annotations }}
   annotations:
-    {{- range $annotationName, $annotationValue := .Values.deploy.expose.annotations }}
-    {{ $annotationName | quote }}: {{ $annotationValue | quote }}
+    {{- range .Values.deploy.expose.annotations }}
+    {{ .key | quote }}: {{ .value | quote }}
   {{- end }}
   {{- end }}
 spec:
@@ -32,8 +32,8 @@ metadata:
   {{- include "infinispan-helm-charts.labels" . | nindent 4 }}
   {{- if .Values.deploy.expose.annotations }}
   annotations:
-    {{- range $annotationName, $annotationValue := .Values.deploy.expose.annotations }}
-    {{ $annotationName | quote }}: {{ $annotationValue | quote }}
+    {{- range .Values.deploy.expose.annotations }}
+    {{ .key | quote }}: {{ .value | quote }}
   {{- end }}
   {{- end }}
 spec:

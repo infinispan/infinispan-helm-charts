@@ -32,10 +32,15 @@ deploy:
     type: Route
     nodePort: 0
     host: ""
-    annotations: {}
+    annotations: []
 
   logging:
-    categories: {}
+    categories:
+      - category: com.arjuna
+        level: warn
+      # No need to warn about not being able to TLS/SSL handshake
+      - category: io.netty.handler.ssl.ApplicationProtocolNegotiationHandler
+        level: error
 
   affinity: {}
 
@@ -43,4 +48,4 @@ deploy:
 
   nameOverride: ""
 
-  resourceLabels: {}
+  resourceLabels: []

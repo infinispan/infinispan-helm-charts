@@ -92,15 +92,9 @@
       <AppenderRef ref="REST-ACCESS-FILE"/>
     </Logger>
 
-    <!-- You can set different levels for categories here -->
-    <!-- You can also assign different appenders for each category, but you don't have to -->
-    <Logger name="com.arjuna" level="WARN"/>
-    <!-- No need to warn about not being able to TLS/SSL handshake -->
-    <Logger name="io.netty.handler.ssl.ApplicationProtocolNegotiationHandler" level="ERROR"/>
-
     {{- if .Values.deploy.logging.categories}}
-    {{- range $loggerName, $loggingLevel := fromYaml .Values.deploy.logging.categories }}
-    <Logger name="{{ $loggerName }}" level="{{ $loggingLevel | upper }}" />
+    {{- range .Values.deploy.logging.categories }}
+    <Logger name="{{ .category }}" level="{{ .level | upper }}" />
     {{- end }}
     {{- end }}
 

@@ -34,8 +34,8 @@ helm.sh/chart: {{ include "infinispan-helm-charts.chart" . }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
-{{- range $labelName, $labelVal := .Values.deploy.resourceLabels }}
-{{ $labelName }}: {{ $labelVal }}
+{{- range .Values.deploy.resourceLabels }}
+{{ .key }}: {{ .value }}
 {{- end }}
 {{- end }}
 
