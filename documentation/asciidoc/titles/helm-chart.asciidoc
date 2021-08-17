@@ -1,0 +1,20 @@
+//Title attributes
+:toc2:
+:icons: font
+:toclevels: 4
+:sectnums:
+:docinfo: private-head,private-footer
+
+//Asciidoc module locations
+:stories: ../stories
+:topics: ../topics
+:imagesdir: {topics}/images
+
+include::{topics}/attributes/community-attributes.adoc[]
+
+[id='infinispan-helm-chart']
+= Building and deploying {brandname} clusters with Helm
+
+Create {brandname} clusters with a Helm chart that lets you specify values for build and deployment configuration.
+
+include::stories.adoc[]

@@ -1,0 +1,26 @@
+//
+// Conditional statements
+//
+:community:
+
+//
+// Attributes
+//
+
+:helm_chart_readme: https://github.com/redhat-developer/redhat-helm-charts/blob/master/alpha/infinispan/README.md
+
+:server_image: quay.io/infinispan/server
+
+:ispn_version: 12.1
+:server_image_version: 12.1
+
+:brandname: Infinispan
+:fullbrandname: Infinispan
+:ispn_operator: Infinispan Operator
+
+:openshift: Red Hat OpenShift
+:openshiftshort: OpenShift
+:openshiftplatform: Red Hat OpenShift Container Platform
+:ocp: OpenShift Container Platform
+:osweb: OpenShift Web Console
+:k8s: Kubernetes
