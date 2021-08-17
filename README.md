@@ -35,6 +35,5 @@ Configure your Infinispan cluster by specifying values in the `deploy.*` section
 | `deploy.expose.annotations` | Adds annotations to the service that exposes Infinispan on the network. | `{}` | - |
 | `deploy.logging.categories` | Configures Infinispan cluster log categories and levels. | `{}` | - |
 | `deploy.resourceLabels` | Adds labels to Infinispan resources such as pods and services. | `{}` | - |
-| `deploy.affinity` | Configures affinity for Infinispan pods to protect services from single points of failure. | `{}` | An empty value results in a default anti-affinity scheme that prefers pods to be distributed across unique nodes. |
 | `deploy.makeDataDirWritable` | Allows write access to the `data` directory for each Infinispan Server node. | false | Setting the value to `true` creates an initContainer that runs `chmod -R` on the `/opt/infinispan/server/data` directory and changes its permissions. |
 | `deploy.nameOverride` | Specifies a name for all Infinispan cluster resources. | Helm Chart release name | Configure a name for the created resources only if you need it to be different to the Helm Chart release name. |

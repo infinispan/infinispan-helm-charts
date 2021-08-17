@@ -25,9 +25,6 @@ spec:
         app: infinispan-pod
         clusterName: {{ include "infinispan-helm-charts.name" . }}
     spec:
-      {{- if .Values.deploy.affinity }}
-      {{ .Values.deploy.affinity }}
-      {{- else }}
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -38,7 +35,6 @@ spec:
                     app: infinispan-pod
                 topologyKey: kubernetes.io/hostname
               weight: 100
-      {{- end }}
       {{if .Values.deploy.makeDataDirWritable }}
       initContainers:
         - name: data-chmod-pv

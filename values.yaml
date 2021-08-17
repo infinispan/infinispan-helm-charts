@@ -42,8 +42,6 @@ deploy:
       - category: io.netty.handler.ssl.ApplicationProtocolNegotiationHandler
         level: error
 
-  affinity: {}
-
   makeDataDirWritable: false
 
   nameOverride: ""
