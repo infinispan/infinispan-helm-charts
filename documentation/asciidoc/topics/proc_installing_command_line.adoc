@@ -1,0 +1,62 @@
+[id='installing-openshift-command-line_{context}']
+= Installing the Helm chart on the command line
+
+[role="_abstract"]
+ifdef::community[]
+Use the `helm` and `oc` clients to create scripts that deploy {brandname} clusters on {openshiftshort} or a Kubernetes cluster.
+endif::community[]
+ifdef::downstream[]
+Use the `helm` and `oc` clients to create scripts that deploy {brandname} clusters on {openshiftshort}.
+endif::downstream[]
+
+.Prerequisites
+
+ifdef::community[]
+* Have access to an {openshiftshort} or Kubernetes cluster and an `oc` or `kubectl` client.
+endif::community[]
+ifdef::downstream[]
+* Have access to an {openshiftshort} cluster and an `oc` client.
+endif::downstream[]
+* Install the `helm` client.
+* Add the link:https://github.com/redhat-developer/redhat-helm-charts/blob/master/README.md[Red Hat Helm Charts repository].
+
+.Procedure
+
+. Create a values file for your {brandname} cluster that you can pass to the Helm chart.
++
+For example, the following values file creates a cluster with two nodes:
++
+[source,options="nowrap",subs=attributes+]
+----
+$ cat > infinispan-values.yaml<<EOF
+include::yaml/infinispan-values.yaml[]
+EOF
+----
++
+[TIP]
+====
+To find descriptions for each of the {brandname} values, refer to the link:{helm_chart_readme}[{brandname} chart README].
+====
++
+. Install the {brandname} chart and specify the values file for your cluster.
++
+[source,options="nowrap",subs=attributes+]
+----
+$ helm install -n <namespace> infinispan redhat-charts/infinispan -f infinispan-values.yaml
+----
+
+.Verification
+
+. Watch your build to ensure it completes successfully.
++
+[source,options="nowrap",subs=attributes+]
+----
+$ oc get build -w
+----
++
+. Watch the pods to ensure all nodes in the {brandname} cluster are created successfully.
++
+[source,options="nowrap",subs=attributes+]
+----
+$ oc get pods -w
+----

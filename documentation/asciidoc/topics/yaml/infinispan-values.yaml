@@ -1,0 +1,7 @@
+#Build configuration
+images:
+  server: {server_image}:{server_image_version}
+  initContainer: registry.access.redhat.com/ubi8-micro
+#Deployment configuration
+deploy:
+  replicas: 2

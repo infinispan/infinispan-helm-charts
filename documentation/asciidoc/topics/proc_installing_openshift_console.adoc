@@ -1,0 +1,33 @@
+[id='installing-openshift-console_{context}']
+= Installing the Helm chart through the {openshiftshort} console
+
+[role="_abstract"]
+Use the {osweb} to install the {brandname} chart from the Red Hat developer catalog.
+
+.Prerequisites
+
+* Have access to an {openshiftshort} cluster.
+
+.Procedure
+
+. Log in to the {osweb}.
+. Select the **Developer** perspective.
+. Open the **Add** view and then select **Helm Chart** to browse the Red Hat developer catalog.
+. Locate and select the {brandname} chart.
+. Specify a name for the chart and select a version.
+. Define values in the following sections of the {brandname} chart:
++
+* **Images** configures the container images to use when creating pods for your {brandname} cluster.
+* **Deploy** configures your {brandname} cluster.
++
+[TIP]
+====
+To find descriptions for each value, select the **YAML view** option and access the schema.
+====
++
+. Select **Install**.
+
+.Verification
+
+. Select the **Helm** view in the **Developer** perspective.
+. Select the {brandname} cluster you created to view details, resources, and other information.
