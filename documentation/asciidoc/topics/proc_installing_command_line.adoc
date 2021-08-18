@@ -2,25 +2,22 @@
 = Installing the Helm chart on the command line
 
 [role="_abstract"]
-Use the `helm` and `oc` clients to install the {brandname} Helm chart from the Red Hat Helm Charts repository via the command line.
 ifdef::community[]
-This approach lets you automate the deployment of {brandname} clusters on {openshiftshort} or to install the {brandname} Helm chart on Kubernetes clusters.
+Use the `helm` and `oc` clients to create scripts that deploy {brandname} clusters on {openshiftshort} or a Kubernetes cluster.
 endif::community[]
 ifdef::downstream[]
-This approach lets you script the deployment of {brandname} clusters on {openshiftshort}.
+Use the `helm` and `oc` clients to create scripts that deploy {brandname} clusters on {openshiftshort}.
 endif::downstream[]
 
 .Prerequisites
 
 ifdef::community[]
-* Have access to an {openshiftshort} or Kubernetes cluster.
-* Have an `oc` or `kubectl` client.
+* Have access to an {openshiftshort} or Kubernetes cluster and an `oc` or `kubectl` client.
 endif::community[]
 ifdef::downstream[]
-* Have access to an {openshiftshort} cluster.
-* Have an `oc` client.
+* Have access to an {openshiftshort} cluster and an `oc` client.
 endif::downstream[]
-* Have a `helm` client.
+* Install the `helm` client.
 * Add the link:https://github.com/redhat-developer/redhat-helm-charts/blob/master/README.md[Red Hat Helm Charts repository].
 
 .Procedure
@@ -41,12 +38,11 @@ EOF
 To find descriptions for each of the {brandname} values, refer to the link:{helm_chart_readme}[{brandname} chart README].
 ====
 +
-. Log in to your {openshiftshort} cluster from the `oc` client.
 . Install the {brandname} chart and specify the values file for your cluster.
 +
 [source,options="nowrap",subs=attributes+]
 ----
-$ helm install infinispan redhat-charts/infinispan -f infinispan-values.yaml
+$ helm install -n <namespace> infinispan redhat-charts/infinispan -f infinispan-values.yaml
 ----
 
 .Verification

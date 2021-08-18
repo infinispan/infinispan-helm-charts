@@ -2,8 +2,7 @@
 = Installing the Helm chart through the {openshiftshort} console
 
 [role="_abstract"]
-The {brandname} Helm chart is available from the Red Hat developer catalog so you can install it directly from the {osweb}.
-During the installation process, you can pass values to the chart to specify configuration for your {brandname} cluster.
+Use the {osweb} to install the {brandname} chart from the Red Hat developer catalog.
 
 .Prerequisites
 
@@ -13,23 +12,22 @@ During the installation process, you can pass values to the chart to specify con
 
 . Log in to the {osweb}.
 . Select the **Developer** perspective.
-. Select the **Helm** category and navigate to the Red Hat developer catalog.
-. Locate and then select the {brandname} chart.
-. Specify a name for the chart and select the appropriate version.
-. Define values that you want to pass to the {brandname} chart in the following sections:
+. Open the **Add** view and then select **Helm Chart** to browse the Red Hat developer catalog.
+. Locate and select the {brandname} chart.
+. Specify a name for the chart and select a version.
+. Define values in the following sections of the {brandname} chart:
 +
-* **Images** configures the container images to use when building pods for your {brandname} cluster.
+* **Images** configures the container images to use when creating pods for your {brandname} cluster.
 * **Deploy** configures your {brandname} cluster.
 +
 [TIP]
 ====
-To find descriptions for each of the {brandname} values, select the **YAML view** option and refer to the schema.
+To find descriptions for each value, select the **YAML view** option and access the schema.
 ====
 +
 . Select **Install**.
 
 .Verification
 
-. Select the **Administrator** perspective.
-. Select **Workloads** > **Builds** to check that the build completes successfully.
-. Select **Workloads** > **Pods** to check that all pods are created successfully.
+. Select the **Helm** view in the **Developer** perspective.
+. Select the {brandname} cluster you created to view details, resources, and other information.
