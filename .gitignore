@@ -3,3 +3,5 @@
 .idea/
 *.tmproj
 .vscode/
+documentation/**/*.html
+!documentation/**/*docinfo*.html
