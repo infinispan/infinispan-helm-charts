@@ -1,5 +1,5 @@
 apiVersion: v2
-name: infinispan-helm-charts
+name: infinispan
 description: A Helm chart that lets you build and deploy Infinispan clusters.
 type: application
 # Chart version
