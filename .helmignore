@@ -25,3 +25,14 @@
 
 # Ignore documentation
 documentation/
+
+# Ignore branding files
+*.sh
+*.conf
+values.schema.json.tpl
+README.md.tpl
+
+# Ignore existing charts
+*.tgz
+
+CONTRIBUTING.md
