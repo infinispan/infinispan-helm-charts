@@ -18,7 +18,7 @@ ifdef::downstream[]
 * Have access to an {openshiftshort} cluster and an `oc` client.
 endif::downstream[]
 * Install the `helm` client.
-* Add the link:https://github.com/redhat-developer/redhat-helm-charts/blob/master/README.md[Red Hat Helm Charts repository].
+* Add the link:{helm_chart_repo_readme}[{openshiftshort} Helm Charts repository].
 
 .Procedure
 

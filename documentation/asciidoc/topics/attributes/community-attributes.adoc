@@ -7,7 +7,10 @@
 // Attributes
 //
 
-:helm_chart_readme: https://github.com/redhat-developer/redhat-helm-charts/blob/master/alpha/infinispan/README.md
+:helm_chart_readme: https://github.com/infinispan/infinispan-helm-charts/blob/main/README.md
+
+:helm_chart_repo: https://github.com/openshift-helm-charts
+:helm_chart_repo_readme: https://github.com/openshift-helm-charts/charts/blob/main/README.md
 
 :server_image: quay.io/infinispan/server
 
