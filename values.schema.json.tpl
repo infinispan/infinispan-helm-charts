@@ -114,10 +114,6 @@
                 "security": {
                     "description": "Controls access to {brandname} clusters.",
                     "properties": {
-                        "authentication": {
-                            "description": "Enables user authentication for {brandname} Hot Rod and REST endpoints. Specifying a value of false allows anonymous user access to {brandname} clusters.",
-                            "type": "boolean"
-                        },
                         "secretName": {
                             "description": "Specifies the name of a secret that creates credentials and configures security authorization.",
                             "type": [

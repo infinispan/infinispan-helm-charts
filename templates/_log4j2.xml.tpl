@@ -1,4 +1,4 @@
-{{- define "log4j2.xml" }}
+{{- define "log4j2.xml" -}}
 <Configuration name="InfinispanServerConfig" monitorInterval="60" shutdownHook="disable">
   <Properties>
     <Property name="path">${sys:infinispan.server.log.path}</Property>

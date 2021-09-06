@@ -26,7 +26,6 @@ Configure your {brandname} cluster by specifying values in the `deploy.*` sectio
 | `deploy.container.resources.limits.memory` | Defines the memory limit, in bytes, for each {brandname} pod. | 512Mi | - |
 | `deploy.container.resources.requests.cpu` | Specifies the maximum CPU requests, in CPU units, for each {brandname} pod. | 500m | - |
 | `deploy.container.resources.requests.memory` | Specifies the maximum memory requests, in bytes, for each {brandname} pod. | 512Mi | - |
-| `deploy.security.authentication` | Enables user authentication for {brandname} Hot Rod and REST endpoints. | true | Specifying a value of `false` allows users to access {brandname} clusters and manipulate data without providing credentials. You should not disable authentication if endpoints are accessible from outside the {k8s} cluster. |
 | `deploy.security.secretName` | Specifies the name of a secret that creates credentials and configures security authorization. | `""` | If you provide a security secret then `deploy.security.batch` does not take effect. |
 | `deploy.security.batch` | Provides a batch file for the {brandname} command line interface (CLI) to create credentials and configure security authorization. | `""` | The CLI runs the batch file before server startup. |
 | `deploy.expose.type` | Specifies the service that exposes Hot Rod and REST endpoints outside the {k8s} cluster and allows network access to your {brandname} cluster. | Route | Valid options: `["", "Route", "LoadBalancer", "NodePort"]`. Set an empty value (`""`) if you do not want to expose {brandname} on the network. |
@@ -37,3 +36,4 @@ Configure your {brandname} cluster by specifying values in the `deploy.*` sectio
 | `deploy.resourceLabels` | Adds labels to {brandname} resources such as pods and services. | `{}` | - |
 | `deploy.makeDataDirWritable` | Allows write access to the `data` directory for each {brandname} Server node. | false | Setting the value to `true` creates an initContainer that runs `chmod -R` on the `/opt/infinispan/server/data` directory and changes its permissions. |
 | `deploy.nameOverride` | Specifies a name for all {brandname} cluster resources. | Helm Chart release name | Configure a name for the created resources only if you need it to be different to the Helm Chart release name. |
+| `deploy.infinispan` | {brandname} Server configuration. | - | You should not change the default socket bindings or the security realm and endpoints named "metrics". Modifying these default properties can result in unexpected behavior and loss of service. |

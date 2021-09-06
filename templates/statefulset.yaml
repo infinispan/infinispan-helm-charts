@@ -61,7 +61,7 @@ spec:
               /opt/infinispan/bin/cli.sh --file /etc/security/identities-batch &&
               /opt/infinispan/bin/server.sh
               --cluster-name={{ include "infinispan-helm-charts.name" . }}
-              --server-config=/etc/config/infinispan.xml
+              --server-config=/etc/config/infinispan.yml
               --logging-config=/etc/config/log4j2.xml
               --bind-address=$HOSTNAME
               -Djgroups.dns.query={{ printf "%s-ping.%s.svc.cluster.local" (include "infinispan-helm-charts.name" .) .Release.Namespace }}
