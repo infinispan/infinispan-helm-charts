@@ -14,8 +14,8 @@
 
 :server_image: quay.io/infinispan/server
 
-:ispn_version: 12.1
-:server_image_version: 12.1
+:ispn_version: 13.0
+:server_image_version: 13.0
 
 :brandname: Infinispan
 :fullbrandname: Infinispan

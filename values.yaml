@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 images:
-  server: quay.io/infinispan/server:12.1
+  server: quay.io/infinispan/server:13.0
   initContainer: registry.access.redhat.com/ubi8-micro
 
 deploy:
