@@ -6,7 +6,8 @@ metadata:
     app: infinispan-configmap-configuration
   {{- include "infinispan-helm-charts.labels" . | nindent 4 }}
 data:
-  infinispan.xml: |-
-    {{ include "infinispan.xml" . | nindent 4}}
+  infinispan.yml: |-
+    infinispan:
+      {{- .Values.deploy.infinispan | toYaml | nindent 6 }}
   log4j2.xml: |-
-    {{ include "log4j2.xml" . | nindent 4}}
+    {{- include "log4j2.xml" . | nindent 4 }}
