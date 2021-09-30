@@ -51,20 +51,16 @@ spec:
         - env:
             - name: JAVA_OPTIONS
               value: {{ .Values.deploy.container.extraJvmOpts }}
+            - name: IDENTITIES_BATCH
+              value: /etc/security/identities-batch
           image: {{ .Values.images.server }}
           imagePullPolicy: Always
-          command:
-            - /bin/sh
           args:
-            - -c
-            - >-
-              /opt/infinispan/bin/cli.sh --file /etc/security/identities-batch &&
-              /opt/infinispan/bin/server.sh
-              --cluster-name={{ include "infinispan-helm-charts.name" . }}
-              --server-config=/etc/config/infinispan.yml
-              --logging-config=/etc/config/log4j2.xml
-              --bind-address=$HOSTNAME
-              -Djgroups.dns.query={{ printf "%s-ping.%s.svc.cluster.local" (include "infinispan-helm-charts.name" .) .Release.Namespace }}
+            - --cluster-name={{ include "infinispan-helm-charts.name" . }}
+            - --server-config=/etc/config/infinispan.yml
+            - --logging-config=/etc/config/log4j2.xml
+            - --bind-address=0.0.0.0
+            - -Djgroups.dns.query={{ printf "%s-ping.%s.svc.cluster.local" (include "infinispan-helm-charts.name" .) .Release.Namespace }}
           ports:
             - containerPort: 8888
               name: ping
