@@ -27,3 +27,8 @@
 :ocp: OpenShift Container Platform
 :osweb: OpenShift Web Console
 :k8s: Kubernetes
+
+//Server Guide
+:server_docs: https://infinispan.org/docs/stable/titles/server/server.html
+//Security Guide
+:security_docs: https://infinispan.org/docs/stable/titles/security/security.html

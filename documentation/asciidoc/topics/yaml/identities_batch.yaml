@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: connect-secret
+type: Opaque
+stringData:
+  # The "monitor" user authenticates with the Prometheus ServiceMonitor.
+  username: monitor
+  # The password for the "monitor" user.
+  password: password
+  # The key must be 'identities-batch'.
+  # The content is "user create" commands for the {brandname} CLI.
+  identities-batch: |-
+    user create user1 -p changeme -g admin
+    user create user2 -p changeme -g deployer
+    user create monitor -p password --users-file metrics-users.properties --groups-file metrics-groups.properties

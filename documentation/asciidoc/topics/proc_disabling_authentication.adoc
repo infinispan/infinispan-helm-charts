@@ -1,0 +1,22 @@
+[id='disabling-authentication_{context}']
+= Disabling authentication
+
+[role="_abstract"]
+Allow users to access {brandname} clusters and manipulate data without providing credentials.
+
+[IMPORTANT]
+====
+Do not disable authentication if endpoints are accessible from outside the {openshiftshort} cluster.
+You should disable authentication for development environments only.
+====
+
+.Procedure
+
+Apply the following changes to your {brandname} Helm chart:
+
+. Remove any `securityRealm` fields from `deploy.infinispan.server.endpoints`.
+. Remove any `authentication` fields from `deploy.infinispan.server.endpoints.connectors`.
+
+[role="_additional-resources"]
+.Additional resources
+* link:{server_docs}[{brandname} Server Guide]
