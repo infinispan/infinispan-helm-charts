@@ -1,0 +1,4 @@
+deploy:
+  security:
+    authentication: true
+    batch: 'user create user1 -p changeme -g deployer'
