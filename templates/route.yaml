@@ -22,8 +22,8 @@ spec:
   to:
     kind: Service
     name: {{ include "infinispan-helm-charts.name" . }}
-  {{- else if .Capabilities.APIVersions.Has "networking.k8s.io/v1beta1/Ingress" }}
-apiVersion: networking.k8s.io/v1beta1
+  {{- else if .Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress" }}
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ include "infinispan-helm-charts.name" . }}
@@ -38,23 +38,18 @@ metadata:
   {{- end }}
 spec:
   rules:
-    {{- if .Values.deploy.expose.host }}
-    - host: {{ .Values.deploy.expose.host | quote }}
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              serviceName: {{ include "infinispan-helm-charts.name" . }}
-              servicePort: 11222
-    {{- else }}
     - http:
         paths:
           - path: /
             pathType: Prefix
             backend:
-              serviceName: {{ include "infinispan-helm-charts.name" . }}
-              servicePort: 11222
+              service:
+                name: {{ include "infinispan-helm-charts.name" . }}
+                port:
+                  number: 11222
+      {{- if .Values.deploy.expose.host }}
+      host: {{ .Values.deploy.expose.host | quote }}
+      {{- else }}
   {{- end }}
   {{- end }}
   {{- end }}
