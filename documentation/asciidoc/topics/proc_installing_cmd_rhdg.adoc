@@ -1,22 +1,13 @@
-[id='installing-openshift-command-line_{context}']
+//Downstream content only
+[id='installing-helm-chart-command-line_{context}']
 = Installing the Helm chart on the command line
 
 [role="_abstract"]
-ifdef::community[]
-Use the `helm` and `oc` clients to create scripts that deploy {brandname} clusters on {openshiftshort} or a Kubernetes cluster.
-endif::community[]
-ifdef::downstream[]
 Use the `helm` and `oc` clients to create scripts that deploy {brandname} clusters on {openshiftshort}.
-endif::downstream[]
 
 .Prerequisites
 
-ifdef::community[]
-* Have access to an {openshiftshort} or Kubernetes cluster and an `oc` or `kubectl` client.
-endif::community[]
-ifdef::downstream[]
 * Have access to an {openshiftshort} cluster and an `oc` client.
-endif::downstream[]
 * Install the `helm` client.
 * Add the link:{helm_chart_repo_readme}[{openshiftshort} Helm Charts repository].
 
@@ -28,7 +19,7 @@ For example, the following values file creates a cluster with two nodes:
 +
 [source,options="nowrap",subs=attributes+]
 ----
-$ cat > infinispan-values.yaml<<EOF
+$ cat > datagrid-values.yaml<<EOF
 include::yaml/infinispan-values.yaml[]
 EOF
 ----
@@ -42,7 +33,7 @@ To find descriptions for each of the {brandname} values, refer to the link:{helm
 +
 [source,options="nowrap",subs=attributes+]
 ----
-$ helm install -n <namespace> infinispan redhat-charts/infinispan -f infinispan-values.yaml
+$ helm install infinispan redhat-charts/datagrid -f datagrid-values.yaml
 ----
 
 .Verification

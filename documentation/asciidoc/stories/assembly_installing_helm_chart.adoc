@@ -7,7 +7,12 @@ ifdef::context[:parent-context: {context}]
 Install the Helm chart to build and deploy {brandname} clusters.
 
 include::{topics}/proc_installing_openshift_console.adoc[leveloffset=+1]
-include::{topics}/proc_installing_command_line.adoc[leveloffset=+1]
+ifdef::community[]
+include::{topics}/proc_installing_cmd_ispn.adoc[leveloffset=+1]
+endif::community[]
+ifdef::downstream[]
+include::{topics}/proc_installing_cmd_rhdg.adoc[leveloffset=+1]
+endif::downstream[]
 
 // Restore the parent context.
 ifdef::parent-context[:context: {parent-context}]
