@@ -1,2 +1,2 @@
-include::{stories}/assembly_install.adoc[leveloffset=+1]
+include::{stories}/assembly_installing_helm_chart.adoc[leveloffset=+1]
 include::{stories}/assembly_configuring_authentication.adoc[leveloffset=+1]
