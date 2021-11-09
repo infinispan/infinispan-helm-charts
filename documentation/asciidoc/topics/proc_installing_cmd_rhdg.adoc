@@ -38,8 +38,6 @@ $ helm install infinispan redhat-charts/datagrid -f datagrid-values.yaml
 
 .Verification
 
-.Verification
-
 Watch the pods to ensure all nodes in the {brandname} cluster are created successfully.
 
 [source,options="nowrap",subs=attributes+]
