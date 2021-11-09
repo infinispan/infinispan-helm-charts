@@ -13,6 +13,7 @@ endif::community[]
 ifdef::downstream[]
 include::{topics}/proc_installing_cmd_rhdg.adoc[leveloffset=+1]
 endif::downstream[]
+include::{topics}/proc_uninstalling.adoc[leveloffset=+1]
 
 // Restore the parent context.
 ifdef::parent-context[:context: {parent-context}]
