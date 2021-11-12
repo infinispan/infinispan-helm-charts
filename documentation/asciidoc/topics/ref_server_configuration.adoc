@@ -1,0 +1,27 @@
+//community and downstream
+[id='server-configuration_{context}']
+= {brandname} Server configuration
+
+[role="_abstract"]
+{brandname} Server configuration examples.
+
+`deploy.infinispan`:: Configures cache managers and {brandname} Server endpoints, interfaces, socket bindings, and security.
+
+[discrete]
+== Cache Manager configuration values
+[source,options="nowrap",subs=attributes+]
+----
+include::yaml/cache-manager-configuration.yaml[]
+----
+
+[discrete]
+== Endpoint configuration values
+[source,options="nowrap",subs=attributes+]
+----
+include::yaml/endpoint-configuration.yaml[]
+----
+
+[role="_additional-resources"]
+.Additional resources
+* link:{server_docs}[{brandname} Server Guide]
+* link:{config_docs}[Configuring {brandname}]

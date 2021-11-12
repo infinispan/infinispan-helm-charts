@@ -5,13 +5,15 @@ ifdef::context[:parent-context: {context}]
 
 [role="_abstract"]
 Install the Helm chart to build and deploy {brandname} clusters.
+Each time you install the {brandname} chart, Helm creates a release.
 
 include::{topics}/proc_installing_openshift_console.adoc[leveloffset=+1]
 include::{topics}/proc_installing_cmd.adoc[leveloffset=+1]
+include::{topics}/proc_uninstalling.adoc[leveloffset=+1]
 ifdef::downstream[]
 include::{topics}/ref_deployment_configuration_values.adoc[leveloffset=+1]
 endif::downstream[]
-include::{topics}/proc_uninstalling.adoc[leveloffset=+1]
+include::{topics}/ref_server_configuration.adoc[leveloffset=+1]
 
 // Restore the parent context.
 ifdef::parent-context[:context: {parent-context}]

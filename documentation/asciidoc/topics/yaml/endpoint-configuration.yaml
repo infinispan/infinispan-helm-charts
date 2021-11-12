@@ -1,0 +1,12 @@
+  infinispan:
+    server:
+      endpoints:
+      - securityRealm: default
+        socketBinding: default
+      - connectors:
+          rest:
+            restConnector:
+              authentication:
+                mechanisms: BASIC
+        securityRealm: metrics
+        socketBinding: metrics

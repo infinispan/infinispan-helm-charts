@@ -53,6 +53,16 @@ $ helm install infinispan redhat-charts/datagrid -f cluster-configuration.yaml
 ----
 endif::downstream[]
 
+[TIP]
+====
+Use the `--set` flag to override values for the deployment.
+For example, to create a cluster with three nodes:
+[source,options="nowrap",subs=attributes+]
+----
+--set deploy.replicas=3
+----
+====
+
 .Verification
 
 Watch the pods to ensure all nodes in the {brandname} cluster are created successfully.

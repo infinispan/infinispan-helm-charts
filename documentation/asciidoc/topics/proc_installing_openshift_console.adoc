@@ -23,6 +23,7 @@ Use the {osweb} to install the {brandname} chart from the Red Hat developer cata
 [TIP]
 ====
 To find descriptions for each value, select the **YAML view** option and access the schema.
+Edit the yaml configuration to customize your {brandname} chart.
 ====
 +
 . Select **Install**.
@@ -30,4 +31,4 @@ To find descriptions for each value, select the **YAML view** option and access 
 .Verification
 
 . Select the **Helm** view in the **Developer** perspective.
-. Select the {brandname} cluster you created to view details, resources, and other information.
+. Select the Helm release you created to view details, resources, and other information.

@@ -1,8 +1,8 @@
 [id='uninstalling-helm-chart_{context}']
-= Uninstalling the Helm chart
+= Uninstalling the {brandname} chart
 
 [role="_abstract"]
-Uninstall the {brandname} chart to remove pods and other deployment artifacts.
+Uninstall a release of the {brandname} chart to remove pods and other deployment artifacts.
 
 [NOTE]
 ====
@@ -23,11 +23,16 @@ endif::downstream[]
 
 .Procedure
 
-. Use the `helm` client to remove the {brandname} chart, for example:
+. List the deployed releases.
++
+----
+$ helm list
+----
+. Use the `helm` client to remove the release, for example:
 +
 [source,bash,options="nowrap",subs=attributes+]
 ----
-$ helm uninstall <cluster_name>
+$ helm uninstall <release_name>
 ----
 +
 . Use the `{oc}` client to remove the generated secret.
