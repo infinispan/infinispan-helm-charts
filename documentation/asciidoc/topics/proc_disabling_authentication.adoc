@@ -6,16 +6,17 @@ Allow users to access {brandname} clusters and manipulate data without providing
 
 [IMPORTANT]
 ====
-Do not disable authentication if endpoints are accessible from outside the {openshiftshort} cluster.
+Do not disable authentication if endpoints are accessible from outside the {k8s} cluster.
 You should disable authentication for development environments only.
 ====
 
 .Procedure
 
-Apply the following changes to your {brandname} Helm chart:
-
+. Open the values file for your {brandname} cluster.
 . Remove any `securityRealm` fields from `deploy.infinispan.server.endpoints`.
 . Remove any `authentication` fields from `deploy.infinispan.server.endpoints.connectors`.
+. Save and close your values file.
+. Install the Helm chart to deploy your {brandname} cluster.
 
 [role="_additional-resources"]
 .Additional resources

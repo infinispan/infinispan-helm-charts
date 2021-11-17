@@ -1,0 +1,39 @@
+[id='connecting-clients-external_{context}']
+= Connecting Hot Rod clients running outside {k8s}
+
+[role="_abstract"]
+Access remote caches with Hot Rod clients running externally to the {k8s} cluster where you deploy your {brandname} cluster.
+
+.Prerequisites
+
+* Expose your {brandname} cluster on the network.
+* Retrieve network service details.
+
+.Procedure
+
+. Specify the internal network service detail for your {brandname} cluster in the client configuration.
++
+In the following configuration examples, `$SERVICE_HOSTNAME:$PORT` denotes the hostname and port that allows access to your {brandname} cluster.
++
+. Specify your credentials so the client can authenticate with {brandname}.
+. Configure clients to use `BASIC` intelligence.
+
+[discrete]
+== Programmatic configuration
+
+[source,java,options="nowrap",subs=attributes+]
+----
+include::java/ConfigurationBuilderExternal.java[]
+----
+
+[discrete]
+== Hot Rod client properties
+
+[source,options="nowrap",subs=attributes+]
+----
+include::properties/hotrod-external.properties[]
+----
+
+[role="_additional-resources"]
+.Additional resources
+* link:{hotrod_docs}[Hot Rod Java Client Guide]

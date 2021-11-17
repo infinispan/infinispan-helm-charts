@@ -1,0 +1,44 @@
+[id='exposing-clusters-network_{context}']
+= Exposing {brandname} clusters on the network
+
+[role="_abstract"]
+Make {brandname} clusters available on the network so you can access {brandname} Console as well as REST and Hot Rod endpoints.
+By default, the {brandname} chart exposes deployments through a Route but you can configure it to expose clusters via Load Balancer or Node Port.
+You can also configure the {brandname} chart so that deployments are not exposed on the network and only available internally to the {k8s} cluster.
+
+.Procedure
+
+. Open the values file for your {brandname} cluster.
+. Specify one of the following for the `deploy.expose.type` field:
++
+[%header,%autowidth,cols="1,1",stripes=even]
+|===
+|Option |Description
+
+|`Route`
+ifdef::community[]
+|Exposes {brandname} through an ingress. This is the default value.
+endif::community[]
+ifdef::downstream[]
+|Exposes {brandname} through a route. This is the default value.
+endif::downstream[]
+
+|`LoadBalancer`
+|Exposes {brandname} through a load balancer service.
+
+|`NodePort`
+|Exposes {brandname} through a node port service.
+
+|`""` (empty value)
+|Disables exposing {brandname} on the network.
+|===
++
+ifdef::community[]
+. Optionally specify a hostname with the `deploy.expose.host` field if you expose {brandname} through an ingress.
+endif::community[]
+ifdef::downstream[]
+. Optionally specify a hostname with the `deploy.expose.host` field if you expose {brandname} through a route.
+endif::downstream[]
+. Optionally specify a port with the `deploy.expose.nodePort` field if you expose {brandname} through a node port service.
+. Save and close your values file.
+. Install the Helm chart to deploy your {brandname} cluster.

@@ -1,0 +1,42 @@
+[id='connecting-cli_{context}']
+= Connecting with the command line interface (CLI)
+
+[role="_abstract"]
+Use the {brandname} CLI to connect to clusters and create caches, manipulate data, and perform administrative operations.
+
+.Prerequisites
+
+* Expose your {brandname} cluster on the network.
+* Retrieve network service details.
+//Community content
+ifdef::community[]
+* Download the native {brandname} CLI distribution from link:https://github.com/infinispan/infinispan-quarkus/releases/[infinispan-quarkus releases].
+endif::community[]
+//Downstream content
+ifdef::downstream[]
+* Download the native {brandname} CLI distribution from the link:{download_url}[{brandname} software downloads].
+endif::downstream[]
+* Extract the `.zip` archive for the native {brandname} CLI distribution to your host filesystem.
+
+.Procedure
+
+. Start the {brandname} CLI with the network service as the value for the `-c` argument, for example:
++
+[source,bash,options="nowrap",subs=attributes+]
+----
+$ {native_cli} -c http://cluster-name-myroute.hostname.net/
+----
++
+. Enter your {brandname} credentials when prompted.
+. Perform CLI operations as required.
++
+[TIP]
+====
+Press the tab key or use the [command]`--help` argument to view available options and help text.
+====
++
+. Use the [command]`quit` command to exit the CLI.
+
+[role="_additional-resources"]
+.Additional resources
+* link:{cli_docs}[Using the {brandname} Command Line Interface]

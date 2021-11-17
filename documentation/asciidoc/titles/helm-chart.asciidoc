@@ -11,6 +11,7 @@
 :imagesdir: {topics}/images
 
 include::{topics}/attributes/community-attributes.adoc[]
+include::{topics}/attributes/kubectl_cmds.adoc[]
 
 [id='infinispan-helm-chart']
 = Building and deploying {brandname} clusters with Helm

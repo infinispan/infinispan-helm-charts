@@ -17,6 +17,8 @@
 :ispn_version: 13.0
 :server_image_version: 13.0
 
+:native_cli: infinispan-cli
+
 :brandname: Infinispan
 :fullbrandname: Infinispan
 :ispn_operator: Infinispan Operator
@@ -32,3 +34,9 @@
 :server_docs: https://infinispan.org/docs/stable/titles/server/server.html
 //Security Guide
 :security_docs: https://infinispan.org/docs/stable/titles/security/security.html
+//CLI Guide
+:cli_docs: https://infinispan.org/docs/stable/titles/cli/cli.html
+//REST docs
+:rest_docs: https://infinispan.org/docs/stable/titles/rest/rest.html
+//Hot Rod Java Client Guide
+:hotrod_docs: https://infinispan.org/docs/stable/titles/hotrod_java/hotrod_java.html

@@ -1,0 +1,16 @@
+[id='connecting-console_{context}']
+= Accessing {brandname} Console
+
+[role="_abstract"]
+Access the console to create caches, perform adminstrative operations, and monitor your {brandname} clusters.
+
+.Prerequisites
+
+* Expose your {brandname} cluster on the network.
+* Retrieve network service details.
+
+.Procedure
+
+* Access {brandname} Console from any browser at `$SERVICE_HOSTNAME:$PORT`.
++
+Replace `$SERVICE_HOSTNAME:$PORT` with the hostname and port where {brandname} is available on the network.

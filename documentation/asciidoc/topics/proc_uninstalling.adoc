@@ -6,13 +6,20 @@ Uninstall the {brandname} chart to remove pods and other deployment artifacts.
 
 [NOTE]
 ====
-This procedure shows you how to uninstall the {brandname} chart and generated authentication secret with the `helm` and `oc` clients.
+This procedure shows you how to uninstall the {brandname} chart and generated authentication secret with the `helm` and `{oc}` clients.
 You can also uninstall the Helm chart through the {osweb}.
 ====
 
 .Prerequisites
 
 * Deploy the {brandname} chart.
+* Have a `helm` client.
+ifdef::community[]
+* Have a `kubectl` or `oc` client.
+endif::community[]
+ifdef::downstream[]
+* Have an `oc` client.
+endif::downstream[]
 
 .Procedure
 
@@ -20,12 +27,12 @@ You can also uninstall the Helm chart through the {osweb}.
 +
 [source,bash,options="nowrap",subs=attributes+]
 ----
-$ helm uninstall infinispan
+$ helm uninstall <cluster_name>
 ----
 +
-. Use the `oc` client to remove the generated secret.
+. Use the `{oc}` client to remove the generated secret.
 +
 [source,bash,options="nowrap",subs=attributes+]
 ----
-$ oc delete secret infinispan-generated-secret
+$ {oc_delete} secret infinispan-generated-secret
 ----

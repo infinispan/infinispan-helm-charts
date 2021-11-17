@@ -1,5 +1,5 @@
 [id='installing-openshift-console_{context}']
-= Installing the Helm chart through the {openshiftshort} console
+= Installing the {brandname} chart through the {openshiftshort} console
 
 [role="_abstract"]
 Use the {osweb} to install the {brandname} chart from the Red Hat developer catalog.
