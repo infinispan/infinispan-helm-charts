@@ -1,0 +1,41 @@
+[id='connecting-clients-internal_{context}']
+= Connecting Hot Rod clients running on {k8s}
+
+[role="_abstract"]
+Access remote caches with Hot Rod clients running on the same {k8s} cluster as your {brandname} cluster.
+
+.Prerequisites
+
+* Retrieve network service details.
+
+.Procedure
+
+. Specify the internal network service detail for your {brandname} cluster in the client configuration.
++
+In the following configuration examples, `$SERVICE_HOSTNAME:$PORT` denotes the hostname and port that allows access to your {brandname} cluster.
++
+. Specify your credentials so the client can authenticate with {brandname}.
+. Configure client intelligence, if required.
++
+Hot Rod clients running on {k8s} can use any client intelligence because they can access internal IP addresses for {brandname} pods. +
+The default intelligence, `HASH_DISTRIBUTION_AWARE`, is recommended because it allows clients to route requests to primary owners, which improves performance.
+
+[discrete]
+== Programmatic configuration
+
+[source,java,options="nowrap",subs=attributes+]
+----
+include::java/ConfigurationBuilderInternal.java[]
+----
+
+[discrete]
+== Hot Rod client properties
+
+[source,options="nowrap",subs=attributes+]
+----
+include::properties/hotrod-internal.properties[]
+----
+
+[role="_additional-resources"]
+.Additional resources
+* link:{hotrod_docs}[Hot Rod Java Client Guide]

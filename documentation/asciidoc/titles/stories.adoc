@@ -1,2 +1,4 @@
 include::{stories}/assembly_installing_helm_chart.adoc[leveloffset=+1]
 include::{stories}/assembly_configuring_authentication.adoc[leveloffset=+1]
+include::{stories}/assembly_network_access.adoc[leveloffset=+1]
+include::{stories}/assembly_connecting_clusters.adoc[leveloffset=+1]

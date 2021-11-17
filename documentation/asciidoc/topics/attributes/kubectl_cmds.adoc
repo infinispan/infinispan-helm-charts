@@ -1,0 +1,47 @@
+//
+// Use attributes for client commands in docs.
+// Community docs use kubectl.
+// Downstream docs use oc.
+//
+
+//
+// Community
+//
+ifdef::community[]
+:oc: kubectl
+:oc_get_pods: kubectl get pods
+:oc_get_pods_w: kubectl get pods -w
+:oc_get_secret: kubectl get secret
+:oc_get_services: kubectl get services
+:oc_get_routes: kubectl get ingress
+:oc_apply: kubectl apply -f
+:oc_logs: kubectl logs
+:oc_wait: kubectl wait
+:oc_create: kubectl create
+:oc_delete: kubectl delete
+:set_namespace: kubectl config set-context --current --namespace=mynamespace
+:oc_delete_pod: kubectl delete pod
+:oc_copy: kubectl cp
+endif::community[]
+
+//
+// Downstream
+//
+ifdef::downstream[]
+:oc: oc
+:oc_get_pods: oc get pods
+:oc_get_pods_w: oc get pods -w
+:oc_get_secret: oc get secret
+:oc_get_services: oc get services
+:oc_get_routes: oc get routes
+:oc_new_project: oc new-project
+:oc_project: oc project
+:set_namespace: oc project mynamespace
+:oc_apply: oc apply -f
+:oc_logs: oc logs
+:oc_wait: oc wait
+:oc_create: oc create
+:oc_delete: oc delete
+:oc_delete_pod: oc delete pod
+:oc_copy: oc cp
+endif::downstream[]

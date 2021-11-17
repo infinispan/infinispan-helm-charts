@@ -7,11 +7,9 @@ ifdef::context[:parent-context: {context}]
 Install the Helm chart to build and deploy {brandname} clusters.
 
 include::{topics}/proc_installing_openshift_console.adoc[leveloffset=+1]
-ifdef::community[]
-include::{topics}/proc_installing_cmd_ispn.adoc[leveloffset=+1]
-endif::community[]
+include::{topics}/proc_installing_cmd.adoc[leveloffset=+1]
 ifdef::downstream[]
-include::{topics}/proc_installing_cmd_rhdg.adoc[leveloffset=+1]
+include::{topics}/ref_deployment_configuration_values.adoc[leveloffset=+1]
 endif::downstream[]
 include::{topics}/proc_uninstalling.adoc[leveloffset=+1]
 

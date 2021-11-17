@@ -1,0 +1,38 @@
+[id='retrieving-network-services_{context}']
+= Retrieving network service details
+
+[role="_abstract"]
+Get network service details so you can connect to {brandname} clusters.
+
+.Prerequisites
+
+* Expose your {brandname} cluster on the network.
+ifdef::community[]
+* Have a `kubectl` or `oc` client.
+endif::community[]
+ifdef::downstream[]
+* Have an `oc` client.
+endif::downstream[]
+
+.Procedure
+
+Use one of the following commands to retrieve network service details:
+
+ifdef::community[]
+* If you expose {brandname} through an ingress:
+endif::community[]
+ifdef::downstream[]
+* If you expose {brandname} through a route:
+endif::downstream[]
++
+[source,options="nowrap",subs=attributes+]
+----
+$ {oc_get_routes}
+----
+
+* If you expose {brandname} through a load balancer or node port service:
++
+[source,options="nowrap",subs=attributes+]
+----
+$ {oc_get_services}
+----

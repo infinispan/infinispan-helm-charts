@@ -1,0 +1,20 @@
+[id='connecting-rest_{context}']
+= Accessing the REST API
+
+[role="_abstract"]
+{brandname} provides a RESTful interface that you can interact with using HTTP clients.
+
+.Prerequisites
+
+* Expose your {brandname} cluster on the network.
+* Retrieve network service details.
+
+.Procedure
+
+* Access the REST API with any HTTP client at `$SERVICE_HOSTNAME:$PORT/rest/v2`.
++
+Replace `$SERVICE_HOSTNAME:$PORT` with the hostname and port where {brandname} is available on the network.
+
+[role="_additional-resources"]
+.Additional resources
+* link:{rest_docs}[{brandname} REST API]

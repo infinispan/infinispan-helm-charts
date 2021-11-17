@@ -1,0 +1,36 @@
+[id='user-roles-permissions_{context}']
+= User roles and permissions
+
+[role="_abstract"]
+{brandname} uses role-based access control to authorize users for access to cluster resources and data.
+For additional security, you should grant {brandname} users with appropriate roles when you add credentials.
+
+[%header,%autowidth,cols="1,1,1",stripes=even]
+|===
+|Role |Permissions |Description
+
+|`admin`
+|ALL
+|Superuser with all permissions including control of the Cache Manager lifecycle.
+
+|`deployer`
+|ALL_READ, ALL_WRITE, LISTEN, EXEC, MONITOR, CREATE
+|Can create and delete {brandname} resources in addition to `application` permissions.
+
+|`application`
+|ALL_READ, ALL_WRITE, LISTEN, EXEC, MONITOR
+|Has read and write access to {brandname} resources in addition to `observer` permissions. Can also listen to events and execute server tasks and scripts.
+
+|`observer`
+|ALL_READ, MONITOR
+|Has read access to {brandname} resources in addition to `monitor` permissions.
+
+|`monitor`
+|MONITOR
+|Can view statistics for {brandname} clusters.
+
+|===
+
+[role="_additional-resources"]
+.Additional resources
+* link:{security_docs}[{brandname} Security Guide]

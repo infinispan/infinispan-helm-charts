@@ -1,0 +1,103 @@
+[id='deployment-configuration-values_{context}']
+= Deployment configuration values
+
+[role="_abstract"]
+Deployment configuration values let you customize {brandname} clusters.
+
+[TIP]
+====
+You can also find field and value descriptions in the link:{helm_chart_readme}[{brandname} chart README].
+====
+
+[%header,%autowidth,cols="1,1,1",stripes=even]
+|===
+|Field |Description |Default value
+
+|`deploy.replicas`
+|Specifies the number of nodes in your {brandname} cluster, with a pod created for each node.
+|`1`
+
+|`deploy.container.extraJvmOpts`
+|Passes JVM options to {brandname} Server.
+|No default value.
+
+|`deploy.container.storage.ephemeral`
+|Defines whether storage is ephemeral or permanent.
+|The default value is `false`, which means data is permanent.
+Set the value to `true` to use ephemeral storage, which means all data is deleted when clusters shut down or restart.
+
+|`deploy.container.storage.size`
+|Defines how much storage is allocated to each {brandname} pod.
+|1Gi
+
+|`deploy.container.storage.storageClassName`
+|Specifies the name of a `StorageClass` object to use for the persistent volume claim (PVC).
+|No default value. By default, the persistent volume claim uses the storage class that has the `storageclass.kubernetes.io/is-default-class` annotation set to `true`. If you include this field, you must specify an existing storage class as the value.
+
+|`deploy.container.resources.limits.cpu`
+|Defines the CPU limit, in CPU units, for each {brandname} pod.
+|500m
+
+|`deploy.container.resources.limits.memory`
+|Defines the maximum amount of memory, in bytes, for each {brandname} pod.
+|512Mi
+
+|`deploy.container.resources.requests.cpu`
+|Specifies the maximum CPU requests, in CPU units, for each {brandname} pod.
+|500m
+
+|`deploy.container.resources.requests.memory`
+|Specifies the maximum memory requests, in bytes, for each {brandname} pod.
+|512Mi
+
+|`deploy.security.secretName`
+|Specifies the name of a secret that creates credentials and configures security authorization.
+|No default value.
+If you create a custom security secret then `deploy.security.batch` does not take effect.
+
+|`deploy.security.batch`
+|Provides a batch file for the {brandname} command line interface (CLI) to create credentials and configure security authorization at startup.
+|No default value.
+
+|`deploy.expose.type`
+|Specifies the service that exposes Hot Rod and REST endpoints on the network and provides access to your {brandname} cluster, including the {brandname} Console.
+|`Route`
+Valid options are: `""` (empty value), `Route`, `LoadBalancer`, and `NodePort`.
+Set an empty value (`""`) if you do not want to expose {brandname} on the network.
+
+|`deploy.expose.nodePort`
+|Specifies a network port for node port services within the default range of 30000 to 32767.
+|0
+If you do not specify a port, the platform selects an available one.
+
+|`deploy.expose.host`
+|Optionally specifies the hostname where the Route is exposed.
+|No default value.
+
+|`deploy.expose.annotations`
+|Adds annotations to the service that exposes {brandname} on the network.
+|No default value.
+
+|`deploy.logging.categories`
+|Configures {brandname} cluster log categories and levels.
+|No default value.
+
+|`deploy.resourceLabels`
+|Adds labels to {brandname} resources such as pods and services.
+|No default value.
+
+|`deploy.makeDataDirWritable`
+|Allows write access to the `data` directory for each {brandname} Server node. |`false`
+If you set the value to `true`, {brandname} creates an initContainer that runs `chmod -R` on the `/opt/infinispan/server/data` directory to change permissions.
+
+|`deploy.nameOverride`
+|Specifies a name for all {brandname} cluster resources.
+|Helm Chart release name.
+
+|`deploy.infinispan`
+|{brandname} Server configuration.
+|No default value.
+You should not change the default socket bindings or the security realm and endpoints named "metrics".
+Modifying these default properties can result in unexpected behavior and loss of service.
+
+|===
