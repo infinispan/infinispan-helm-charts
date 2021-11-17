@@ -141,6 +141,8 @@
                             "description": "Specifies the service that exposes Hot Rod and REST endpoints on the network. Set an empty value (\"\") if you do not want to allow network access to {brandname}.",
                             "enum": [
                                 "",
+                                "LoadBalancer",
+                                "NodePort",
                                 "Route"
                             ],
                             "type": [
