@@ -3,12 +3,12 @@
 = {brandname} Server configuration values
 
 [role="_abstract"]
-{brandname} Server configuration values let you set custom properties for the Cache Manager and the {brandname} Server pods in your cluster. 
-
-`deploy.infinispan`:: Configures cache managers and {brandname} Server endpoints, interfaces, socket bindings, and security.
+{brandname} Server configuration values let you set custom properties for the Cache Manager and the {brandname} Server pods in your cluster.
 
 [discrete]
 == Cache Manager configuration values
+
+Cache Manager configuration values let you add caches and cache templates, specify cluster transport properties, and set other configuration such as server hinting and capacity factors.
 [source,options="nowrap",subs=attributes+]
 ----
 include::yaml/cache-manager-configuration.yaml[]
@@ -16,10 +16,22 @@ include::yaml/cache-manager-configuration.yaml[]
 
 [discrete]
 == Endpoint configuration values
+
+Endpoint configuration values let you customize Hot Rod and REST endpoints so clients can connect to your {brandname} cluster.
 [source,options="nowrap",subs=attributes+]
 ----
 include::yaml/endpoint-configuration.yaml[]
 ----
+
+[IMPORTANT]
+====
+To avoid unexpected behavior and loss of service you should not change some default configuration.
+Do not modify the following values:
+
+* Socket bindings named "default" or "metrics".
+* Security realm named "metrics".
+* Endpoint named "metrics".
+====
 
 [role="_additional-resources"]
 .Additional resources
