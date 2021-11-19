@@ -28,7 +28,7 @@ endif::downstream[]
 ----
 $ helm list
 ----
-. Use the `helm` client to remove the release, for example:
+. Use the `helm` client to remove the appropriate release, for example:
 +
 [source,bash,options="nowrap",subs=attributes+]
 ----

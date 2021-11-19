@@ -1,9 +1,9 @@
 //community and downstream
 [id='server-configuration_{context}']
-= {brandname} Server configuration
+= {brandname} Server configuration values
 
 [role="_abstract"]
-{brandname} Server configuration examples.
+{brandname} Server configuration values let you set custom properties for the Cache Manager and the {brandname} Server pods in your cluster. 
 
 `deploy.infinispan`:: Configures cache managers and {brandname} Server endpoints, interfaces, socket bindings, and security.
 
