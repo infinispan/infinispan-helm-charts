@@ -31,7 +31,6 @@ You should not modify or disable:
 include::yaml/cache_manager_caches.yaml[]
 ----
 
-
 [discrete]
 == Cache templates
 
