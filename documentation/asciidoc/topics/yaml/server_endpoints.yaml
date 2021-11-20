@@ -1,6 +1,4 @@
 deploy:
-  security:
-    authentication: false
   infinispan:
     server:
       endpoints:

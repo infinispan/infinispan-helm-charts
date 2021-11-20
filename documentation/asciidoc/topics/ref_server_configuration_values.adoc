@@ -6,8 +6,7 @@
 
 * Create caches at startup with any {brandname} configuration.
 * Add cache templates and use them to create caches on demand.
-* Specify JGroups cluster tranport properties.
-* Configure Cache Managers with server hinting and capacity factors.
+* Specify JGroups cluster transport properties.
 * Define {brandname} Server security realms.
 * Configure {brandname} Server endpoints with custom Hot Rod and REST connectors.
 * Add {brandname} Server data sources and credential keystores.
@@ -48,11 +47,27 @@ include::yaml/cache_manager_jgroups.yaml[]
 ----
 
 [discrete]
+== {brandname} Server security realms
+
+[source,yaml,options="nowrap",subs=attributes+]
+----
+include::yaml/server_security_realms.yaml[]
+----
+
+[discrete]
 == {brandname} Server endpoints
 
 [source,yaml,options="nowrap",subs=attributes+]
 ----
 include::yaml/server_endpoints.yaml[]
+----
+
+[discrete]
+== {brandname} Server data sources
+
+[source,yaml,options="nowrap",subs=attributes+]
+----
+include::yaml/server_data_sources.yaml[]
 ----
 
 
