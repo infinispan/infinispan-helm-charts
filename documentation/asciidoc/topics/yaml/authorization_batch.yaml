@@ -1,0 +1,3 @@
+deploy:
+  security:
+    batch: 'user create personone -p changeme -g deployer'

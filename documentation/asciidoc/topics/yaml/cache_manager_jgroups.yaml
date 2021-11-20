@@ -1,8 +1,6 @@
+deploy:
   infinispan:
     cacheContainer:
-      name: default
-      security:
-        authorization: null
       transport:
         cluster: ${infinispan.cluster.name:cluster}
         node-name: ${infinispan.node.name:}

@@ -8,7 +8,6 @@ You can also configure the {brandname} chart so that deployments are not exposed
 
 .Procedure
 
-. Open the values file for your {brandname} cluster.
 . Specify one of the following for the `deploy.expose.type` field:
 +
 [%header,%autowidth,cols="1,1",stripes=even]
@@ -40,5 +39,4 @@ ifdef::downstream[]
 . Optionally specify a hostname with the `deploy.expose.host` field if you expose {brandname} through a route.
 endif::downstream[]
 . Optionally specify a port with the `deploy.expose.nodePort` field if you expose {brandname} through a node port service.
-. Save and close your values file.
-. Install the Helm chart to deploy your {brandname} cluster.
+. Install or upgrade your {brandname} Helm release.

@@ -1,15 +1,16 @@
-[id='installing-helm-chart-command-line_{context}']
+[id='installing-chart-command-line_{context}']
 = Installing the {brandname} chart on the command line
 
 [role="_abstract"]
-Use the command line to deploy {brandname} clusters on {openshiftshort}.
+Use the command line to install the {brandname} chart on {k8s} and instantiate a {brandname} cluster.
+Installing the chart creates a Helm release that deploys a {brandname} cluster.
 
 .Prerequisites
 
 * Install the `helm` client.
 * Add the link:{helm_chart_repo_readme}[{openshiftshort} Helm Charts repository].
 ifdef::community[]
-* Have access to an {openshiftshort} or Kubernetes cluster.
+* Have access to an {openshiftshort} or {k8s} cluster.
 * Have a `kubectl` or `oc` client.
 endif::community[]
 ifdef::downstream[]
@@ -17,17 +18,16 @@ ifdef::downstream[]
 * Have an `oc` client.
 endif::downstream[]
 
-
 .Procedure
 
-. Create a values file for your {brandname} cluster.
+. Create a values file that configures your {brandname} cluster.
 +
 For example, the following values file creates a cluster with two nodes:
 +
 [source,options="nowrap",subs=attributes+]
 ----
-$ cat > cluster-configuration.yaml<<EOF
-include::yaml/infinispan-values.yaml[]
+$ cat > infinispan-values.yaml<<EOF
+include::yaml/infinispan_values.yaml[]
 EOF
 ----
 +
@@ -38,25 +38,26 @@ You can find descriptions and values for each field in the link:{helm_chart_read
 ====
 +
 endif::community[]
-. Install the {brandname} chart and specify the values file for your cluster.
+. Install the {brandname} chart and specify your values file.
 +
 ifdef::community[]
 [source,options="nowrap",subs=attributes+]
 ----
-$ helm install infinispan openshift-helm-charts/infinispan-infinispan -f cluster-configuration.yaml
+$ helm install infinispan openshift-helm-charts/infinispan-infinispan -f infinispan-values.yaml
 ----
 endif::community[]
 ifdef::downstream[]
 [source,options="nowrap",subs=attributes+]
 ----
-$ helm install infinispan redhat-charts/datagrid -f cluster-configuration.yaml
+$ helm install infinispan redhat-charts/datagrid -f infinispan-values.yaml
 ----
 endif::downstream[]
 
 [TIP]
 ====
-Use the `--set` flag to override values for the deployment.
+Use the `--set` flag to override configuration values for the deployment.
 For example, to create a cluster with three nodes:
+
 [source,options="nowrap",subs=attributes+]
 ----
 --set deploy.replicas=3
@@ -69,5 +70,5 @@ Watch the pods to ensure all nodes in the {brandname} cluster are created succes
 
 [source,options="nowrap",subs=attributes+]
 ----
-$ oc get pods -w
+$ {oc_get_pods_w}
 ----

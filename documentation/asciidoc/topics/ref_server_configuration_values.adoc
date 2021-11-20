@@ -1,0 +1,63 @@
+[id='server-configuration-values_{context}']
+= {brandname} Server configuration values
+
+[role="_abstract"]
+{brandname} Server configuration values let you do the following:
+
+* Create caches at startup with any {brandname} configuration.
+* Add cache templates and use them to create caches on demand.
+* Specify JGroups cluster tranport properties.
+* Configure Cache Managers with server hinting and capacity factors.
+* Define {brandname} Server security realms.
+* Configure {brandname} Server endpoints with custom Hot Rod and REST connectors.
+* Add {brandname} Server data sources and credential keystores.
+
+[IMPORTANT]
+====
+To avoid unexpected behavior and loss of service you should not modify some default configuration for {brandname} clusters.
+
+You should not modify or disable:
+
+* Socket bindings named "default" or "metrics".
+* Security realm named "metrics".
+* Endpoint named "metrics".
+====
+
+[discrete]
+== Cache configuration
+
+[source,yaml,options="nowrap",subs=attributes+]
+----
+include::yaml/cache_manager_caches.yaml[]
+----
+
+
+[discrete]
+== Cache templates
+
+[source,yaml,options="nowrap",subs=attributes+]
+----
+include::yaml/cache_manager_cache_templates.yaml[]
+----
+
+[discrete]
+== JGroups cluster transport
+
+[source,yaml,options="nowrap",subs=attributes+]
+----
+include::yaml/cache_manager_jgroups.yaml[]
+----
+
+[discrete]
+== {brandname} Server endpoints
+
+[source,yaml,options="nowrap",subs=attributes+]
+----
+include::yaml/server_endpoints.yaml[]
+----
+
+
+[role="_additional-resources"]
+.Additional resources
+* link:{server_docs}[{brandname} Server Guide]
+* link:{config_docs}[Configuring {brandname}]

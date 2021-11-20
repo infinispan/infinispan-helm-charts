@@ -1,12 +1,15 @@
+deploy:
+  security:
+    authentication: false
   infinispan:
     server:
       endpoints:
-      - securityRealm: default
-        socketBinding: default
+      - securityRealm: ""
+        socketBinding: ""
       - connectors:
           rest:
             restConnector:
               authentication:
-                mechanisms: BASIC
+                mechanisms: ""
         securityRealm: metrics
         socketBinding: metrics

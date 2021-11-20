@@ -1,0 +1,15 @@
+deploy:
+  security:
+    authentication: false
+  infinispan:
+    server:
+      endpoints:
+      - securityRealm: ""
+        socketBinding: ""
+      - connectors:
+          rest:
+            restConnector:
+              authentication:
+                mechanisms: ""
+        securityRealm: metrics
+        socketBinding: metrics
