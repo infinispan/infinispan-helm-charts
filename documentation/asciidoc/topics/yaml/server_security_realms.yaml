@@ -1,4 +1,0 @@
-deploy:
-  infinispan:
-    server:
-      #tbd

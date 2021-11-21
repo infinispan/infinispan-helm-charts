@@ -1,0 +1,44 @@
+deploy:
+  infinispan:
+    server:
+      endpoints:
+      - socket-binding: default
+        security-realm: default
+        connectors:
+          hotrod:
+            hotrod-connector:
+              idle-timeout: '2'
+              receive-buffer-size: '20'
+              send-buffer-size: '10'
+              tcp-nodelay: false
+              tcp-keepalive: false
+              io-threads: '23'
+              socket-binding: hotrod
+              worker-threads: '20'
+              external-host: external
+              external-port: '12345'
+              topology-state-transfer:
+                await-initial-retrieval: false
+                lock-timeout: '12'
+                replication-timeout: '13'
+                lazy-retrieval: false
+              authentication:
+                security-realm: default
+                sasl:
+                  server-name: localhost
+                  mechanisms: GSSAPI DIGEST-MD5 PLAIN
+                  qop: auth auth-conf
+                  strength: high medium low
+                  policy: forward-secrecy no-active no-anonymous no-dictionary no-plain-text pass-credentials
+                  properties:
+                    com.sun.security.sasl.digest.realm: default
+              encryption:
+                require-ssl-client-auth: true
+                security-realm: default
+                sni:
+                  - host-name: sni-host-1
+                    security-realm: default
+                  - host-name: sni-host-2
+                    security-realm: default
+          rest:
+            rest-connector:

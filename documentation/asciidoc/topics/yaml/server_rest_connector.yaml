@@ -1,0 +1,31 @@
+deploy:
+  infinispan:
+    server:
+      endpoints:
+      - socket-binding: default
+        security-realm: default
+        connectors:
+          hotrod:
+            hotrod-connector:
+          rest:
+            rest-connector:
+              io-threads: '11'
+              socket-binding: rest
+              worker-threads: '3'
+              extended-headers: NEVER
+              context-path: rest
+              max-content-length: '3'
+              compression-level: '3'
+              authentication:
+                mechanisms: DIGEST BASIC
+                security-realm: default
+              cors-rules:
+                - name: rule1
+                  allow-credentials: true
+                  max-age-seconds: '1'
+                  allowed-origins: origin1 origin2
+                  allowed-methods: GET POST
+                  allowed-headers: Accept
+                  expose-headers: Accept Content-Type
+                - name: rule2
+                  allowed-origins: '*'

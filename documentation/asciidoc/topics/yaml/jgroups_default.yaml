@@ -1,0 +1,6 @@
+deploy:
+  infinispan:
+    cacheContainer:
+      transport:
+        #Specifies the name of a default JGroups stack.
+        stack: kubernetes

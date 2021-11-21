@@ -6,60 +6,97 @@
 
 * Create caches at startup with any {brandname} configuration.
 * Add cache templates and use them to create caches on demand.
-* Specify JGroups cluster transport properties.
+* Specify one of the default JGroups stacks.
+* Pass custom JGroups stacks to {brandname} clusters.
 * Define {brandname} Server security realms.
 * Configure {brandname} Server endpoints with custom Hot Rod and REST connectors.
 * Add {brandname} Server data sources and credential keystores.
 
-[IMPORTANT]
-====
-To avoid unexpected behavior and loss of service you should not modify some default configuration for {brandname} clusters.
-
-You should not modify or disable:
-
-* Socket bindings named "default" or "metrics".
-* Security realm named "metrics".
-* Endpoint named "metrics".
-====
-
 [discrete]
-== Cache configuration
+== {brandname} cache configuration
 
+.{brandname} cache
 [source,yaml,options="nowrap",subs=attributes+]
 ----
 include::yaml/cache_manager_caches.yaml[]
 ----
 
-[discrete]
-== Cache templates
-
+.Cache template
 [source,yaml,options="nowrap",subs=attributes+]
 ----
 include::yaml/cache_manager_cache_templates.yaml[]
 ----
 
 [discrete]
-== JGroups cluster transport
+== Cluster transport
 
+.Default JGroups stack
 [source,yaml,options="nowrap",subs=attributes+]
 ----
-include::yaml/cache_manager_jgroups.yaml[]
+include::yaml/jgroups_default.yaml[]
+----
+
+.Custom JGroups stack
+[source,yaml,options="nowrap",subs=attributes+]
+----
+include::yaml/jgroups_relay.yaml[]
 ----
 
 [discrete]
 == {brandname} Server security realms
 
+[IMPORTANT]
+====
+Do not modify or remove the "metrics" security realm to avoid loss of service with your {brandname} cluster.
+====
+
+[NOTE]
+====
+The {brandname} chat currently supports property realms only.
+====
+
 [source,yaml,options="nowrap",subs=attributes+]
 ----
-include::yaml/server_security_realms.yaml[]
+include::yaml/server_security_realm_properties.yaml[]
+----
+
+[discrete]
+== {brandname} Server network interfaces and ports
+
+[IMPORTANT]
+====
+Do not modify or remove the "default" or "metrics" socket bindings to avoid loss of service with your {brandname} cluster.
+====
+
+[source,yaml,options="nowrap",subs=attributes+]
+----
+include::yaml/server_interfaces_ports.yaml[]
 ----
 
 [discrete]
 == {brandname} Server endpoints
 
+[IMPORTANT]
+====
+Do not modify or remove the "metrics" endpoint to avoid loss of service with your {brandname} cluster.
+====
+
+.Endpoints
 [source,yaml,options="nowrap",subs=attributes+]
 ----
 include::yaml/server_endpoints.yaml[]
+----
+
+.Hot Rod connector
+[source,yaml,options="nowrap",subs=attributes+]
+----
+include::yaml/server_hotrod_connector.yaml[]
+----
+
+.REST connector
+[source,yaml,options="nowrap",subs=attributes+]
+----
+include::yaml/server_rest_connector.yaml[]
 ----
 
 [discrete]
@@ -69,7 +106,6 @@ include::yaml/server_endpoints.yaml[]
 ----
 include::yaml/server_data_sources.yaml[]
 ----
-
 
 [role="_additional-resources"]
 .Additional resources

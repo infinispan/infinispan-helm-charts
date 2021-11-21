@@ -11,7 +11,12 @@ The {brandname} chart creates default network services for internal access.
 |`<cluster_name>`
 |`11222`
 |TCP
-|Provides internal access to {brandname} endpoints with an additional port offset by 1 for each node in the cluster.
+|Provides access to {brandname} Hot Rod and REST endpoints.
+
+|`<cluster_name>`
+|`11223`
+|TCP
+|Provides access to {brandname} metrics.
 
 |`<cluster_name>-ping`
 |`8888`

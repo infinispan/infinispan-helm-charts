@@ -1,0 +1,11 @@
+deploy:
+  infinispan:
+    server:
+      properties-realm:
+        groups-attribute: Roles
+        user-properties:
+          digest-realm-name: digest
+          path: user.properties
+          plain-text: true
+        group-properties:
+          path: group.properties
