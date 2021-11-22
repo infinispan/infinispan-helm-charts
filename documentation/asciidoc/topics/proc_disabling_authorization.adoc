@@ -1,0 +1,22 @@
+[id='disabling-authorization_{context}']
+= Disabling security authorization
+
+[role="_abstract"]
+Allow unrestricted to access {brandname} clusters for all users.
+
+.Procedure
+
+* Install or upgrade your {brandname} Helm release with the `--set security.authorization=null` argument.
++
+ifdef::community[]
+[source,options="nowrap",subs=attributes+]
+----
+$ helm install infinispan openshift-helm-charts/infinispan-infinispan -f infinispan-values.yaml --set security.authorization=null
+----
+endif::community[]
+ifdef::downstream[]
+[source,options="nowrap",subs=attributes+]
+----
+$ helm install infinispan redhat-charts/datagrid -f infinispan-values.yaml --set security.authorization=null
+----
+endif::downstream[]

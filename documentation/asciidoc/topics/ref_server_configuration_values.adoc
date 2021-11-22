@@ -7,10 +7,20 @@
 * Create caches at startup with any {brandname} configuration.
 * Add cache templates and use them to create caches on demand.
 * Specify one of the default JGroups stacks.
-* Pass custom JGroups stacks to {brandname} clusters.
 * Define {brandname} Server security realms.
-* Configure {brandname} Server endpoints with custom Hot Rod and REST connectors.
-* Add {brandname} Server data sources and credential keystores.
+* Configure {brandname} Server endpoints with Hot Rod and REST connectors.
+
+{brandname} Server configuration includes the `cacheContainer` fields in addition to `interfaces`, `socketBindings`, `endpoints`, and `security` fields.
+
+[IMPORTANT]
+====
+You must always provide a complete {brandname} Server configuration when you modify `deploy.infinispan` values.
+====
+
+[source,yaml,options="nowrap",subs=attributes+]
+----
+include::yaml/deploy_infinispan.yaml[]
+----
 
 [discrete]
 == {brandname} cache configuration
@@ -30,81 +40,32 @@ include::yaml/cache_manager_cache_templates.yaml[]
 [discrete]
 == Cluster transport
 
-.Default JGroups stack
 [source,yaml,options="nowrap",subs=attributes+]
 ----
 include::yaml/jgroups_default.yaml[]
 ----
 
-.Custom JGroups stack
-[source,yaml,options="nowrap",subs=attributes+]
-----
-include::yaml/jgroups_relay.yaml[]
-----
-
 [discrete]
-== {brandname} Server security realms
+== {brandname} Server configuration
 
 [IMPORTANT]
 ====
-Do not modify or remove the "metrics" security realm to avoid loss of service with your {brandname} cluster.
+Do not modify or remove the following default configuration to avoid loss of service with your {brandname} cluster:
+
+* "metrics" security realm.
+* "metrics" endpoint.
+* "default" or "metrics" socket bindings.
 ====
 
 [NOTE]
 ====
-The {brandname} chat currently supports property realms only.
+The {brandname} chart does not currently support TLS/SSL security realms and encrypted client connections.
+You cannot configure trust store realms.
 ====
 
 [source,yaml,options="nowrap",subs=attributes+]
 ----
-include::yaml/server_security_realm_properties.yaml[]
-----
-
-[discrete]
-== {brandname} Server network interfaces and ports
-
-[IMPORTANT]
-====
-Do not modify or remove the "default" or "metrics" socket bindings to avoid loss of service with your {brandname} cluster.
-====
-
-[source,yaml,options="nowrap",subs=attributes+]
-----
-include::yaml/server_interfaces_ports.yaml[]
-----
-
-[discrete]
-== {brandname} Server endpoints
-
-[IMPORTANT]
-====
-Do not modify or remove the "metrics" endpoint to avoid loss of service with your {brandname} cluster.
-====
-
-.Endpoints
-[source,yaml,options="nowrap",subs=attributes+]
-----
-include::yaml/server_endpoints.yaml[]
-----
-
-.Hot Rod connector
-[source,yaml,options="nowrap",subs=attributes+]
-----
-include::yaml/server_hotrod_connector.yaml[]
-----
-
-.REST connector
-[source,yaml,options="nowrap",subs=attributes+]
-----
-include::yaml/server_rest_connector.yaml[]
-----
-
-[discrete]
-== {brandname} Server data sources
-
-[source,yaml,options="nowrap",subs=attributes+]
-----
-include::yaml/server_data_sources.yaml[]
+include::yaml/server_configuration.yaml[]
 ----
 
 [role="_additional-resources"]

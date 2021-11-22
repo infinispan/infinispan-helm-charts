@@ -1,7 +1,7 @@
 ifdef::context[:parent-context: {context}]
-[id='configuring-users']
-:context: configuring-users
-= Configuring {brandname} users
+[id='configuring-authentication']
+:context: configuring-authentication
+= Configuring authentication
 
 [role="_abstract"]
 Control access to {brandname} clusters by adding credentials and assigning roles with different permissions.

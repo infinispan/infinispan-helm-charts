@@ -1,0 +1,49 @@
+deploy:
+  infinispan:
+    server:
+      endpoints:
+      - securityRealm: default
+        socketBinding: default
+      - connectors:
+          rest:
+            restConnector:
+              authentication:
+                mechanisms: BASIC
+        securityRealm: metrics
+        socketBinding: metrics
+      interfaces:
+      - inetAddress:
+          value: ${infinispan.bind.address:127.0.0.1}
+        name: public
+      security:
+        credentialStores:
+        - clearTextCredential:
+            clearText: secret
+          name: credentials
+          path: credentials.pfx
+        securityRealms:
+        - name: default
+          propertiesRealm:
+            groupProperties:
+              path: groups.properties
+            groupsAttribute: Roles
+            userProperties:
+              path: users.properties
+        - name: metrics
+          propertiesRealm:
+            groupProperties:
+              path: metrics-groups.properties
+              relativeTo: infinispan.server.config.path
+            groupsAttribute: Roles
+            userProperties:
+              path: metrics-users.properties
+              plainText: true
+              relativeTo: infinispan.server.config.path
+      socketBindings:
+        defaultInterface: public
+        portOffset: ${infinispan.socket.binding.port-offset:0}
+        socketBinding:
+        - name: default
+          port: 11222
+        - name: metrics
+          port: 11223

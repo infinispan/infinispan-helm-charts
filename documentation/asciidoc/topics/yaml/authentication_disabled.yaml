@@ -1,15 +1,17 @@
 deploy:
-  security:
-    authentication: false
   infinispan:
     server:
       endpoints:
-      - securityRealm: ""
-        socketBinding: ""
+      - securityRealm: default
+        socketBinding: default
       - connectors:
+          #Remove authentication mechanisms from endpoint connectors.
           rest:
             restConnector:
-              authentication:
-                mechanisms: ""
         securityRealm: metrics
         socketBinding: metrics
+      security:
+        #Remove property realms to disable authentication.
+        securityRealms:
+        - name: default
+        - name: metrics
