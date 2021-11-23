@@ -4,28 +4,30 @@
 [role="_abstract"]
 {brandname} Server configuration values let you do the following:
 
+* Customize underlying {brandname} Server mechanisms such as network interfaces and ports, Hot Rod and REST endpoints, and security realms.
++
+[NOTE]
+====
+The {brandname} chart does not currently support TLS/SSL security realms and encrypted client connections.
+====
 * Create caches at startup with any {brandname} configuration.
 * Add cache templates and use them to create caches on demand.
 * Specify one of the default JGroups stacks.
-* Define {brandname} Server security realms.
-* Configure {brandname} Server endpoints with Hot Rod and REST connectors.
-
-{brandname} Server configuration includes the `cacheContainer` fields in addition to `interfaces`, `socketBindings`, `endpoints`, and `security` fields.
 
 [IMPORTANT]
 ====
 You must always provide a complete {brandname} Server configuration when you modify `deploy.infinispan` values.
+
+Do not modify or remove the default "metrics" configuration if you want to use monitoring capabilities for your {brandname} cluster.
 ====
 
+.{brandname} Server configuration
 [source,yaml,options="nowrap",subs=attributes+]
 ----
-include::yaml/deploy_infinispan.yaml[]
+include::yaml/server_configuration.yaml[]
 ----
 
-[discrete]
-== {brandname} cache configuration
-
-.{brandname} cache
+.{brandname} cache configuration
 [source,yaml,options="nowrap",subs=attributes+]
 ----
 include::yaml/cache_manager_caches.yaml[]
@@ -37,35 +39,10 @@ include::yaml/cache_manager_caches.yaml[]
 include::yaml/cache_manager_cache_templates.yaml[]
 ----
 
-[discrete]
-== Cluster transport
-
+.Cluster transport
 [source,yaml,options="nowrap",subs=attributes+]
 ----
 include::yaml/jgroups_default.yaml[]
-----
-
-[discrete]
-== {brandname} Server configuration
-
-[IMPORTANT]
-====
-Do not modify or remove the following default configuration to avoid loss of service with your {brandname} cluster:
-
-* "metrics" security realm.
-* "metrics" endpoint.
-* "default" or "metrics" socket bindings.
-====
-
-[NOTE]
-====
-The {brandname} chart does not currently support TLS/SSL security realms and encrypted client connections.
-You cannot configure trust store realms.
-====
-
-[source,yaml,options="nowrap",subs=attributes+]
-----
-include::yaml/server_configuration.yaml[]
 ----
 
 [role="_additional-resources"]

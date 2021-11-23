@@ -12,33 +12,5 @@ You should disable authentication for development environments only.
 
 .Procedure
 
-. Remove the `propertiesRealm` fields from the "default" and "metrics" security realms.
-. Remove any `authentication` fields from endpoint connector configuration.
-. Install or upgrade your {brandname} Helm release with the `--set security.authentication=false` argument.
-+
-ifdef::community[]
-[source,options="nowrap",subs=attributes+]
-----
-$ helm install infinispan openshift-helm-charts/infinispan-infinispan -f infinispan-values.yaml --set security.authentication=false
-----
-endif::community[]
-ifdef::downstream[]
-[source,options="nowrap",subs=attributes+]
-----
-$ helm install infinispan redhat-charts/datagrid -f infinispan-values.yaml --set security.authentication=false
-----
-endif::downstream[]
-
-[discrete]
-== Example configuration
-
-Disable authentication for development environments with the following {brandname} Server configuration:
-
-[source,yaml,options="nowrap",subs=attributes+]
-----
-include::yaml/authentication_disabled.yaml[]
-----
-
-[role="_additional-resources"]
-.Additional resources
-* link:{server_docs}[{brandname} Server Guide]
+. Remove the `propertiesRealm` fields from the "default" security realm.
+. Install or upgrade your {brandname} Helm release.

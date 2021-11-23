@@ -19,3 +19,6 @@ deploy:
         partitionHandling:
           whenSplit: "ALLOW_READ_WRITES"
           mergePolicy: "PREFERRED_NON_NULL"
+    #Provide additional Cache Manager configuration.
+  server:
+    #Provide configuration for server instances.

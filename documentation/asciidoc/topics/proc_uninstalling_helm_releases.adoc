@@ -33,12 +33,12 @@ $ helm list
 +
 [source,bash,options="nowrap",subs=attributes+]
 ----
-$ helm uninstall <release_name>
+$ helm uninstall <helm_release_name>
 ----
 +
 . Use the `{oc}` client to remove the generated secret.
 +
 [source,bash,options="nowrap",subs=attributes+]
 ----
-$ {oc_delete} secret infinispan-generated-secret
+$ {oc_delete} secret <helm_release_name>-generated-secret
 ----
