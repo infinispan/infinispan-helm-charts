@@ -93,7 +93,6 @@ deploy:
             groupsAttribute: Roles
             userProperties:
               path: metrics-users.properties
-              plainText: true
               relativeTo: infinispan.server.config.path
       socketBindings:
         defaultInterface: public
