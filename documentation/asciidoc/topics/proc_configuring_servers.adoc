@@ -16,19 +16,19 @@ Do not modify or remove the default "metrics" configuration if you want to use m
 
 .Procedure
 
-. Specify configuration values for the Cache Manager with `deploy.infinispan.cacheContainer` fields.
+Modify {brandname} Server configuration as required:
+
+* Specify configuration values for the Cache Manager with `deploy.infinispan.cacheContainer` fields.
 +
 For example, you can create caches at startup with any {brandname} configuration or add cache templates and use them to create caches on demand.
-+
-. Configure security authorization to control user roles and permissions with the `deploy.infinispan.cacheContainer.security.authorization` field.
-. Select one of the default JGroups stacks or configure cluster transport with the `deploy.infinispan.cacheContainer.transport` fields.
-. Modify {brandname} Server endpoint configuration with the `deploy.infinispan.server.endpoints` fields.
-. Configure {brandname} Server network interfaces and ports with the `deploy.infinispan.server.interfaces` and `deploy.infinispan.server.socketBindings` fields.
-. Configure {brandname} Server security mechanisms with the `deploy.infinispan.server.security` fields.
+
+* Configure security authorization to control user roles and permissions with the `deploy.infinispan.cacheContainer.security.authorization` field.
+* Select one of the default JGroups stacks or configure cluster transport with the `deploy.infinispan.cacheContainer.transport` fields.
+* Configure {brandname} Server endpoints with the `deploy.infinispan.server.endpoints` fields.
+* Configure {brandname} Server network interfaces and ports with the `deploy.infinispan.server.interfaces` and `deploy.infinispan.server.socketBindings` fields.
+* Configure {brandname} Server security mechanisms with the `deploy.infinispan.server.security` fields.
 +
 [NOTE]
 ====
 The {brandname} chart does not currently support TLS/SSL security realms and encrypted client connections.
 ====
-+
-. Install or upgrade your {brandname} Helm release.
