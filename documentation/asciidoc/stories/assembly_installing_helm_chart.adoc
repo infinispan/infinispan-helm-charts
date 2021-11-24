@@ -14,7 +14,6 @@ include::{topics}/proc_installing_chart_cmd.adoc[leveloffset=+1]
 include::{topics}/proc_upgrading_helm_releases.adoc[leveloffset=+1]
 include::{topics}/proc_uninstalling_helm_releases.adoc[leveloffset=+1]
 include::{topics}/ref_deployment_configuration_values.adoc[leveloffset=+1]
-include::{topics}/ref_server_configuration_values.adoc[leveloffset=+1]
 
 // Restore the parent context.
 ifdef::parent-context[:context: {parent-context}]

@@ -2,24 +2,7 @@
 = {brandname} Server configuration values
 
 [role="_abstract"]
-{brandname} Server configuration values let you do the following:
-
-* Customize underlying {brandname} Server mechanisms such as network interfaces and ports, Hot Rod and REST endpoints, and security realms.
-+
-[NOTE]
-====
-The {brandname} chart does not currently support TLS/SSL security realms and encrypted client connections.
-====
-* Create caches at startup with any {brandname} configuration.
-* Add cache templates and use them to create caches on demand.
-* Specify one of the default JGroups stacks.
-
-[IMPORTANT]
-====
-You must always provide a complete {brandname} Server configuration when you modify `deploy.infinispan` values.
-
-Do not modify or remove the default "metrics" configuration if you want to use monitoring capabilities for your {brandname} cluster.
-====
+{brandname} Server configuration values let you customize the Cache Manager and modify server instances that run in {k8s} pods.
 
 .{brandname} Server configuration
 [source,yaml,options="nowrap",subs=attributes+]
