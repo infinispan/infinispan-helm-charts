@@ -3,12 +3,12 @@
 # Declare variables to be passed into your templates.
 
 images:
-  # [USER] The container images for Infinispan Server pods.
+  # [USER] The container images for server pods.
   server: quay.io/infinispan/server:13.0
   initContainer: registry.access.redhat.com/ubi8-micro
 
 deploy:
-  # [USER] Specify the number of nodes in the Infinispan cluster.
+  # [USER] Specify the number of nodes in the cluster.
   replicas: 1
 
   container:
@@ -19,11 +19,11 @@ deploy:
       # [USER] Set `ephemeral: true` to delete all persisted data when clusters shut down or restart.
       ephemeral: false
     resources:
-      # [USER] Specify the CPU limit and the memory limit for each Infinispan pod.
+      # [USER] Specify the CPU limit and the memory limit for each pod.
       limits:
         cpu: 500m
         memory: 512Mi
-      # [USER] Specify the maximum CPU requests and the maximum memory requests for each Infinispan pod.
+      # [USER] Specify the maximum CPU requests and the maximum memory requests for each pod.
       requests:
         cpu: 500m
         memory: 512Mi
@@ -33,7 +33,7 @@ deploy:
     batch: ""
 
   expose:
-    # [USER] Specify `type: ""` to disable exposing Infinispan on the network.
+    # [USER] Specify `type: ""` to disable network access to clusters.
     type: Route
     nodePort: 0
     host: ""
@@ -41,7 +41,7 @@ deploy:
 
   logging:
     categories:
-      # [USER] Specify the FQN of a Infinispan package from which you want to collect logs.
+      # [USER] Specify the FQN of a package from which you want to collect logs.
       - category: com.arjuna
         # [USER] Specify the level of log messages.
         level: warn
