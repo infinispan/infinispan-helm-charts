@@ -1,0 +1,24 @@
+deploy:
+  infinispan:
+    cacheContainer:
+      distributedCache:
+        name: "mycache"
+        mode: "SYNC"
+        owners: "2"
+        segments: "256"
+        capacityFactor: "1.0"
+        statistics: "true"
+        encoding:
+          mediaType: "application/x-protostream"
+        expiration:
+          lifespan: "5000"
+          maxIdle: "1000"
+        memory:
+          maxCount: "1000000"
+          whenFull: "REMOVE"
+        partitionHandling:
+          whenSplit: "ALLOW_READ_WRITES"
+          mergePolicy: "PREFERRED_NON_NULL"
+    #Provide additional Cache Manager configuration.
+  server:
+    #Provide configuration for server instances.

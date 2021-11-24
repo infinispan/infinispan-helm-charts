@@ -1,17 +1,19 @@
 ifdef::context[:parent-context: {context}]
 [id='install']
 :context: install
-= Installing the {brandname} Helm chart
+= Deploying {brandname} clusters as Helm chart releases
 
 [role="_abstract"]
-Install the Helm chart to build and deploy {brandname} clusters.
+Build, configure, and deploy {brandname} clusters with Helm.
+{brandname} provides a Helm chart that packages resources for running {brandname} clusters on {k8s}.
 
-include::{topics}/proc_installing_openshift_console.adoc[leveloffset=+1]
-include::{topics}/proc_installing_cmd.adoc[leveloffset=+1]
-ifdef::downstream[]
+Install the {brandname} chart to create a Helm release, which instantiates a {brandname} cluster in your {k8s} project.
+
+include::{topics}/proc_installing_chart_console.adoc[leveloffset=+1]
+include::{topics}/proc_installing_chart_cmd.adoc[leveloffset=+1]
+include::{topics}/proc_upgrading_helm_releases.adoc[leveloffset=+1]
+include::{topics}/proc_uninstalling_helm_releases.adoc[leveloffset=+1]
 include::{topics}/ref_deployment_configuration_values.adoc[leveloffset=+1]
-endif::downstream[]
-include::{topics}/proc_uninstalling.adoc[leveloffset=+1]
 
 // Restore the parent context.
 ifdef::parent-context[:context: {parent-context}]

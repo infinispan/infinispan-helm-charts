@@ -1,7 +1,7 @@
 //
 // Conditional statements
 //
-:community:
+:downstream:
 
 //
 // Attributes
@@ -40,3 +40,5 @@
 :rest_docs: https://infinispan.org/docs/stable/titles/rest/rest.html
 //Hot Rod Java Client Guide
 :hotrod_docs: https://infinispan.org/docs/stable/titles/hotrod_java/hotrod_java.html
+//
+:config_docs: https://infinispan.org/docs/stable/titles/configuring/configuring.html

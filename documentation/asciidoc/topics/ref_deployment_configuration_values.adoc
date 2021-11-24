@@ -96,8 +96,7 @@ If you set the value to `true`, {brandname} creates an initContainer that runs `
 
 |`deploy.infinispan`
 |{brandname} Server configuration.
-|No default value.
-You should not change the default socket bindings or the security realm and endpoints named "metrics".
-Modifying these default properties can result in unexpected behavior and loss of service.
+|{brandname} provides default server configuration.
+For more information about configuring server instances, see _{brandname} Server configuration values_.
 
 |===

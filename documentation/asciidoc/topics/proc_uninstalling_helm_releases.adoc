@@ -1,0 +1,44 @@
+[id='uninstalling-helm-releases_{context}']
+= Uninstalling {brandname} Helm releases
+
+[role="_abstract"]
+Uninstall a release of the {brandname} chart to remove pods and other deployment artifacts.
+
+[NOTE]
+====
+This procedure shows you how to uninstall a {brandname} deployment on the command line but you can use the {osweb} instead.
+Refer to the {openshiftshort} documentation for specific instructions.
+====
+
+.Prerequisites
+
+* Deploy the {brandname} chart.
+* Have a `helm` client.
+ifdef::community[]
+* Have a `kubectl` or `oc` client.
+endif::community[]
+ifdef::downstream[]
+* Have an `oc` client.
+endif::downstream[]
+
+.Procedure
+
+. List the installed {brandname} Helm releases.
++
+----
+$ helm list
+----
++
+. Use the `helm` client to uninstall a release and remove the {brandname} cluster:
++
+[source,bash,options="nowrap",subs=attributes+]
+----
+$ helm uninstall <helm_release_name>
+----
++
+. Use the `{oc}` client to remove the generated secret.
++
+[source,bash,options="nowrap",subs=attributes+]
+----
+$ {oc_delete} secret <helm_release_name>-generated-secret
+----

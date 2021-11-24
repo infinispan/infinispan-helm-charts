@@ -8,12 +8,17 @@ The {brandname} chart creates default network services for internal access.
 |===
 |Service |Port |Protocol |Description
 
-|`<cluster_name>`
+|`<helm_release_name>`
 |`11222`
 |TCP
-|Provides internal access to {brandname} endpoints with an additional port offset by 1 for each node in the cluster.
+|Provides access to {brandname} Hot Rod and REST endpoints.
 
-|`<cluster_name>-ping`
+|`<helm_release_name>`
+|`11223`
+|TCP
+|Provides access to {brandname} metrics.
+
+|`<helm_release_name>-ping`
 |`8888`
 |TCP
 |Allows {brandname} pods to discover each other and form clusters.

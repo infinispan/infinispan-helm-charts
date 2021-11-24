@@ -1,0 +1,43 @@
+[id='upgrading-releases_{context}']
+= Upgrading {brandname} Helm releases
+
+[role="_abstract"]
+Modify your {brandname} cluster configuration at runtime by upgrading Helm releases.
+
+.Prerequisites
+
+* Deploy the {brandname} chart.
+* Have a `helm` client.
+ifdef::community[]
+* Have a `kubectl` or `oc` client.
+endif::community[]
+ifdef::downstream[]
+* Have an `oc` client.
+endif::downstream[]
+
+.Procedure
+
+. Modify the values file for your {brandname} deployment as appropriate.
+. Use the `helm` client to apply your changes, for example:
++
+ifdef::community[]
+[source,options="nowrap",subs=attributes+]
+----
+$ helm upgrade infinispan openshift-helm-charts/infinispan-infinispan -f infinispan-values.yaml
+----
+endif::community[]
+ifdef::downstream[]
+[source,options="nowrap",subs=attributes+]
+----
+$ helm upgrade infinispan redhat-charts/datagrid -f infinispan-values.yaml
+----
+endif::downstream[]
+
+.Verification
+
+Watch the pods rebuild to ensure all changes are applied to your {brandname} cluster successfully.
+
+[source,options="nowrap",subs=attributes+]
+----
+$ {oc_get_pods_w}
+----

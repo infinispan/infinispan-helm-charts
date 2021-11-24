@@ -1,0 +1,34 @@
+[id='server-configuration-values_{context}']
+= {brandname} Server configuration values
+
+[role="_abstract"]
+{brandname} Server configuration values let you customize the Cache Manager and modify server instances that run in {k8s} pods.
+
+.{brandname} Server configuration
+[source,yaml,options="nowrap",subs=attributes+]
+----
+include::yaml/server_configuration.yaml[]
+----
+
+.{brandname} cache configuration
+[source,yaml,options="nowrap",subs=attributes+]
+----
+include::yaml/cache_manager_caches.yaml[]
+----
+
+.Cache template
+[source,yaml,options="nowrap",subs=attributes+]
+----
+include::yaml/cache_manager_cache_templates.yaml[]
+----
+
+.Cluster transport
+[source,yaml,options="nowrap",subs=attributes+]
+----
+include::yaml/jgroups_default.yaml[]
+----
+
+[role="_additional-resources"]
+.Additional resources
+* link:{server_docs}[{brandname} Server Guide]
+* link:{config_docs}[Configuring {brandname}]

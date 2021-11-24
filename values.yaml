@@ -3,10 +3,12 @@
 # Declare variables to be passed into your templates.
 
 images:
+  # [USER] The container images for server pods.
   server: quay.io/infinispan/server:13.0
   initContainer: registry.access.redhat.com/ubi8-micro
 
 deploy:
+  # [USER] Specify the number of nodes in the cluster.
   replicas: 1
 
   container:
@@ -14,11 +16,14 @@ deploy:
     storage:
       size: 1Gi
       storageClassName: ""
+      # [USER] Set `ephemeral: true` to delete all persisted data when clusters shut down or restart.
       ephemeral: false
     resources:
+      # [USER] Specify the CPU limit and the memory limit for each pod.
       limits:
         cpu: 500m
         memory: 512Mi
+      # [USER] Specify the maximum CPU requests and the maximum memory requests for each pod.
       requests:
         cpu: 500m
         memory: 512Mi
@@ -28,6 +33,7 @@ deploy:
     batch: ""
 
   expose:
+    # [USER] Specify `type: ""` to disable network access to clusters.
     type: Route
     nodePort: 0
     host: ""
@@ -35,7 +41,9 @@ deploy:
 
   logging:
     categories:
+      # [USER] Specify the FQN of a package from which you want to collect logs.
       - category: com.arjuna
+        # [USER] Specify the level of log messages.
         level: warn
       # No need to warn about not being able to TLS/SSL handshake
       - category: io.netty.handler.ssl.ApplicationProtocolNegotiationHandler
@@ -49,7 +57,9 @@ deploy:
 
   infinispan:
     cacheContainer:
+      # [USER] Add cache, template, and counter configuration.
       name: default
+      # [USER] Specify `security: null` to disable security authorization.
       security:
         authorization: {}
       transport:
@@ -58,8 +68,10 @@ deploy:
         stack: kubernetes
     server:
       endpoints:
+      # [USER] Hot Rod and REST endpoints.
       - securityRealm: default
         socketBinding: default
+      # [METRICS] Metrics endpoint for cluster monitoring capabilities.
       - connectors:
           rest:
             restConnector:
@@ -78,13 +90,16 @@ deploy:
           name: credentials
           path: credentials.pfx
         securityRealms:
+        # [USER] Security realm for the Hot Rod and REST endpoints.
         - name: default
+          # [USER] Comment or remove this properties realm to disable authentication.
           propertiesRealm:
             groupProperties:
               path: groups.properties
             groupsAttribute: Roles
             userProperties:
               path: users.properties
+          # [METRICS] Security realm for the metrics endpoint.
         - name: metrics
           propertiesRealm:
             groupProperties:
@@ -98,7 +113,9 @@ deploy:
         defaultInterface: public
         portOffset: ${infinispan.socket.binding.port-offset:0}
         socketBinding:
+          # [USER] Socket binding for the Hot Rod and REST endpoints.
         - name: default
           port: 11222
+          # [METRICS] Socket binding for the metrics endpoint.
         - name: metrics
           port: 11223

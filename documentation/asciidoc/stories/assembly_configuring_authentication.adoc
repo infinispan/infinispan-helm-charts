@@ -1,18 +1,18 @@
 ifdef::context[:parent-context: {context}]
 [id='configuring-authentication']
 :context: configuring-authentication
-= Configuring authentication
+= Configuring authentication and authorization
 
 [role="_abstract"]
-You need credentials to access {brandname} clusters and manipulate data.
-You can use default credentials or add your own.
+Control access to {brandname} clusters by adding credentials and assigning roles with different permissions.
 
-include::{topics}/con_credentials.adoc[leveloffset=+1]
-include::{topics}/ref_user_roles_permissions.adoc[leveloffset=+1]
+include::{topics}/ref_default_credentials.adoc[leveloffset=+1]
+include::{topics}/proc_retrieving_credentials.adoc[leveloffset=+2]
 include::{topics}/proc_adding_credentials.adoc[leveloffset=+1]
-include::{topics}/proc_adding_multiple_credentials.adoc[leveloffset=+1]
-include::{topics}/proc_retrieving_credentials.adoc[leveloffset=+1]
+include::{topics}/ref_user_roles_permissions.adoc[leveloffset=+2]
+include::{topics}/proc_adding_multiple_credentials.adoc[leveloffset=+2]
 include::{topics}/proc_disabling_authentication.adoc[leveloffset=+1]
+include::{topics}/proc_disabling_authorization.adoc[leveloffset=+1]
 
 // Restore the parent context.
 ifdef::parent-context[:context: {parent-context}]

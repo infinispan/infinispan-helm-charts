@@ -12,12 +12,5 @@ You should disable authentication for development environments only.
 
 .Procedure
 
-. Open the values file for your {brandname} cluster.
-. Remove any `securityRealm` fields from `deploy.infinispan.server.endpoints`.
-. Remove any `authentication` fields from `deploy.infinispan.server.endpoints.connectors`.
-. Save and close your values file.
-. Install the Helm chart to deploy your {brandname} cluster.
-
-[role="_additional-resources"]
-.Additional resources
-* link:{server_docs}[{brandname} Server Guide]
+. Remove the `propertiesRealm` fields from the "default" security realm.
+. Install or upgrade your {brandname} Helm release.

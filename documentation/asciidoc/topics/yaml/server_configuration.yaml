@@ -1,0 +1,66 @@
+deploy:
+  infinispan:
+    cacheContainer:
+    # [USER] Add cache, template, and counter configuration.
+    name: default
+    # [USER] Specify `security: null` to disable security authorization.
+    security:
+      authorization: {}
+    transport:
+      cluster: ${infinispan.cluster.name:cluster}
+      node-name: ${infinispan.node.name:}
+      stack: kubernetes
+    server:
+      endpoints:
+        # [USER] Hot Rod and REST endpoints.
+        - securityRealm: default
+          socketBinding: default
+        # [METRICS] Metrics endpoint for cluster monitoring capabilities.
+        - connectors:
+            rest:
+              restConnector:
+                authentication:
+                  mechanisms: BASIC
+          securityRealm: metrics
+          socketBinding: metrics
+      interfaces:
+      - inetAddress:
+          value: ${infinispan.bind.address:127.0.0.1}
+        name: public
+      security:
+        credentialStores:
+        - clearTextCredential:
+            clearText: secret
+          name: credentials
+          path: credentials.pfx
+        securityRealms:
+        # [USER] Security realm for the Hot Rod and REST endpoints.
+        - name: default
+          # [USER] Comment or remove this properties realm to disable authentication.
+          propertiesRealm:
+            groupProperties:
+              path: groups.properties
+            groupsAttribute: Roles
+            userProperties:
+              path: users.properties
+          # [METRICS] Security realm for the metrics endpoint.
+        - name: metrics
+          propertiesRealm:
+            groupProperties:
+              path: metrics-groups.properties
+              relativeTo: infinispan.server.config.path
+            groupsAttribute: Roles
+            userProperties:
+              path: metrics-users.properties
+              plainText: true
+              relativeTo: infinispan.server.config.path
+        socketBindings:
+          defaultInterface: public
+          portOffset: ${infinispan.socket.binding.port-offset:0}
+          socketBinding:
+            # [USER] Socket binding for the Hot Rod and REST endpoints.
+          - name: default
+            port: 11222
+            # [METRICS] Socket binding for the metrics endpoint.
+          - name: metrics
+            port: 11223
