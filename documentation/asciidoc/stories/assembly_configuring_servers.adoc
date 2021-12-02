@@ -4,7 +4,7 @@ ifdef::context[:parent-context: {context}]
 = Configuring {brandname} Servers
 
 [role="_abstract"]
-Control access to {brandname} clusters by adding credentials and assigning roles with different permissions.
+Apply custom {brandname} Server configuration to your deployments.
 
 include::{topics}/proc_configuring_servers.adoc[leveloffset=+1]
 include::{topics}/ref_server_configuration_values.adoc[leveloffset=+1]
