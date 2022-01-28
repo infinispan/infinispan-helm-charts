@@ -1,7 +1,7 @@
 //
 // Conditional statements
 //
-:downstream:
+:community:
 
 //
 // Attributes
