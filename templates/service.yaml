@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "infinispan-helm-charts.name" . }}
+  annotations:
+  {{- include "infinispan-helm-charts.annotations" . | nindent 4 }}
   labels:
     app: infinispan-service
     clusterName: {{ include "infinispan-helm-charts.name" . }}

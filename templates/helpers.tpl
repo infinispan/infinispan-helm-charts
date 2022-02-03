@@ -30,6 +30,8 @@ Common labels
 {{- define "infinispan-helm-charts.labels" -}}
 clusterName: {{ include "infinispan-helm-charts.name" . }}
 helm.sh/chart: {{ include "infinispan-helm-charts.chart" . }}
+meta.helm.sh/release-name: {{ include "infinispan-helm-charts.name" . }}
+meta.helm.sh/release-namespace: {{ .Release.Namespace }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,4 +47,12 @@ Service selector labels
 {{- define "infinispan-helm-charts.selectorLabels" -}}
 clusterName: {{ include "infinispan-helm-charts.name" . }}
 app: infinispan-pod
+{{- end }}
+
+{{/*
+Common annotations
+*/}}
+{{- define "infinispan-helm-charts.annotations" -}}
+meta.helm.sh/release-name: {{ include "infinispan-helm-charts.name" . }}
+meta.helm.sh/release-namespace: {{ .Release.Namespace }}
 {{- end }}

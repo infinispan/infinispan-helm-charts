@@ -2,6 +2,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ printf "%s-configuration" (include "infinispan-helm-charts.name" .) }}
+  annotations:
+  {{- include "infinispan-helm-charts.annotations" . | nindent 4 }}
   labels:
     app: infinispan-configmap-configuration
   {{- include "infinispan-helm-charts.labels" . | nindent 4 }}

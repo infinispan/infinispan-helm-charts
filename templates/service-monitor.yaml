@@ -3,6 +3,8 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: {{ include "infinispan-helm-charts.name" . }}
+  annotations:
+  {{- include "infinispan-helm-charts.annotations" . | nindent 4 }}
   labels:
     app: infinispan-service-metrics
     clusterName: {{ include "infinispan-helm-charts.name" . }}
