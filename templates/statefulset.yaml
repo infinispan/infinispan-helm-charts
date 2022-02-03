@@ -5,6 +5,7 @@ metadata:
   labels:
   {{- include "infinispan-helm-charts.labels" . | nindent 4 }}
   annotations:
+  {{- include "infinispan-helm-charts.annotations" . | nindent 4 }}
     "openshift.io/display-name": "Infinispan Cluster"
     "openshift.io/documentation-url": "http://infinispan.org/documentation/"
 spec:
