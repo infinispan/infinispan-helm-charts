@@ -53,6 +53,6 @@ app: infinispan-pod
 Common annotations
 */}}
 {{- define "infinispan-helm-charts.annotations" -}}
-meta.helm.sh/release-name: {{ include "infinispan-helm-charts.name" . }}
+meta.helm.sh/release-name: {{ .Release.Name }}
 meta.helm.sh/release-namespace: {{ .Release.Namespace }}
 {{- end }}
