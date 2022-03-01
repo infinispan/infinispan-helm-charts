@@ -43,13 +43,13 @@ endif::community[]
 ifdef::community[]
 [source,options="nowrap",subs=attributes+]
 ----
-$ helm install infinispan openshift-helm-charts/infinispan-infinispan -f infinispan-values.yaml
+$ helm install infinispan openshift-helm-charts/infinispan-infinispan --values infinispan-values.yaml
 ----
 endif::community[]
 ifdef::downstream[]
 [source,options="nowrap",subs=attributes+]
 ----
-$ helm install infinispan redhat-charts/datagrid -f infinispan-values.yaml
+$ helm install infinispan openshift-helm-charts/redhat-data-grid --values infinispan-values.yaml
 ----
 endif::downstream[]
 
