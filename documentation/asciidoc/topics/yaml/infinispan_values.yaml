@@ -1,6 +1,6 @@
 #Build configuration
 images:
-  server: {server_image}:{server_image_version}
+  server: {server_image}:latest
   initContainer: registry.access.redhat.com/ubi8-micro
 #Deployment configuration
 deploy:
