@@ -42,6 +42,26 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{/*
+Pod custom labels
+*/}}
+
+{{- define "infinispan-helm-charts.podLabels" -}}
+{{- range .Values.deploy.podLabels }}
+{{ .key }}: {{ .value }}
+{{- end }}
+{{- end }}
+
+{{/*
+Service custom labels
+*/}}
+
+{{- define "infinispan-helm-charts.svcLabels" -}}
+{{- range .Values.deploy.svcLabels }}
+{{ .key }}: {{ .value }}
+{{- end }}
+{{- end }}
+
+{{/*
 Service selector labels
 */}}
 {{- define "infinispan-helm-charts.selectorLabels" -}}

@@ -55,6 +55,10 @@ deploy:
 
   resourceLabels: []
 
+  podLabels: []
+
+  svcLabels: []
+
   infinispan:
     cacheContainer:
       # [USER] Add cache, template, and counter configuration.

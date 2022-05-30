@@ -8,9 +8,7 @@ metadata:
     app: infinispan-service-ping
     clusterName: {{ include "infinispan-helm-charts.name" . }}
     {{- include "infinispan-helm-charts.labels" . | nindent 4 }}
-    {{- with .Values.deploy.svcLabels }}
-      {{- toYaml . | nindent 4 }}
-    {{- end }}
+    {{- include "infinispan-helm-charts.svcLabels" . | nindent 4 }}
 spec:
   type: ClusterIP
   clusterIP: None
