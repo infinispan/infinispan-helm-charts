@@ -39,6 +39,9 @@ deploy:
     host: ""
     annotations: []
 
+  monitoring:
+    enabled: true
+
   logging:
     categories:
       # [USER] Specify the FQN of a package from which you want to collect logs.
