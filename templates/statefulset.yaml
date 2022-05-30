@@ -25,6 +25,7 @@ spec:
       labels:
         app: infinispan-pod
         clusterName: {{ include "infinispan-helm-charts.name" . }}
+        {{- include "infinispan-helm-charts.podLabels" . | nindent 8 }}
     spec:
       affinity:
         podAntiAffinity:

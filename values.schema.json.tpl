@@ -239,6 +239,48 @@
                         }
                     }
                 },
+                "podLabels": {
+                    "description": "Adds labels to every pod created",
+                    "items": {
+                        "properties": {
+                            "key": {
+                                "type": "string"
+                            },
+                            "value": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "key",
+                            "value"
+                        ]
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "svcLabels": {
+                    "description": "Adds labels to every service created",
+                    "items": {
+                        "properties": {
+                            "key": {
+                                "type": "string"
+                            },
+                            "value": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "key",
+                            "value"
+                        ]
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "resourceLabels": {
                     "description": "Adds labels to {brandname} resources such as pods and services.",
                     "items": {
