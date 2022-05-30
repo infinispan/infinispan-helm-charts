@@ -226,6 +226,20 @@
                         }
                     }
                 },
+                "podLabels": {
+                    "description": "Adds labels to every pod created",
+                    "type": [
+                        "object",
+                        "null"
+                    ]
+                },
+                "svcLabels": {
+                    "description": "Adds labels to every service created",
+                    "type": [
+                        "object",
+                        "null"
+                    ]
+                },
                 "resourceLabels": {
                     "description": "Adds labels to Infinispan resources such as pods and services.",
                     "items": {

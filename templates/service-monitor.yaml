@@ -9,6 +9,9 @@ metadata:
     app: infinispan-service-metrics
     clusterName: {{ include "infinispan-helm-charts.name" . }}
   {{- include "infinispan-helm-charts.labels" . | nindent 4 }}
+  {{- with .Values.deploy.svcLabels }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   endpoints:
     - basicAuth:

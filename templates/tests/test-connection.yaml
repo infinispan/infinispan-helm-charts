@@ -4,6 +4,9 @@ metadata:
   name: "{{ include "infinispan-helm-charts.name" . }}-test-connection"
   labels:
   {{- include "infinispan-helm-charts.labels" . | nindent 4 }}
+  {{- with .Values.deploy.podLabels }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   annotations:
   {{- include "infinispan-helm-charts.annotations" . | nindent 4 }}
     "helm.sh/hook": test

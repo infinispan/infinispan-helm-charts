@@ -33,6 +33,8 @@ Configure your {brandname} cluster by specifying values in the `deploy.*` sectio
 | `deploy.expose.host` | Specifies the hostname where the {ingress} is exposed, if required. | `""` | |
 | `deploy.expose.annotations` | Adds annotations to the service that exposes {brandname} on the network. | `{}` | - |
 | `deploy.logging.categories` | Configures {brandname} cluster log categories and levels. | `{}` | - |
+| `deploy.podLabels` | Adds labels to every pod created. | `{}` | - |
+| `deploy.svcLabels` | Adds labels to every service created. | `{}` | - |
 | `deploy.resourceLabels` | Adds labels to {brandname} resources such as pods and services. | `{}` | - |
 | `deploy.makeDataDirWritable` | Allows write access to the `data` directory for each {brandname} Server node. | false | Setting the value to `true` creates an initContainer that runs `chmod -R` on the `/opt/infinispan/server/data` directory and changes its permissions. |
 | `deploy.nameOverride` | Specifies a name for all {brandname} cluster resources. | Helm Chart release name | Configure a name for the created resources only if you need it to be different to the Helm Chart release name. |
