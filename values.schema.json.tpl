@@ -26,6 +26,19 @@
         "deploy": {
             "description": "Configuration properties for {brandname} clusters.",
             "properties": {
+                "monitoring": {
+                    "description": "Configuration for ServiceMonitor",
+                    "properties": {
+                        "enabled": {
+                            "description": "Enable/disable ServiceMonitor functionality",
+                            "type": "boolean"
+                        }
+                    },
+                    "type": [
+                        "object",
+                        "null"
+                    ]
+                },
                 "replicas": {
                     "description": "Number of pods in the {brandname} cluster.",
                     "type": "integer"
