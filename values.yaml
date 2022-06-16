@@ -78,6 +78,15 @@ deploy:
       # [USER] Hot Rod and REST endpoints.
       - securityRealm: default
         socketBinding: default
+        connectors:
+          rest:
+            restConnector:
+          hotrod:
+            hotrodConnector:
+          # [MEMCACHED] Uncomment to enable Memcached endpoint
+          # memcached:
+          #   memcachedConnector:
+          #     socketBinding: memcached
       # [METRICS] Metrics endpoint for cluster monitoring capabilities.
       - connectors:
           rest:
@@ -126,3 +135,6 @@ deploy:
           # [METRICS] Socket binding for the metrics endpoint.
         - name: metrics
           port: 11223
+          # [MEMCACHED] Uncomment to enable Memcached endpoint
+        # - name: memcached
+        #   port: 11221
