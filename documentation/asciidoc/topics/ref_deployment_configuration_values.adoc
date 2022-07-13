@@ -82,8 +82,16 @@ If you do not specify a port, the platform selects an available one.
 |Configures {brandname} cluster log categories and levels.
 |No default value.
 
+|`deploy.podLabels`
+| Adds labels to each {brandname} pod that you create.
+| No default value.
+
+|`deploy.svcLabels`
+| Adds labels to each service that you create.
+| No default value.
+
 |`deploy.resourceLabels`
-|Adds labels to {brandname} resources such as pods and services.
+|Adds labels to all {brandname} resources including pods and services.
 |No default value.
 
 |`deploy.makeDataDirWritable`
