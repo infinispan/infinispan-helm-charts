@@ -3,9 +3,9 @@ name: infinispan
 description: A Helm chart that lets you build and deploy Infinispan clusters.
 type: application
 # Chart version
-version: 0.2.2
+version: 0.3.0
 # Infinispan version. Use the floating x.y tag of the image.
-appVersion: "13.0"
+appVersion: "14.0"
 icon: https://design.jboss.org/infinispan/logo/final/PNG/infinispan_icon_rgb_lightbluewhite_256px.png
 
 home: https://infinispan.org/
