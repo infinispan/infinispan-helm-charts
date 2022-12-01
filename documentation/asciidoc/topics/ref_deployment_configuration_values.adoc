@@ -21,6 +21,10 @@ You can also find field and value descriptions in the link:{helm_chart_readme}[{
 |Passes JVM options to {brandname} Server.
 |No default value.
 
+|`deploy.container.libraries`
+| Libraries to be downloaded before server startup. Specify multiple, space-separated artifacts represented as URLs or as Maven coordinates. Archive artifacts in .tar, .tar.gz or .zip formats will be extracted. 
+|No default value.
+
 |`deploy.container.storage.ephemeral`
 |Defines whether storage is ephemeral or permanent.
 |The default value is `false`, which means data is permanent.
