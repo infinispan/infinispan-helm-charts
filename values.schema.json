@@ -58,6 +58,13 @@
                                 "null"
                             ]
                         },
+                        "libraries": {
+                            "description": "Libraries to be downloaded before server startup.",
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        },
                         "storage": {
                             "description": "Storage resources for Infinispan pods.",
                             "properties": {

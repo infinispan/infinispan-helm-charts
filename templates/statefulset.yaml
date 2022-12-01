@@ -55,6 +55,8 @@ spec:
               value: {{ .Values.deploy.container.extraJvmOpts }}
             - name: IDENTITIES_BATCH
               value: /etc/security/identities-batch
+            - name: SERVER_LIBS
+              value: {{ .Values.deploy.container.libraries }}
           image: {{ .Values.images.server }}
           imagePullPolicy: Always
           args:

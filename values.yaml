@@ -15,6 +15,7 @@ deploy:
 
   container:
     extraJvmOpts: ""
+    libraries: ""
     storage:
       size: 1Gi
       storageClassName: ""
