@@ -17,7 +17,7 @@ Configure your Infinispan cluster by specifying values in the `deploy.*` section
 
 | Value | Description | Default | Additional Information |
 | ----- | ----------- | ------- | ---------------------- |
-| `deploy.clusterDomain` | The internal Kubernetes cluster domain. | cluster.local | - |
+| `deploy.clusterDomain` | Specifies the internal Kubernetes cluster domain. | cluster.local | - |
 | `deploy.replicas` | Specifies the number of nodes in your Infinispan cluster, with a pod created for each node. | 1 | - |
 | `deploy.container.extraJvmOpts` | Passes JVM options to Infinispan Server. | `""` | - |
 | `deploy.container.storage.ephemeral` | Defines whether storage is ephemeral or permanent. | false | Set the value to `true` to use ephemeral storage, which means all stored data is deleted when clusters shut down or restart. |

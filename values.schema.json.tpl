@@ -39,8 +39,8 @@
                         "null"
                     ]
                 },
-                "replicas": {
-                    "description": "The internal Kubernetes cluster domain.",
+                "clusterDomain": {
+                    "description": "Specifies the internal Kubernetes cluster domain.",
                     "type": "string",
                     "default": "cluster.local"
                 },
