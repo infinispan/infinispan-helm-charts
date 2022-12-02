@@ -62,7 +62,7 @@ spec:
             - --server-config=/etc/config/infinispan.yml
             - --logging-config=/etc/config/log4j2.xml
             - --bind-address=0.0.0.0
-            - -Djgroups.dns.query={{ printf "%s-ping.%s.svc.cluster.local" (include "infinispan-helm-charts.name" .) .Release.Namespace }}
+            - -Djgroups.dns.query={{ printf "%s-ping.%s.svc.%s" (include "infinispan-helm-charts.name" .) .Release.Namespace .Values.deploy.clusterDomain }}
           ports:
             - containerPort: 8888
               name: ping

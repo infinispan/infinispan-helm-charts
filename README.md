@@ -17,6 +17,7 @@ Configure your Infinispan cluster by specifying values in the `deploy.*` section
 
 | Value | Description | Default | Additional Information |
 | ----- | ----------- | ------- | ---------------------- |
+| `deploy.clusterDomain` | The internal Kubernetes cluster domain. | cluster.local | - |
 | `deploy.replicas` | Specifies the number of nodes in your Infinispan cluster, with a pod created for each node. | 1 | - |
 | `deploy.container.extraJvmOpts` | Passes JVM options to Infinispan Server. | `""` | - |
 | `deploy.container.storage.ephemeral` | Defines whether storage is ephemeral or permanent. | false | Set the value to `true` to use ephemeral storage, which means all stored data is deleted when clusters shut down or restart. |
@@ -34,7 +35,7 @@ Configure your Infinispan cluster by specifying values in the `deploy.*` section
 | `deploy.expose.annotations` | Adds annotations to the service that exposes Infinispan on the network. | `{}` | - |
 | `deploy.logging.categories` | Configures Infinispan cluster log categories and levels. | `{}` | - |
 | `deploy.podLabels` | Adds labels to each Infinispan pod that you create. | `{}` | - |
-| `deploy.svcLabels` | Adds labels to each service that you create. | `{}` | - |
+| `deploy.svcLabels` | Adds labels to each service that you create.| `{}` | - |
 | `deploy.resourceLabels` | Adds labels to all Infinispan resources including pods and services. | `{}` | - |
 | `deploy.makeDataDirWritable` | Allows write access to the `data` directory for each Infinispan Server node. | false | Setting the value to `true` creates an initContainer that runs `chmod -R` on the `/opt/infinispan/server/data` directory and changes its permissions. |
 | `deploy.monitoring.enabled` | Enable/disable ServiceMonitor functionality. | true | - |
