@@ -11,6 +11,8 @@ deploy:
   # [USER] Specify the number of nodes in the cluster.
   replicas: 1
 
+  clusterDomain: cluster.local
+
   container:
     extraJvmOpts: ""
     storage:

@@ -39,6 +39,11 @@
                         "null"
                     ]
                 },
+                "clusterDomain": {
+                    "description": "Specifies the internal Kubernetes cluster domain.",
+                    "type": "string",
+                    "default": "cluster.local"
+                },
                 "replicas": {
                     "description": "Number of pods in the Infinispan cluster.",
                     "type": "integer"
