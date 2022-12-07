@@ -30,6 +30,6 @@ spec:
       - {{ .Release.Namespace }}
   selector:
     matchLabels:
-      app: infinispan-service
+      app: infinispan-service-metrics
       clusterName: {{ include "infinispan-helm-charts.name" . }}
 {{- end }}
