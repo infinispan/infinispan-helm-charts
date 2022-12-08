@@ -6,6 +6,7 @@ type: application
 version: 0.3.0
 # Infinispan version. Use the floating x.y tag of the image.
 appVersion: "14.0"
+kubeVersion: ">= 1.21.0"
 icon: https://design.jboss.org/infinispan/logo/final/PNG/infinispan_icon_rgb_lightbluewhite_256px.png
 
 home: https://infinispan.org/
