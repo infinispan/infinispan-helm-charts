@@ -6,7 +6,6 @@ metadata:
   {{- include "infinispan-helm-charts.annotations" . | nindent 4 }}
   labels:
     app: infinispan-service
-    clusterName: {{ include "infinispan-helm-charts.name" . }}
   {{- include "infinispan-helm-charts.labels" . | nindent 4 }}
   {{- include "infinispan-helm-charts.svcLabels" . | nindent 4 }}
 spec:
