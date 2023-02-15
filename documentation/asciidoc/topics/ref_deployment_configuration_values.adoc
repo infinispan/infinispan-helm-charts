@@ -109,6 +109,6 @@ If you set the value to `true`, {brandname} creates an initContainer that runs `
 |`deploy.infinispan`
 |{brandname} Server configuration.
 |{brandname} provides default server configuration.
-For more information about configuring server instances, see _{brandname} Server configuration values_.
+For more information about configuring server instances, see xref:#server-configuration-values_configuring-servers[_{brandname} Server configuration values_].
 
 |===
