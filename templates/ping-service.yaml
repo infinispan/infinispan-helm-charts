@@ -9,6 +9,7 @@ metadata:
     {{- include "infinispan-helm-charts.labels" . | nindent 4 }}
     {{- include "infinispan-helm-charts.svcLabels" . | nindent 4 }}
 spec:
+  publishNotReadyAddresses: true
   type: ClusterIP
   clusterIP: None
   ports:
