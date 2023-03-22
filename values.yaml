@@ -43,7 +43,7 @@ deploy:
     annotations: []
 
   monitoring:
-    enabled: true
+    enabled: false
 
   logging:
     categories:
