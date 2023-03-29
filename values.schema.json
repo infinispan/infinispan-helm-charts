@@ -313,6 +313,33 @@
                         "array",
                         "null"
                     ]
+                },
+                "tolerations": {
+                    "description": "Node taints to tolerate",
+                    "items": {
+                        "properties": {
+                            "effect": {
+                                "type": "string"
+                            },
+                            "key": {
+                                "type": "string"
+                            },
+                            "operator": {
+                                "type": "string"
+                            },
+                            "tolerationSeconds": {
+                                "type": "integer",
+                                "format": "int64"
+                            },
+                            "value": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 }
             },
             "type": [

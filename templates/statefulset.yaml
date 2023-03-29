@@ -134,7 +134,11 @@ spec:
         {{- if .Values.deploy.container.storage.ephemeral }}
         - name: data-volume
           emptyDir: { }
-  {{- end }}
+        {{- end }}
+      {{- with .Values.deploy.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
   updateStrategy:
     type: RollingUpdate
   {{- if not .Values.deploy.container.storage.ephemeral }}
