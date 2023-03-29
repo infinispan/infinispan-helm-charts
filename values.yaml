@@ -65,6 +65,8 @@ deploy:
 
   svcLabels: []
 
+  tolerations: []
+
   infinispan:
     cacheContainer:
       # [USER] Add cache, template, and counter configuration.
