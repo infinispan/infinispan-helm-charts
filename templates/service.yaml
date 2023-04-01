@@ -13,6 +13,7 @@ spec:
   type: {{ .Values.deploy.expose.type }}
   {{- else }}
   type: ClusterIP
+  clusterIP: None
   {{- end }}
   ports:
     - port: 11222
