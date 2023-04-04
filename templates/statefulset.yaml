@@ -9,7 +9,7 @@ metadata:
     "openshift.io/display-name": "Infinispan Cluster"
     "openshift.io/documentation-url": "http://infinispan.org/documentation/"
 spec:
-  serviceName: ""
+  serviceName: {{ include "infinispan-helm-charts.name" . }}
   replicas: {{ .Values.deploy.replicas }}
   selector:
     matchLabels:
