@@ -102,6 +102,10 @@ If you do not specify a port, the platform selects an available one.
 |Allows write access to the `data` directory for each {brandname} Server node. |`false`
 If you set the value to `true`, {brandname} creates an initContainer that runs `chmod -R` on the `/opt/infinispan/server/data` directory to change permissions.
 
+|`deploy.monitoring.enabled`
+|Enable or disable monitoring using `ServiceMonitor`.
+| `false` Users must have `monitoring-edit` role assigned by the admin to deploy the Helm chart with `ServiceMonitor` enabled.
+
 |`deploy.nameOverride`
 |Specifies a name for all {brandname} cluster resources.
 |Helm Chart release name.
