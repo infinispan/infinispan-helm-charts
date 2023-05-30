@@ -30,7 +30,7 @@ deploy:
     #      secretKeyRef:
     #        name: special-secret
     #        key: special.how
-    extraEnv:
+    env:
     storage:
       size: 1Gi
       storageClassName: ""

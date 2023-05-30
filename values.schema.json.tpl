@@ -65,7 +65,7 @@
                                 "null"
                             ]
                         },
-                        "extraEnv": {
+                        "env": {
                             "description": "Additional environment variables in K8s format.",
                             "type": [
                                 "array",

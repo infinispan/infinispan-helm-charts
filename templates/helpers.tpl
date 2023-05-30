@@ -87,7 +87,7 @@ Include for indentation
   value: /etc/security/identities-batch
 - name: SERVER_LIBS
   value: {{ .libraries }}
-{{- if .extraEnv -}}
-{{ .extraEnv | toYaml | nindent 0 }}
+{{- if .env -}}
+{{ .env | toYaml | nindent 0 }}
 {{- end -}}
 {{- end }}
