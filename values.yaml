@@ -16,6 +16,21 @@ deploy:
   container:
     extraJvmOpts: ""
     libraries: ""
+    # [USER] Define custom environment variables using standard K8s format
+    # env:
+    #  - name: STANDARD_KEY
+    #    value: standard value
+    #  - name: CONFIG_MAP_KEY
+    #    valueFrom:
+    #      configMapKeyRef:
+    #        name: special-config
+    #        key: special.how
+    #  - name: SECRET_KEY
+    #    valueFrom:
+    #      secretKeyRef:
+    #        name: special-secret
+    #        key: special.how
+    env:
     storage:
       size: 1Gi
       storageClassName: ""

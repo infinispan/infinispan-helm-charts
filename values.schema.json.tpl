@@ -65,6 +65,13 @@
                                 "null"
                             ]
                         },
+                        "env": {
+                            "description": "Additional environment variables in K8s format.",
+                            "type": [
+                                "array",
+                                "null"
+                            ]
+                        },
                         "storage": {
                             "description": "Storage resources for {brandname} pods.",
                             "properties": {

@@ -51,12 +51,7 @@ spec:
       {{- end }}
       containers:
         - env:
-            - name: JAVA_OPTIONS
-              value: {{ .Values.deploy.container.extraJvmOpts }}
-            - name: IDENTITIES_BATCH
-              value: /etc/security/identities-batch
-            - name: SERVER_LIBS
-              value: {{ .Values.deploy.container.libraries }}
+          {{- include "infinispan-helm-charts.containerEnv" .Values.deploy.container | nindent 12 }}
           image: {{ .Values.images.server }}
           imagePullPolicy: Always
           args:

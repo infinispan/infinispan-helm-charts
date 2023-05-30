@@ -76,3 +76,18 @@ Common annotations
 meta.helm.sh/release-name: {{ .Release.Name }}
 meta.helm.sh/release-namespace: {{ .Release.Namespace }}
 {{- end }}
+
+{{/*
+Include for indentation
+*/}}
+{{- define "infinispan-helm-charts.containerEnv" -}}
+- name: JAVA_OPTIONS
+  value: {{ .extraJvmOpts }}
+- name: IDENTITIES_BATCH
+  value: /etc/security/identities-batch
+- name: SERVER_LIBS
+  value: {{ .libraries }}
+{{- if .env -}}
+{{ .env | toYaml | nindent 0 }}
+{{- end -}}
+{{- end }}
