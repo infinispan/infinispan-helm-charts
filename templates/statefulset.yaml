@@ -27,9 +27,9 @@ spec:
         clusterName: {{ include "infinispan-helm-charts.name" . }}
         {{- include "infinispan-helm-charts.podLabels" . | nindent 8 }}
     spec:
-      {{- if .Values.nodeSelector }}
+      {{- if .Values.deploy.nodeSelector }}
       nodeSelector:
-      {{- with .Values.nodeSelector }}
+      {{- with .Values.deploy.nodeSelector }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- end }}
@@ -43,9 +43,9 @@ spec:
                     app: infinispan-pod
                 topologyKey: kubernetes.io/hostname
               weight: 100
-        {{- if .Values.nodeAffinity }}
+        {{- if .Values.deploy.nodeAffinity }}
         nodeAffinity:
-        {{- with .Values.nodeAffinity }}
+        {{- with .Values.deploy.nodeAffinity }}
           {{- toYaml . | nindent 10 }}
         {{- end }}
         {{- end }}

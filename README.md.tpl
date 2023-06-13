@@ -40,6 +40,8 @@ Configure your {brandname} cluster by specifying values in the `deploy.*` sectio
 | `deploy.svcLabels` | Adds labels to each service that you create.| `{}` | - |
 | `deploy.resourceLabels` | Adds labels to all {brandname} resources including pods and services. | `{}` | - |
 | `deploy.tolerations` | Node taints to tolerate | `[]` | - |
+| `deploy.nodeSelector` | What labels the node must have to deploy | `{}` | - |
+| `deploy.nodeAffinity` | Adds node affinity rules | `{}` | - |
 | `deploy.makeDataDirWritable` | Allows write access to the `data` directory for each {brandname} Server node. | false | Setting the value to `true` creates an initContainer that runs `chmod -R` on the `/opt/infinispan/server/data` directory and changes its permissions. |
 | `deploy.monitoring.enabled` | Enable or disable `ServiceMonitor` functionality. | false | Users must have `monitoring-edit` role assigned by the admin to deploy the Helm chart with `ServiceMonitor` enabled. |
 | `deploy.nameOverride` | Specifies a name for all {brandname} cluster resources. | Helm Chart release name | Configure a name for the created resources only if you need it to be different to the Helm Chart release name. |
