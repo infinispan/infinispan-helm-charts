@@ -166,6 +166,20 @@
                         "null"
                     ]
                 },
+                "nodeSelector": {
+                    "description": "Defines the nodeSelector policy used by the cluster's StatefulSet",
+                    "type": [
+                        "object",
+                        "null"
+                    ]
+                },
+                "nodeAffinity": {
+                    "description": "Defines the nodeAffinity policy used by the cluster's StatefulSet",
+                    "type": [
+                        "object",
+                        "null"
+                    ]
+                },
                 "expose": {
                     "description": "Controls network access to Infinispan Server endpoints.",
                     "properties": {
