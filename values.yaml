@@ -82,6 +82,10 @@ deploy:
 
   tolerations: []
 
+  nodeAffinity: {}
+  
+  nodeSelector: {}
+
   infinispan:
     cacheContainer:
       # [USER] Add cache, template, and counter configuration.
