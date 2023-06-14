@@ -1,96 +1,48 @@
-# infinispan
+## Helm Chart for Infinispan
 
-![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 14.0](https://img.shields.io/badge/AppVersion-14.0-informational?style=flat-square)
+A Helm chart that lets you build and deploy [Infinispan](https://infinispan.org) Server clusters.
 
-A Helm chart that lets you build and deploy Infinispan clusters.
+## Build configuration
 
-**Homepage:** <https://infinispan.org/>
+Configure the container images for Infinispan Server pods by specifying values in the `images.*` section of this chart.
 
-## Maintainers
+| Value | Description | Default | Additional Information |
+| ----- | ----------- | ------- | ---------------------- |
+| `images.server` | FQN of the Infinispan Server image to deploy. | `quay.io/infinispan/server:14.0` | - |
+| `images.initContainer` | FQN of a minimal Linux container for the initContainer. | `registry.access.redhat.com/ubi8-micro` | - |
 
-| Name | Email | Url |
-| ---- | ------ | --- |
-| Infinispan |  | <https://infinispan.org/> |
+## Deployment configuration
 
-## Source Code
+Configure your Infinispan cluster by specifying values in the `deploy.*` section of this chart.
 
-* <https://github.com/infinispan/infinispan>
-* <https://github.com/infinispan/infinispan-helm-charts>
-
-## Requirements
-
-Kubernetes: `>= 1.21.0-0`
-
-## Values
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| images.server | string | `"quay.io/infinispan/server:14.0"` |  |
-| images.initContainer | string | `"registry.access.redhat.com/ubi8-micro"` |  |
-| deploy.replicas | int | `1` |  |
-| deploy.clusterDomain | string | `"cluster.local"` |  |
-| deploy.container.extraJvmOpts | string | `""` |  |
-| deploy.container.libraries | string | `""` |  |
-| deploy.container.env | string | `nil` |  |
-| deploy.container.storage.size | string | `"1Gi"` |  |
-| deploy.container.storage.storageClassName | string | `""` |  |
-| deploy.container.storage.ephemeral | bool | `false` |  |
-| deploy.container.resources.limits.cpu | string | `"500m"` |  |
-| deploy.container.resources.limits.memory | string | `"512Mi"` |  |
-| deploy.container.resources.requests.cpu | string | `"500m"` |  |
-| deploy.container.resources.requests.memory | string | `"512Mi"` |  |
-| deploy.security.secretName | string | `""` |  |
-| deploy.security.batch | string | `""` |  |
-| deploy.expose.type | string | `"Route"` |  |
-| deploy.expose.nodePort | int | `0` |  |
-| deploy.expose.host | string | `""` |  |
-| deploy.expose.annotations | list | `[]` |  |
-| deploy.monitoring.enabled | bool | `false` |  |
-| deploy.logging.categories[0].category | string | `"com.arjuna"` |  |
-| deploy.logging.categories[0].level | string | `"warn"` |  |
-| deploy.logging.categories[1].category | string | `"io.netty.handler.ssl.ApplicationProtocolNegotiationHandler"` |  |
-| deploy.logging.categories[1].level | string | `"error"` |  |
-| deploy.makeDataDirWritable | bool | `false` |  |
-| deploy.nameOverride | string | `""` |  |
-| deploy.resourceLabels | list | `[]` |  |
-| deploy.podLabels | list | `[]` |  |
-| deploy.svcLabels | list | `[]` |  |
-| deploy.tolerations | list | `[]` |  |
-| deploy.nodeAffinity | object | `{}` |  |
-| deploy.nodeSelector | object | `{}` |  |
-| deploy.infinispan.cacheContainer.name | string | `"default"` |  |
-| deploy.infinispan.cacheContainer.security.authorization | object | `{}` |  |
-| deploy.infinispan.cacheContainer.transport.cluster | string | `"${infinispan.cluster.name:cluster}"` |  |
-| deploy.infinispan.cacheContainer.transport.node-name | string | `"${infinispan.node.name:}"` |  |
-| deploy.infinispan.cacheContainer.transport.stack | string | `"kubernetes"` |  |
-| deploy.infinispan.server.endpoints[0].securityRealm | string | `"default"` |  |
-| deploy.infinispan.server.endpoints[0].socketBinding | string | `"default"` |  |
-| deploy.infinispan.server.endpoints[0].connectors.rest.restConnector | string | `nil` |  |
-| deploy.infinispan.server.endpoints[0].connectors.hotrod.hotrodConnector | string | `nil` |  |
-| deploy.infinispan.server.endpoints[1].connectors.rest.restConnector.authentication.mechanisms | string | `"BASIC"` |  |
-| deploy.infinispan.server.endpoints[1].securityRealm | string | `"metrics"` |  |
-| deploy.infinispan.server.endpoints[1].socketBinding | string | `"metrics"` |  |
-| deploy.infinispan.server.interfaces[0].inetAddress.value | string | `"${infinispan.bind.address:127.0.0.1}"` |  |
-| deploy.infinispan.server.interfaces[0].name | string | `"public"` |  |
-| deploy.infinispan.server.security.credentialStores[0].clearTextCredential.clearText | string | `"secret"` |  |
-| deploy.infinispan.server.security.credentialStores[0].name | string | `"credentials"` |  |
-| deploy.infinispan.server.security.credentialStores[0].path | string | `"credentials.pfx"` |  |
-| deploy.infinispan.server.security.securityRealms[0].name | string | `"default"` |  |
-| deploy.infinispan.server.security.securityRealms[0].propertiesRealm.groupProperties.path | string | `"groups.properties"` |  |
-| deploy.infinispan.server.security.securityRealms[0].propertiesRealm.groupsAttribute | string | `"Roles"` |  |
-| deploy.infinispan.server.security.securityRealms[0].propertiesRealm.userProperties.path | string | `"users.properties"` |  |
-| deploy.infinispan.server.security.securityRealms[1].name | string | `"metrics"` |  |
-| deploy.infinispan.server.security.securityRealms[1].propertiesRealm.groupProperties.path | string | `"metrics-groups.properties"` |  |
-| deploy.infinispan.server.security.securityRealms[1].propertiesRealm.groupProperties.relativeTo | string | `"infinispan.server.config.path"` |  |
-| deploy.infinispan.server.security.securityRealms[1].propertiesRealm.groupsAttribute | string | `"Roles"` |  |
-| deploy.infinispan.server.security.securityRealms[1].propertiesRealm.userProperties.path | string | `"metrics-users.properties"` |  |
-| deploy.infinispan.server.security.securityRealms[1].propertiesRealm.userProperties.relativeTo | string | `"infinispan.server.config.path"` |  |
-| deploy.infinispan.server.socketBindings.defaultInterface | string | `"public"` |  |
-| deploy.infinispan.server.socketBindings.portOffset | string | `"${infinispan.socket.binding.port-offset:0}"` |  |
-| deploy.infinispan.server.socketBindings.socketBinding[0].name | string | `"default"` |  |
-| deploy.infinispan.server.socketBindings.socketBinding[0].port | int | `11222` |  |
-| deploy.infinispan.server.socketBindings.socketBinding[1].name | string | `"metrics"` |  |
-| deploy.infinispan.server.socketBindings.socketBinding[1].port | int | `11223` |  |
-
-----------------------------------------------
-Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)
+| Value | Description | Default | Additional Information |
+| ----- | ----------- | ------- | ---------------------- |
+| `deploy.clusterDomain` | Specifies the internal Kubernetes cluster domain. | cluster.local | - |
+| `deploy.replicas` | Specifies the number of nodes in your Infinispan cluster, with a pod created for each node. | 1 | - |
+| `deploy.container.extraJvmOpts` | Passes JVM options to Infinispan Server. | `""` | - |
+| `deploy.container.libraries` | Libraries to be downloaded before server startup. | `""` | Specify multiple, space-separated artifacts represented as URLs or as Maven coordinates. Archive artifacts in .tar, .tar.gz or .zip formats will be extracted. |
+| `deploy.container.env` | Additional environment variables in K8s format. | `""` | See docs for examples of [strings](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/#using-environment-variables-inside-of-your-config), [ConfigMaps](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#define-container-environment-variables-with-data-from-multiple-configmaps) and [Secrets](https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/#define-container-environment-variables-with-data-from-multiple-secrets) |
+| `deploy.container.storage.ephemeral` | Defines whether storage is ephemeral or permanent. | false | Set the value to `true` to use ephemeral storage, which means all stored data is deleted when clusters shut down or restart. |
+| `deploy.container.storage.size` | Defines how much storage is allocated to each Infinispan pod. | 1Gi | - |
+| `deploy.container.storage.storageClassName` | Specifies the name of a `StorageClass` object to use for the persistent volume claim (PVC). | `""` | By default, the persistent volume claim uses the storage class that has the `storageclass.kubernetes.io/is-default-class` annotation set to `true`. If you include this field, you must specify an existing storage class as the value. |
+| `deploy.container.resources.limits.cpu` | Defines the CPU limit, in CPU units, for each Infinispan pod. | 500m | - |
+| `deploy.container.resources.limits.memory` | Defines the memory limit, in bytes, for each Infinispan pod. | 512Mi | - |
+| `deploy.container.resources.requests.cpu` | Specifies the maximum CPU requests, in CPU units, for each Infinispan pod. | 500m | - |
+| `deploy.container.resources.requests.memory` | Specifies the maximum memory requests, in bytes, for each Infinispan pod. | 512Mi | - |
+| `deploy.security.secretName` | Specifies the name of a secret that creates credentials and configures security authorization. | `""` | If you provide a security secret then `deploy.security.batch` does not take effect. |
+| `deploy.security.batch` | Provides a batch file for the Infinispan command line interface (CLI) to create credentials and configure security authorization. | `""` | The CLI runs the batch file before server startup. |
+| `deploy.expose.type` | Specifies the service that exposes Hot Rod and REST endpoints outside the Kubernetes cluster and allows network access to your Infinispan cluster. | Route | Valid options: `["", "Route", "LoadBalancer", "NodePort"]`. Set an empty value (`""`) if you do not want to expose {brandname} on the network. |
+| `deploy.expose.nodePort` | Specifies a network port for node port services within the default range of 30000 to 32767. | 0 | If you do not specify a port, the platform selects an available one. |
+| `deploy.expose.host` | Specifies the hostname where the Ingress is exposed, if required. | `""` | |
+| `deploy.expose.annotations` | Adds annotations to the service that exposes Infinispan on the network. | `{}` | - |
+| `deploy.logging.categories` | Configures Infinispan cluster log categories and levels. | `{}` | - |
+| `deploy.podLabels` | Adds labels to each Infinispan pod that you create. | `{}` | - |
+| `deploy.svcLabels` | Adds labels to each service that you create.| `{}` | - |
+| `deploy.resourceLabels` | Adds labels to all Infinispan resources including pods and services. | `{}` | - |
+| `deploy.tolerations` | Node taints to tolerate | `[]` | - |
+| `deploy.nodeSelector` | Defines the nodeSelector policy used by the cluster's StatefulSet | `{}` | - |
+| `deploy.nodeAffinity` | Defines the nodeAffinity policy used by the cluster's StatefulSet | `{}` | - |
+| `deploy.makeDataDirWritable` | Allows write access to the `data` directory for each Infinispan Server node. | false | Setting the value to `true` creates an initContainer that runs `chmod -R` on the `/opt/infinispan/server/data` directory and changes its permissions. |
+| `deploy.monitoring.enabled` | Enable or disable `ServiceMonitor` functionality. | false | Users must have `monitoring-edit` role assigned by the admin to deploy the Helm chart with `ServiceMonitor` enabled. |
+| `deploy.nameOverride` | Specifies a name for all Infinispan cluster resources. | Helm Chart release name | Configure a name for the created resources only if you need it to be different to the Helm Chart release name. |
+| `deploy.infinispan` | Infinispan Server configuration. | - | You should not change the default socket bindings or the security realm and endpoints named "metrics". Modifying these default properties can result in unexpected behavior and loss of service. |
