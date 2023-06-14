@@ -84,6 +84,7 @@ spec:
             - --logging-config=/etc/config/log4j2.xml
             - --bind-address=0.0.0.0
             - -Djgroups.dns.query={{ printf "%s-ping.%s.svc.%s" (include "infinispan-helm-charts.name" .) .Release.Namespace .Values.deploy.clusterDomain }}
+            - --jmx 9999
           ports:
             - containerPort: 8888
               name: ping
@@ -94,6 +95,11 @@ spec:
             - containerPort: 11223
               name: infinispan-met
               protocol: TCP
+            {{if .Values.deploy.jmx.enabled }}
+            - containerPort: 9999
+              name: jmx
+              protocol: TCP
+            {{- end }}
           livenessProbe:
             failureThreshold: 5
             httpGet:
