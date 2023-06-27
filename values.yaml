@@ -86,7 +86,8 @@ deploy:
   
   nodeSelector: {}
 
-  jmx: enabled
+  jmx:
+    enabled: false
 
   infinispan:
     cacheContainer:

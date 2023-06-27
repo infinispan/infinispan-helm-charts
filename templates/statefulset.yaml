@@ -83,7 +83,7 @@ spec:
             - containerPort: 11223
               name: infinispan-met
               protocol: TCP
-            {{if .Values.deploy.jmx }}
+            {{if .Values.deploy.jmx.enabled }}
             - containerPort: 9999
               name: jmx
               protocol: TCP
