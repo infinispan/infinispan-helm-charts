@@ -86,6 +86,8 @@ deploy:
   
   nodeSelector: {}
 
+  jmx: enabled
+
   infinispan:
     cacheContainer:
       # [USER] Add cache, template, and counter configuration.
@@ -161,4 +163,4 @@ deploy:
           port: 11223
           # [MEMCACHED] Uncomment to enable Memcached endpoint
         # - name: memcached
-        #   port: 11221
+        #   port: 11221 
