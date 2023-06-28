@@ -180,6 +180,19 @@
                         "null"
                     ]
                 },
+                "jmx": {
+                    "description": "Configuration for jmx support",
+                    "properties": {
+                        "enabled": {
+                            "description": "Enable or disable JMX support",
+                            "type": "boolean"
+                        }
+                    },
+                    "type": [
+                        "object",
+                        "null"
+                    ]
+                },
                 "expose": {
                     "description": "Controls network access to {brandname} Server endpoints.",
                     "properties": {
