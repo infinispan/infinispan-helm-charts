@@ -36,6 +36,21 @@ include::java/ConfigurationBuilderInternal.java[]
 include::properties/hotrod-internal.properties[]
 ----
 
+.Getting IP addresses of all the pods
+The above procedure is the preferred way of connecting to {brandname}: the service guarantees
+the initial connection to one of the available pods.
+Two alternative ways are however possible if an application needs to obtain all the IP addresses
+for a running {brandname}.
+
+. via k8s API.
++
+Get the `endpoints` k8s resource associated to the `<helm-release-name>` service (`${APISERVER}/api/v1/namespaces/<chart-namespace>/endpoints/<helm-release-name>`). See https://kubernetes.io/docs/tasks/run-application/access-api-from-pod/[k8s API from pod] on how to use API from a pod running in cluster.
++
+. via k8s DNS service.
++
+Query the DNS service for the name `<helm-release-name>-ping`. See https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/[DNS for Services and Pods]
++
+
 [role="_additional-resources"]
 .Additional resources
 * link:{hotrod_docs}[Hot Rod Java Client Guide]
