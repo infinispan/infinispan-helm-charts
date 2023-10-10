@@ -9,6 +9,7 @@ After you configure and deploy {brandname} clusters you can establish remote con
 include::{topics}/proc_connecting_console.adoc[leveloffset=+1]
 include::{topics}/proc_connecting_cli.adoc[leveloffset=+1]
 include::{topics}/proc_connecting_clients_internal.adoc[leveloffset=+1]
+include::{topics}/proc_obtaining_IP_address.adoc[leveloffset=+2]
 include::{topics}/proc_connecting_clients_external.adoc[leveloffset=+1]
 include::{topics}/proc_connecting_rest.adoc[leveloffset=+1]
 
