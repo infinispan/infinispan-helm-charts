@@ -1,0 +1,24 @@
+[id='obtaining_IP_addresses_{context}']
+= Obtaining IP addresses for all {brandname} pods
+
+[role="_abstract"]
+You can retrieve a list of all IP addresses for running {brandname} pods.
+
+[IMPORTANT]
+====
+link:{helm_docs}#connecting-clients-internal_connecting-clusters[Connecting Hot Rod clients running on {k8s}] is the recommended approach as it ensures the initial connection to one of the available pods.
+====
+
+.Procedure
+Obtain all the IP addresses for a running {brandname} pods in the following ways:
+
+* Using the {k8s} API:
+** Access `${APISERVER}/api/v1/namespaces/<chart-namespace>/endpoints/<helm-release-name>` to retrieve the `endpoints` {k8s} resource associated with the `<helm-release-name>` service.
+
+* Using the {k8s} DNS service:
+** Query the DNS service for the name `<helm-release-name>-ping` to obtain IPs for all the nodes in a cluster.
+
+[role="_additional-resources"]
+.Additional resources
+* link:https://kubernetes.io/docs/tasks/run-application/access-api-from-pod/[Accessing the Kubernetes API from a Pod]
+* link:https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/[DNS for Services and Pods]
