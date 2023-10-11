@@ -86,6 +86,9 @@ deploy:
   
   nodeSelector: {}
 
+  jmx:
+    enabled: false
+
   infinispan:
     cacheContainer:
       # [USER] Add cache, template, and counter configuration.
