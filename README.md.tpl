@@ -45,4 +45,5 @@ Configure your {brandname} cluster by specifying values in the `deploy.*` sectio
 | `deploy.makeDataDirWritable` | Allows write access to the `data` directory for each {brandname} Server node. | false | Setting the value to `true` creates an initContainer that runs `chmod -R` on the `/opt/infinispan/server/data` directory and changes its permissions. |
 | `deploy.monitoring.enabled` | Enable or disable `ServiceMonitor` functionality. | false | Users must have `monitoring-edit` role assigned by the admin to deploy the Helm chart with `ServiceMonitor` enabled. |
 | `deploy.nameOverride` | Specifies a name for all {brandname} cluster resources. | Helm Chart release name | Configure a name for the created resources only if you need it to be different to the Helm Chart release name. |
+| `deploy.securityContext` | Defines the securityContext settings used by the cluster's StatefulSet | `{}` | - |
 | `deploy.infinispan` | {brandname} Server configuration. | - | You should not change the default socket bindings or the security realm and endpoints named "metrics". Modifying these default properties can result in unexpected behavior and loss of service. |

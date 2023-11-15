@@ -180,6 +180,13 @@
                         "null"
                     ]
                 },
+                "securityContext": {
+                  "description": "Defines the securityContext policy used by the cluster's StatefulSet.",
+                    "type": [
+                        "object",
+                        "null"
+                    ]
+                },
                 "expose": {
                     "description": "Controls network access to {brandname} Server endpoints.",
                     "properties": {

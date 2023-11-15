@@ -22,7 +22,7 @@ You can also find field and value descriptions in the link:{helm_chart_readme}[{
 |No default value.
 
 |`deploy.container.libraries`
-| Libraries to be downloaded before server startup. Specify multiple, space-separated artifacts represented as URLs or as Maven coordinates. Archive artifacts in .tar, .tar.gz or .zip formats will be extracted. 
+| Libraries to be downloaded before server startup. Specify multiple, space-separated artifacts represented as URLs or as Maven coordinates. Archive artifacts in .tar, .tar.gz or .zip formats will be extracted.
 |No default value.
 
 |`deploy.container.storage.ephemeral`
@@ -101,6 +101,10 @@ If you do not specify a port, the platform selects an available one.
 |`deploy.makeDataDirWritable`
 |Allows write access to the `data` directory for each {brandname} Server node. |`false`
 If you set the value to `true`, {brandname} creates an initContainer that runs `chmod -R` on the `/opt/infinispan/server/data` directory to change permissions.
+
+|`deploy.securityContext`
+|Configures the securityContext used by the StatefulSet pods. |`{}`
+This can be used to change the group of mounted file systems. Set `securityContext.fsGroup` to `185` if you need to explicitly match the group owner for `/opt/infinispan/server/data` to the default {brandname}'s group
 
 |`deploy.monitoring.enabled`
 |Enable or disable monitoring using `ServiceMonitor`.
