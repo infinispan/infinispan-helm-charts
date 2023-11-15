@@ -83,8 +83,11 @@ deploy:
   tolerations: []
 
   nodeAffinity: {}
-  
+
   nodeSelector: {}
+
+  securityContext:
+    fsGroup: 185
 
   infinispan:
     cacheContainer:
