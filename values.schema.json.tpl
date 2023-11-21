@@ -166,6 +166,24 @@
                         "null"
                     ]
                 },
+                "ssl": {
+                  "description": "Setup for encryption.",
+                  "type": [
+                     "object"
+                 ],
+                 "required": [
+                  "endpointSecretName"
+                  ],
+                  "properties": {
+                      "endPointSecretName": {
+                          "description": "Specifies the name of a secret that contains TLS certificate",
+                          "type": [
+                              "string",
+                              "null"
+                          ]
+                      }
+                     }
+                  },
                 "nodeSelector": {
                     "description": "Defines the nodeSelector policy used by the cluster's StatefulSet",
                     "type": [
@@ -368,7 +386,83 @@
                         "array",
                         "null"
                     ]
-                }
+                },
+                "infinispan": {
+                  "description": "Infinispan cluster configuration",
+                  "type": [
+                        "object",
+                        "null"
+                    ],
+                  "properties": {
+                        "server": {
+                           "description": "Infinispan server configuration",
+                           "type": [
+                                    "object",
+                                    "null"
+                                    ],
+                           "properties": {
+                              "security": {
+                                 "description": "Security configuration",
+                                 "type": [
+                                          "object",
+                                          "null"
+                                          ],
+                                 "properties": {
+                                    "securityRealms": {
+                                    "description": "Security Realms configuration",
+                                    "type": [ "array",
+                                              "null"
+                                             ],
+                                    "items": {
+                                          "properties": {
+                                             "name": {
+                                                "type": "string"
+                                             },
+                                             "serverIdentities": {
+                                                "description": "Configuration for server identities",
+                                                "type": [
+                                                         "object"
+                                                         ],
+                                                "properties": {
+                                                   "ssl": {
+                                                      "type": [
+                                                               "object"
+                                                              ],
+                                                      "properties": {
+                                                         "keystore": {
+                                                            "type": [
+                                                               "object"
+                                                              ],
+                                                         "properties": {
+                                                                  "alias": {
+                                                                  "type": "string",
+                                                                  "minLength": 1
+                                                               },
+                                                                  "path": {
+                                                                  "type": "string",
+                                                                  "minLength": 1
+                                                               },
+                                                                  "password": {
+                                                                  "type": "string",
+                                                                  "minLength": 1
+                                                               }
+                                                            },
+                                                         "required": ["alias","path","password"]
+
+                                                         }
+                                                      }
+                                                   }
+                                                }
+                                             }
+                                          }
+                                       }
+                                    }
+                                 }
+                              }
+                           }
+                        }
+                     }
+                  }
             },
             "type": [
                 "object",

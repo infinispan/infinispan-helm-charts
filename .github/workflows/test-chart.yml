@@ -13,6 +13,8 @@ jobs:
       - uses: actions/checkout@v2
 
       - uses: azure/setup-helm@v3.4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
         id: install
 
       - name: Lint
@@ -34,4 +36,16 @@ jobs:
         run: |
             kubectl create namespace helm-test
             helm install example-infinispan . -n helm-test --set deploy.replicas=2
-            kubectl wait --for=condition=Ready pods -lapp=infinispan-pod -n helm-test --timeout=300s
+            kubectl -n helm-test rollout status --watch --timeout=300s statefulset/example-infinispan
+            helm uninstall example-infinispan -n helm-test
+            kubectl delete namespace helm-test
+
+      - name: Testing TLS
+        run: |
+            kubectl create namespace helm-test
+            kubectl apply -f test/tls_secret.yaml -n helm-test
+            kubectl apply -f test/transport_tls_secret.yaml -n helm-test
+            helm install example-infinispan . -n helm-test -f values.yaml -f test/tls_values.snippet.yaml --set deploy.replicas=2
+            kubectl -n helm-test rollout status --watch --timeout=300s statefulset/example-infinispan
+            helm uninstall example-infinispan -n helm-test
+            kubectl delete namespace helm-test

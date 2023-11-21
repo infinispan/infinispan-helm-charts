@@ -27,8 +27,3 @@ For example, you can create caches at startup with any {brandname} configuration
 * Configure {brandname} Server endpoints with the `deploy.infinispan.server.endpoints` fields.
 * Configure {brandname} Server network interfaces and ports with the `deploy.infinispan.server.interfaces` and `deploy.infinispan.server.socketBindings` fields.
 * Configure {brandname} Server security mechanisms with the `deploy.infinispan.server.security` fields.
-+
-[NOTE]
-====
-The {brandname} chart does not currently support TLS/SSL security realms and encrypted client connections.
-====

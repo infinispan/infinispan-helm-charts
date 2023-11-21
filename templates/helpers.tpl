@@ -91,3 +91,19 @@ Include for indentation
 {{ .env | toYaml | nindent 0 }}
 {{- end -}}
 {{- end }}
+
+{{/*
+Schema for default endpoint
+*/}}
+
+{{- define "infinispan-helm-charts.defaultEndpointSchema" -}}
+   {{- range .Values.deploy.infinispan.server.security.securityRealms }}
+      {{- if eq .name "default" }}
+         {{- if and .serverIdentities .serverIdentities.ssl -}}
+               HTTPS
+         {{- else -}}
+               HTTP
+         {{- end -}}
+      {{- end -}}
+   {{ end -}}
+{{ end }}

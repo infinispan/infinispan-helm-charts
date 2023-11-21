@@ -1,0 +1,12 @@
+deploy:
+  infinispan:
+    server:
+      security:
+        securityRealms:
+          - name: default
+            serverIdentities:
+              ssl:
+                keystore:
+                  path: "/etc/encrypt/endpoint/keystore.p12" #<1>
+                  alias: "server" #<2>
+                  password: "password" #<2>
