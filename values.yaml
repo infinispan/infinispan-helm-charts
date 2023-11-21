@@ -49,7 +49,6 @@ deploy:
   security:
     secretName: ""
     batch: ""
-
   expose:
     # [USER] Specify `type: ""` to disable network access to clusters.
     type: Route
@@ -88,6 +87,10 @@ deploy:
 
   securityContext:
     fsGroup: 185
+
+  ssl:
+    endpointSecretName: ""
+    transportSecretName: ""
 
   infinispan:
     cacheContainer:

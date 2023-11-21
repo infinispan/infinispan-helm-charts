@@ -1,0 +1,19 @@
+deploy:
+  infinispan:
+    cacheContainer:
+      transport:
+         urn:infinispan:server:14.0:securityRealm: >
+          "cluster-transport" #<1>
+    server:
+      security:
+        securityRealms:
+          - name: cluster-transport
+            serverIdentities:
+              ssl:
+                keystore: #<2>
+                  alias: "server"
+                  path: "/etc/encrypt/endpoint/cert.p12"
+                  password: "password"
+                truststore: #<3>
+                  alias: "server" #<4>
+                  path: "/etc/encrypt/endpoint/cert.p12" #<4>

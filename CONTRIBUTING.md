@@ -4,6 +4,7 @@ All PRs that require modifications to the `README.md` or `values.schema.json` fi
 The `brand.sh` script should then be executed using the upstream properties, i.e. `./brand.sh infinispan.conf`, and all
 modified `*.tpl`, `*.md` and `*.json` files added to the commit.
 
+
 # Creating a Release
 1. Update `Chart.yaml`
     - `.version` should be set to the version of the chart released

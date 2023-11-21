@@ -93,7 +93,7 @@ spec:
             httpGet:
               path: rest/v2/cache-managers/default/health/status
               port: 11222
-              scheme: HTTP
+              scheme: {{ include "infinispan-helm-charts.defaultEndpointSchema" . }}
             initialDelaySeconds: 10
             periodSeconds: 10
             successThreshold: 1
@@ -104,7 +104,7 @@ spec:
             httpGet:
               path: rest/v2/cache-managers/default/health/status
               port: 11222
-              scheme: HTTP
+              scheme: {{ include "infinispan-helm-charts.defaultEndpointSchema" . }}
             initialDelaySeconds: 10
             periodSeconds: 10
             successThreshold: 1
@@ -114,7 +114,7 @@ spec:
             httpGet:
               path: rest/v2/cache-managers/default/health/status
               port: 11222
-              scheme: HTTP
+              scheme: {{ include "infinispan-helm-charts.defaultEndpointSchema" . }}
             initialDelaySeconds: 10
             periodSeconds: 10
             successThreshold: 1
@@ -137,6 +137,14 @@ spec:
               name: data-volume
             - mountPath: /etc/security
               name: identities-volume
+          {{- if  and .Values.deploy.ssl (ne .Values.deploy.ssl.transportSecretName "")}}
+            - mountPath: "/etc/encrypt/transport"
+              name: "transport-encrypt-volume"
+          {{- end }}
+          {{- if  and .Values.deploy.ssl (ne .Values.deploy.ssl.endpointSecretName "")}}
+            - mountPath: "/etc/encrypt/endpoint"
+              name: "encrypt-volume"
+          {{- end }}
       volumes:
         - configMap:
             name: {{ printf "%s-configuration" (include "infinispan-helm-charts.name" .) }}
@@ -144,6 +152,16 @@ spec:
         - name: identities-volume
           secret:
             secretName: {{ include "infinispan-helm-charts.secret" . }}
+         {{- if  and .Values.deploy.ssl (ne .Values.deploy.ssl.transportSecretName "")}}
+        - name: "transport-encrypt-volume"
+          secret:
+            secretName: {{ .Values.deploy.ssl.transportSecretName }}
+         {{- end }}
+         {{- if  and .Values.deploy.ssl (ne .Values.deploy.ssl.endpointSecretName "")}}
+        - name: "encrypt-volume"
+          secret:
+            secretName: {{ .Values.deploy.ssl.endpointSecretName }}
+         {{- end }}
         {{- if .Values.deploy.container.storage.ephemeral }}
         - name: data-volume
           emptyDir: { }
