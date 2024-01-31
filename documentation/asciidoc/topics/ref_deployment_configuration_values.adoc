@@ -13,6 +13,10 @@ You can also find field and value descriptions in the link:{helm_chart_readme}[{
 |===
 |Field |Description |Default value
 
+|`deploy.clusterDomain`
+|Specifies the internal Kubernetes cluster domain.
+|`cluster.local`
+
 |`deploy.replicas`
 |Specifies the number of nodes in your {brandname} cluster, with a pod created for each node.
 |`1`

@@ -9,3 +9,5 @@ deploy:
     batch: "user create admin -p changeme"
   #Create a cluster with two pods.
   replicas: 2
+  #Specify the internal Kubernetes cluster domain.
+  clusterDomain: cluster.local
