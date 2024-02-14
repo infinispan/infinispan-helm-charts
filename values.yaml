@@ -85,8 +85,7 @@ deploy:
 
   nodeSelector: {}
 
-  securityContext:
-    fsGroup: 185
+  securityContext: {}
 
   ssl:
     endpointSecretName: ""
