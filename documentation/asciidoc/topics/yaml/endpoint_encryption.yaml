@@ -9,4 +9,6 @@ deploy:
                 keystore:
                   path: "/etc/encrypt/endpoint/keystore.p12" #<1>
                   alias: "server" #<2>
-                  password: "password" #<2>
+                  credentialReference:
+                    store: credentials #<3>
+                    alias: keystore #<3>

@@ -13,7 +13,11 @@ deploy:
                 keystore: #<2>
                   alias: "server"
                   path: "/etc/encrypt/endpoint/cert.p12"
-                  password: "password"
-                truststore: #<3>
-                  alias: "server" #<4>
-                  path: "/etc/encrypt/endpoint/cert.p12" #<4>
+                  credentialReference: #<3>
+                    store: credentials
+                    alias: keystore
+                truststore: #<4>
+                  path: "/etc/encrypt/endpoint/cert.p12"
+                  credentialReference: #<3>
+                    store: credentials
+                    alias: truststore

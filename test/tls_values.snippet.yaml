@@ -1,4 +1,7 @@
 deploy:
+  security:
+    batch: |-
+      credentials add keystore -c password -p secret --path="internal-credentials.pfx"
   ssl:
     endpointSecretName: "tls-secret"
     transportSecretName: "transport-tls-secret"
@@ -9,6 +12,11 @@ deploy:
          urn:infinispan:server:14.0:securityRealm: "cluster-transport"
     server:
       security:
+        credentialStores:
+          - name: credentials
+            path: internal-credentials.pfx
+            clearTextCredential:
+              clearText: "secret"
         securityRealms:
         - name: default
          # [USER] Comment or remove this properties realm to disable authentication.
@@ -23,8 +31,9 @@ deploy:
               keystore:
                 alias: "server"
                 path: "/etc/encrypt/endpoint/keystore.p12"
-                password: "password"
-                          # [METRICS] Security realm for the metrics endpoint.
+                credentialReference:
+                  store: credentials
+                  alias: keystore
         - name: "cluster-transport"
          # Security realm for cluster transport. This setup is for encryption only, no authentication.
          # All the cluster server will use the same certificate both for key and trust store.
@@ -39,10 +48,14 @@ deploy:
               keystore:
                 alias: "server"
                 path: "/etc/encrypt/transport/cert.p12"
-                password: "password"
+                credentialReference:
+                  store: credentials
+                  alias: keystore
               truststore:
                 path: "/etc/encrypt/transport/cert.p12"
-                password: "password"
+                credentialReference:
+                  store: credentials
+                  alias: keystore
         - name: metrics
         # [METRICS] Security realm for the metrics endpoint.
           propertiesRealm:
