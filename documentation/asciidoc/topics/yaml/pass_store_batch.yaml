@@ -1,0 +1,3 @@
+deploy:
+  security:
+    batch: 'credentials add keystore -c password -p secret --path="internal-credentials.pfx"'
