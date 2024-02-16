@@ -15,6 +15,10 @@ metadata:
   {{- if .Values.deploy.expose.annotations }}
   {{- end }}
 spec:
+  {{- if  and .Values.deploy.ssl (ne .Values.deploy.ssl.endpointSecretName "")}}
+  tls:
+    termination: passthrough
+  {{- end }}
   {{- if .Values.deploy.expose.host }}
   host: {{ .Values.deploy.expose.host | quote }} }
   {{- end }}
@@ -52,6 +56,13 @@ spec:
       {{- if .Values.deploy.expose.host }}
       host: {{ .Values.deploy.expose.host | quote }}
       {{- else }}
+  {{- end }}
+  {{- if  and .Values.deploy.ssl (ne .Values.deploy.ssl.endpointSecretName "")}}
+  tls:
+    - hosts:
+        {{- if .Values.deploy.expose.host }}
+        - {{ .Values.deploy.expose.host | quote }}
+        {{- end }}
   {{- end }}
   {{- end }}
   {{- end }}
