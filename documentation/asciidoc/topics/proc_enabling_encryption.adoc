@@ -5,33 +5,34 @@
 Encryption can be independently enabled for endpoint and cluster transport.
 
 .Prerequisites
+
 * A secret containing a certificate or a keystore. Endpoint and cluster should use different secrets.
 * A credentials keystore containing any password needed to access the keystore. See <<Adding credentials keystore>>.
 
 .Procedure
 
-.Set the secret name in the deploy configuration
-
-Provide the name of the secret containing the keystore.
+. Set the secret name in the deploy configuration.
++
+Provide the name of the secret containing the keystore:
++
 [source,yaml,options="nowrap",subs=attributes+]
 ----
 include::yaml/tls_secretname.yaml[]
 ----
 
-.Enable cluster transport TLS
-
+. Enable cluster transport TLS.
++
 [source,yaml,options="nowrap",subs=attributes+]
 ----
 include::yaml/transport_encryption.yaml[]
 ----
 <1> Configures the transport stack to use the specified security-realm to provide cluster encryption.
-<2> Configure the keystore path in the transport realm; secret is mounted at `/etc/encrypt/transport`.
-<3> Configure the credentials keystore containing the needed password to open the keystore/truststore
-<4> Configures the truststore with the same keystore, this allows the nodes to authenticate each other.
+<2> Configure the keystore path in the transport realm. The secret is mounted at `/etc/encrypt/transport`.
+<3> Configures the truststore with the same keystore allowing the nodes to authenticate each other.
+<4> Alias and password must be provided in case the secret contains a keystore.
 
-.Enable endpoint TLS
-
-
+. Enable endpoint TLS.
++
 [source,yaml,options="nowrap",subs=attributes+]
 ----
 include::yaml/endpoint_encryption.yaml[]
