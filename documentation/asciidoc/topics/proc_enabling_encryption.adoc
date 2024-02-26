@@ -7,7 +7,7 @@ Encryption can be independently enabled for endpoint and cluster transport.
 .Prerequisites
 
 * A secret containing a certificate or a keystore. Endpoint and cluster should use different secrets.
-* A credentials keystore containing any password needed to access the keystore. See <<Adding credentials keystore>>.
+* A credentials keystore containing any password needed to access the keystore. See xref:adding-credentials_store_configuring-authentication[Adding credentials keystore].
 
 .Procedure
 
