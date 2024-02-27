@@ -20,7 +20,7 @@ spec:
     termination: passthrough
   {{- end }}
   {{- if .Values.deploy.expose.host }}
-  host: {{ .Values.deploy.expose.host | quote }} }
+  host: {{ .Values.deploy.expose.host | quote }}
   {{- end }}
   port:
     targetPort: 11222
