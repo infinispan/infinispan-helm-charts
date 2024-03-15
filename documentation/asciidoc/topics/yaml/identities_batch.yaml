@@ -14,4 +14,4 @@ stringData:
     user create user1 -p changeme -g admin
     user create user2 -p changeme -g deployer
     user create monitor -p password --users-file metrics-users.properties --groups-file metrics-groups.properties
-    credentials add keystore -c password -p secret --path="internal-credentials.pfx"
+    credentials add keystore -c password -p secret --path="credentials.pfx"
