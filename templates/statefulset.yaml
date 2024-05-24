@@ -71,7 +71,7 @@ spec:
         - env:
           {{- include "infinispan-helm-charts.containerEnv" .Values.deploy.container | nindent 12 }}
           image: {{ .Values.images.server }}
-          imagePullPolicy: Always
+          imagePullPolicy: {{ .Values.deploy.container.imagePullPolicy }}
           args:
             - --cluster-name={{ include "infinispan-helm-charts.name" . }}
             - --server-config=/etc/config/infinispan.yml

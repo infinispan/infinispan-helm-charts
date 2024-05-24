@@ -51,6 +51,20 @@
                 "container": {
                     "description": "JVM, CPU, and memory resources for {brandname} pods.",
                     "properties": {
+                        "imagePullPolicy": {
+                            "description": "The {brandname} image pull policy.",
+                            "enum": [
+                                "",
+                                "IfNotPresent",
+                                "Always",
+                                "Never"
+                            ],
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "default": "Always"
+                        },
                         "extraJvmOpts": {
                             "description": "Passes JVM options to {brandname} Server.",
                             "type": [
