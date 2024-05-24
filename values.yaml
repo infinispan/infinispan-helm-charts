@@ -14,6 +14,7 @@ deploy:
   clusterDomain: cluster.local
 
   container:
+    imagePullPolicy: "Always"
     extraJvmOpts: ""
     libraries: ""
     # [USER] Define custom environment variables using standard K8s format
