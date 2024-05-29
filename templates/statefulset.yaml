@@ -91,7 +91,7 @@ spec:
           livenessProbe:
             failureThreshold: 5
             httpGet:
-              path: rest/v2/cache-managers/default/health/status
+              path: rest/v2/container/health/status
               port: 11222
               scheme: {{ include "infinispan-helm-charts.defaultEndpointSchema" . }}
             initialDelaySeconds: 10
@@ -102,7 +102,7 @@ spec:
           readinessProbe:
             failureThreshold: 5
             httpGet:
-              path: rest/v2/cache-managers/default/health/status
+              path: rest/v2/container/health/status
               port: 11222
               scheme: {{ include "infinispan-helm-charts.defaultEndpointSchema" . }}
             initialDelaySeconds: 10
@@ -112,7 +112,7 @@ spec:
           startupProbe:
             failureThreshold: 60
             httpGet:
-              path: rest/v2/cache-managers/default/health/status
+              path: rest/v2/container/health/status
               port: 11222
               scheme: {{ include "infinispan-helm-charts.defaultEndpointSchema" . }}
             initialDelaySeconds: 10
