@@ -311,6 +311,27 @@
                         }
                     }
                 },
+                "podAnnotations": {
+                    "description": "Adds annotations to every pod created",
+                    "items": {
+                        "properties": {
+                            "key": {
+                                "type": "string"
+                            },
+                            "value": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "key",
+                            "value"
+                        ]
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "podLabels": {
                     "description": "Adds labels to every pod created",
                     "items": {
