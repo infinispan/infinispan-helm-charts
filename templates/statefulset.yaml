@@ -21,7 +21,8 @@ spec:
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
         {{- if not (.Values.deploy.security.secretName) }}
         checksum/identities: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
-      {{- end }}
+        {{- end }}
+        {{- include "infinispan-helm-charts.podAnnotations" . | nindent 8 }}
       labels:
         app: infinispan-pod
         clusterName: {{ include "infinispan-helm-charts.name" . }}
@@ -135,6 +136,8 @@ spec:
               name: config-volume
             - mountPath: /opt/infinispan/server/data
               name: data-volume
+            - mountPath: /opt/infinispan/server/log
+              name: log-volume
             - mountPath: /etc/security
               name: identities-volume
           {{- if  and .Values.deploy.ssl (ne .Values.deploy.ssl.transportSecretName "")}}
@@ -166,6 +169,8 @@ spec:
         - name: data-volume
           emptyDir: { }
         {{- end }}
+        - name: log-volume
+          emptyDir: { }
       {{- with .Values.deploy.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
