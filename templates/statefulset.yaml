@@ -136,8 +136,6 @@ spec:
               name: config-volume
             - mountPath: /opt/infinispan/server/data
               name: data-volume
-            - mountPath: /opt/infinispan/server/log
-              name: log-volume
             - mountPath: /etc/security
               name: identities-volume
           {{- if  and .Values.deploy.ssl (ne .Values.deploy.ssl.transportSecretName "")}}
@@ -169,8 +167,6 @@ spec:
         - name: data-volume
           emptyDir: { }
         {{- end }}
-        - name: log-volume
-          emptyDir: { }
       {{- with .Values.deploy.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
