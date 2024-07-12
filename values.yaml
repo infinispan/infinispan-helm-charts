@@ -76,6 +76,8 @@ deploy:
 
   resourceLabels: []
 
+  podAnnotations: []
+
   podLabels: []
 
   svcLabels: []

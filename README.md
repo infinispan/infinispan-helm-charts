@@ -37,6 +37,7 @@ Configure your Infinispan cluster by specifying values in the `deploy.*` section
 | `deploy.expose.host` | Specifies the hostname where the Ingress is exposed, if required. | `""` | |
 | `deploy.expose.annotations` | Adds annotations to the service that exposes Infinispan on the network. | `{}` | - |
 | `deploy.logging.categories` | Configures Infinispan cluster log categories and levels. | `{}` | - |
+| `deploy.podAnnotations` | Adds annotations to each Infinispan pod that you create. | `{}` | - |
 | `deploy.podLabels` | Adds labels to each Infinispan pod that you create. | `{}` | - |
 | `deploy.svcLabels` | Adds labels to each service that you create.| `{}` | - |
 | `deploy.resourceLabels` | Adds labels to all Infinispan resources including pods and services. | `{}` | - |
