@@ -482,7 +482,7 @@
                                                                   "minLength": 1
                                                                }
                                                             },
-                                                         "required": ["path"]
+                                                         "required": ["alias","path","password"]
 
                                                          }
                                                       }
