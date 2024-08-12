@@ -134,7 +134,7 @@ a|[source, yaml]
     - podAffinityTerm:
         labelSelector:
           matchLabels:
-            clusterName: "{{ tpl include \"infinispan-helm-charts.name\" . }}"
+            clusterName: {{ tpl include "infinispan-helm-charts.name" . }}
               app: infinispan-pod
         topologyKey: kubernetes.io/hostname
       weight: 100

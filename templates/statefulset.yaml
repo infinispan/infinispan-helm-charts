@@ -49,9 +49,11 @@ spec:
         {{- end }}
         {{- if .Values.deploy.podAntiAffinity }}
         podAntiAffinity:
-        {{- with .Values.deploy.podAntiAffinity }}
-          {{- toYaml . | nindent 10 }}
-        {{- end }}
+          {{-  if typeIs "string" .Values.deploy.podAntiAffinity }}
+            {{- tpl .Values.deploy.podAntiAffinity . | nindent 10 }}
+          {{- else }}
+            {{- toYaml .Values.deploy.podAntiAffinity | nindent 10 }}
+          {{- end }}
         {{- end }}
         {{- if .Values.deploy.nodeAffinity }}
         nodeAffinity:
