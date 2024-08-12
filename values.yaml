@@ -1,7 +1,6 @@
 # Default values for infinispan-helm-charts.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-
 images:
   # [USER] The container images for server pods.
   server: quay.io/infinispan/server:15.0
@@ -88,12 +87,15 @@ deploy:
 
   podAffinity: {}
 
-  podAntiAffinity:
+  # PodAntiAffinity is expressed as a string (note the > char)
+  # to allow dynamic replacing of clusterName in statefulSet
+  # chart also supports plain yaml value if dynamic replacement is not needed
+  podAntiAffinity: >
     preferredDuringSchedulingIgnoredDuringExecution:
       - podAffinityTerm:
           labelSelector:
             matchLabels:
-              clusterName: "{{ tpl include \"infinispan-helm-charts.name\" . }}"
+              clusterName: {{ include "infinispan-helm-charts.name" . }}
               app: infinispan-pod
           topologyKey: kubernetes.io/hostname
         weight: 100
