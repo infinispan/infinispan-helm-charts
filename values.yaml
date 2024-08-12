@@ -104,6 +104,14 @@ deploy:
 
   securityContext: {}
 
+  volumeMounts: []
+  #  - name: logs
+  #    mountPath: /logs
+
+  volumes: []
+  #  - name: logs
+  #    emptyDir: {}
+
   ssl:
     endpointSecretName: ""
     transportSecretName: ""

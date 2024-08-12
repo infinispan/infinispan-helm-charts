@@ -422,6 +422,39 @@
                         "null"
                     ]
                 },
+                "volumeMounts": {
+                    "description": "Add custome volume mounts to infinispan",
+                    "items": {
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "mountPath": {
+                                "type": "string"
+                            }
+                        },
+                        "additionalProperties": true
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "volumes": {
+                    "description": "Add custome volumes to infinispan",
+                    "items": {
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            }
+                        },
+                        "additionalProperties": true
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "infinispan": {
                   "description": "Infinispan cluster configuration",
                   "type": [
