@@ -149,6 +149,9 @@ spec:
             - mountPath: "/etc/encrypt/endpoint"
               name: "encrypt-volume"
           {{- end }}
+          {{- with .Values.deploy.volumeMounts }}
+          {{- toYaml . | nindent 12 }}
+          {{- end }}
       volumes:
         - configMap:
             name: {{ printf "%s-configuration" (include "infinispan-helm-charts.name" .) }}
@@ -169,6 +172,9 @@ spec:
         {{- if .Values.deploy.container.storage.ephemeral }}
         - name: data-volume
           emptyDir: { }
+        {{- end }}
+        {{- with .Values.deploy.volumes }}
+        {{- toYaml . | nindent 8 }}
         {{- end }}
       {{- with .Values.deploy.tolerations }}
       tolerations:
