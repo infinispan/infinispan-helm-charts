@@ -21,11 +21,10 @@ spec:
       {{- if and (eq (.Values.deploy.expose.type) "NodePort") (.Values.deploy.expose.nodePort) }}
       nodePort: {{ .Values.deploy.expose.nodePort }}
       {{- end}}
+  {{- if .Values.deploy.jmx.enabled }}
     - port: 9999
       protocol: TCP
       name: jmx
-      {{- if and (eq (.Values.deploy.expose.type) "NodePort") (.Values.deploy.expose.nodePort) }}
-      nodePort: {{ .Values.deploy.expose.nodePort }}
-      {{- end}}
+  {{- end}}
   selector:
   {{- include "infinispan-helm-charts.selectorLabels" . | nindent 4 }}
