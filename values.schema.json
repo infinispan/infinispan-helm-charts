@@ -195,6 +195,44 @@
                               "string",
                               "null"
                           ]
+                      },
+                      "transportSecretName": {
+                          "description": "Specifies the name of a secret that contains TLS certificate",
+                          "type": [
+                              "string",
+                              "null"
+                          ]
+                      },
+                      "certmanager": {
+                          "type": "object",
+                          "properties": {
+                            "enabled": {
+                                "description": "Specifies the name of a secret that contains TLS certificate",
+                                "type": "boolean"
+                            },
+                            "endpoint": {
+                                "description": "Cert manager sepc",
+                                "type": "object",
+                                "properties": {
+                                    "enabled": {
+                                        "description": "Specify if certmanager should create the secret",
+                                        "type": "boolean"
+                                    }
+                                },
+                                "additionalProperties": true
+                            },
+                            "transport": {
+                                "description": "Cert manager spec",
+                                "type": "object",
+                                "properties": {
+                                    "enabled": {
+                                        "description": "Specifies if certmanager should create the secret",
+                                        "type": "boolean"
+                                    }
+                                },
+                                "additionalProperties": true
+                            }
+                          }
                       }
                      }
                   },
