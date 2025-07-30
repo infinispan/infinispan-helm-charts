@@ -8,7 +8,7 @@ Configure the container images for Infinispan Server pods by specifying values i
 
 | Value | Description | Default | Additional Information |
 | ----- | ----------- | ------- | ---------------------- |
-| `images.server` | FQN of the Infinispan Server image to deploy. | `quay.io/infinispan/server:15.1` | - |
+| `images.server` | FQN of the Infinispan Server image to deploy. | `quay.io/infinispan/server:15.2` | - |
 | `images.initContainer` | FQN of a minimal Linux container for the initContainer. | `registry.access.redhat.com/ubi8-micro` | - |
 
 ## Deployment configuration
