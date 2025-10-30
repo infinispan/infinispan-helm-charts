@@ -51,6 +51,14 @@
                 "container": {
                     "description": "JVM, CPU, and memory resources for Infinispan pods.",
                     "properties": {
+                        "imagePullSecrets": {
+                            "description": "Image pull secrets for pulling from a private registry.",
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "default": []
+                        },
                         "imagePullPolicy": {
                             "description": "The Infinispan image pull policy.",
                             "enum": [
