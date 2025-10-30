@@ -19,6 +19,7 @@ Configure your {brandname} cluster by specifying values in the `deploy.*` sectio
 | ----- | ----------- | ------- | ---------------------- |
 | `deploy.clusterDomain` | Specifies the internal Kubernetes cluster domain. | cluster.local | - |
 | `deploy.replicas` | Specifies the number of nodes in your {brandname} cluster, with a pod created for each node. | 1 | - |
+| `deploy.container.imagePullSecrets` | Image pull secrets for pulling from a private registry. | `[]` | Reference a k8s secret containing credentials for pulling image from a private registry. |
 | `deploy.container.imagePullPolicy` | The {brandname} image pull policy. | `"Always"` | - |
 | `deploy.container.extraJvmOpts` | Passes JVM options to {brandname} Server. | `""` | - |
 | `deploy.container.libraries` | Libraries to be downloaded before server startup. | `""` | Specify multiple, space-separated artifacts represented as URLs or as Maven coordinates. Archive artifacts in .tar, .tar.gz or .zip formats will be extracted. |
