@@ -116,6 +116,17 @@ deploy:
   ssl:
     endpointSecretName: ""
     transportSecretName: ""
+    certmanager:
+      enabled: false
+      endpoint:
+        enabled: false
+        # docs https://cert-manager.io/docs/usage/certificate/
+        #issuerRef:
+        #  name: selfsigned
+        #  kind: ClusterIssuer
+        # commonName: 'example-infinispan'
+      transport:
+        enabled: false
 
   infinispan:
     cacheContainer:

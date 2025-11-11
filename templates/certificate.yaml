@@ -1,0 +1,37 @@
+---
+{{- if and ( .Capabilities.APIVersions.Has "cert-manager.io/v1/Certificate" ) (.Values.deploy.ssl.certmanager.enabled) }}
+{{- if .Values.deploy.ssl.certmanager.endpoint.enabled }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ printf "%s-endpoint-cert" (include "infinispan-helm-charts.name" .) }}
+  annotations:
+    {{- include "infinispan-helm-charts.annotations" . | nindent 4 }}
+  labels:
+    app: infinispan-endpoint-cert
+    {{- include "infinispan-helm-charts.labels" . | nindent 4 }}
+spec:
+  secretName: {{ .Values.deploy.ssl.endpointSecretName }}
+  {{- with $_ := unset .Values.deploy.ssl.certmanager.endpoint "enabled" }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
+{{- end }}
+
+---
+{{- if .Values.deploy.ssl.certmanager.transport.enabled }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ printf "%s-transport-cert" (include "infinispan-helm-charts.name" .) }}
+  annotations:
+    {{- include "infinispan-helm-charts.annotations" . | nindent 4 }}
+  labels:
+    app: infinispan-transport-cert
+    {{- include "infinispan-helm-charts.labels" . | nindent 4 }}
+spec:
+  secretName: {{ .Values.deploy.ssl.transportSecretName }}
+  {{- with $_ := unset .Values.deploy.ssl.certmanager.transport "enabled" }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
+{{- end }}
+{{- end }}
