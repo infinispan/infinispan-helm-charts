@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 images:
   # [USER] The container images for server pods.
-  server: quay.io/infinispan/server:15.2
+  server: quay.io/infinispan/server:16.0
   initContainer: registry.access.redhat.com/ubi8-micro
 
 deploy:
