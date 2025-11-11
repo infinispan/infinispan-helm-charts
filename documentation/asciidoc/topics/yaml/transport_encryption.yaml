@@ -2,7 +2,7 @@ deploy:
   infinispan:
     cacheContainer:
       transport:
-         urn:infinispan:server:15.2:securityRealm: >
+         urn:infinispan:server:16.0:securityRealm: >
           "cluster-transport" #<1>
     server:
       security:
