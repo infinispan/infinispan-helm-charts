@@ -53,6 +53,11 @@ Configure your Infinispan cluster by specifying values in the `deploy.*` section
 | `deploy.securityContext` | Defines the securityContext settings used by the cluster's StatefulSet | `{}` | - |
 | `deploy.ssl.endpointSecretName` | Specifies the name of the secret that contains certificate for endpoint encryption | `""` | - |
 | `deploy.ssl.transportSecretName` | Specifies the name of the secret that contains certificate for transport encryption | `""` | - |
+| `deploy.ssl.certmanager.enabled` | Specifies if cert-manager should be used to issue certificates | `false` | - |
+| `deploy.ssl.certmanager.endpoint.enabled` | Switch to enable cert manager for creating secret endpointSecretName | `false` | - |
+| `deploy.ssl.certmanager.endpoint` | Cert manager specifications, like issueRef, commonName and others | `{}` | - |
+| `deploy.ssl.certmanager.transport.enabled` | Switch to enable cert manager for creating secret transportSecretName | `false` | - |
+| `deploy.ssl.certmanager.transport` | Cert manager specifications, like issueRef, commonName and others | `{}` | - |
 | `deploy.volumeMounts` | Add custome volume mounts to infinispan | `[]` | - |
 | `deploy.volumes` | Add custome volumes to infinispan | `[]` | - |
 | `deploy.infinispan` | Infinispan Server configuration. | - | You should not change the default socket bindings or the security realm and endpoints named "metrics". Modifying these default properties can result in unexpected behavior and loss of service. |
