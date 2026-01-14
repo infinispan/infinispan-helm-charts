@@ -103,6 +103,9 @@ deploy:
 
   nodeSelector: {}
 
+  jmx:
+    enabled: false
+
   securityContext: {}
 
   volumeMounts: []

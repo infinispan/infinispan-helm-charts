@@ -56,3 +56,4 @@ Configure your Infinispan cluster by specifying values in the `deploy.*` section
 | `deploy.volumeMounts` | Add custome volume mounts to infinispan | `[]` | - |
 | `deploy.volumes` | Add custome volumes to infinispan | `[]` | - |
 | `deploy.infinispan` | Infinispan Server configuration. | - | You should not change the default socket bindings or the security realm and endpoints named "metrics". Modifying these default properties can result in unexpected behavior and loss of service. |
+| `deploy.jmx.enabled` | Enable or disable JMX support. | false | Setting the value to 'true' will enable jmx support. |
