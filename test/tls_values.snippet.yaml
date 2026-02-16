@@ -9,7 +9,7 @@ deploy:
     cacheContainer:
       transport:
          stack: "kubernetes"
-         urn:infinispan:server:16.0:securityRealm: "cluster-transport"
+         urn:infinispan:server:16.1:securityRealm: "cluster-transport"
     server:
       security:
         credentialStores:
