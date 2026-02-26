@@ -18,7 +18,7 @@ jobs:
         id: install
 
       - name: Lint
-        run: helm lint
+        run: helm lint .
 
       - name: Create k8s Kind Cluster
         uses: helm/kind-action@v1.3.0
