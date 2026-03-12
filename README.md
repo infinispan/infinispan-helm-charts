@@ -39,17 +39,18 @@ Configure your Infinispan cluster by specifying values in the `deploy.*` section
 | `deploy.expose.annotations` | Adds annotations to the service that exposes Infinispan on the network. | `{}` | - |
 | `deploy.logging.categories` | Configures Infinispan cluster log categories and levels. | `{}` | - |
 | `deploy.podAnnotations` | Adds annotations to each Infinispan pod that you create. | `{}` | - |
-| `deploy.podLabels` | Adds labels to each Infinispan pod that you create. | `{}` | - |
+| `deploy.podLabels` | Adds labels to each Infinispan pod that you create. | `{}` | The keys `app`, `clusterName`, `infinispan_app` and `infinispan_clusterName` are reserved for internal selector labels and are ignored if provided. |
 | `deploy.svcLabels` | Adds labels to each service that you create.| `{}` | - |
 | `deploy.resourceLabels` | Adds labels to all Infinispan resources including pods and services. | `{}` | - |
 | `deploy.tolerations` | Node taints to tolerate | `[]` | - |
 | `deploy.nodeSelector` | Defines the nodeSelector policy used by the cluster's StatefulSet | `{}` | - |
 | `deploy.nodeAffinity` | Defines the nodeAffinity policy used by the cluster's StatefulSet | `{}` | - |
 | `deploy.podAffinity` | Defines the podAffinity policy used by the cluster's StatefulSet | `{}` | - |
-| `deploy.podAntiAffinity` | Defines the podAntiAffinity policy used by the cluster's StatefulSet | <pre><code>podAntiAffinity: ><br>preferredDuringSchedulingIgnoredDuringExecution:<br>      - podAffinityTerm:<br>          labelSelector:<br>            matchLabels:<br>              clusterName: {{ include "infinispan-helm-charts.name" . }}<br>              app: infinispan-pod<br>          topologyKey: kubernetes.io/hostname<br>        weight: 100</code></pre> | - |
+| `deploy.podAntiAffinity` | Defines the podAntiAffinity policy used by the cluster's StatefulSet | <pre><code>podAntiAffinity: ><br>preferredDuringSchedulingIgnoredDuringExecution:<br>      - podAffinityTerm:<br>          labelSelector:<br>            matchLabels:<br>              clusterName: {{ include "infinispan-helm-charts.name" . }}<br>              app: infinispan-pod<br>          topologyKey: kubernetes.io/hostname<br>        weight: 100</code></pre> | Default selector labels in this rule automatically reflect the value of `deploy.usePrefixedLabels`. |
 | `deploy.makeDataDirWritable` | Allows write access to the `data` directory for each Infinispan Server node. | false | Setting the value to `true` creates an initContainer that runs `chmod -R` on the `/opt/infinispan/server/data` directory and changes its permissions. |
 | `deploy.monitoring.enabled` | Enable or disable `ServiceMonitor` functionality. | false | Users must have `monitoring-edit` role assigned by the admin to deploy the Helm chart with `ServiceMonitor` enabled. |
 | `deploy.nameOverride` | Specifies a name for all Infinispan cluster resources. | Helm Chart release name | Configure a name for the created resources only if you need it to be different to the Helm Chart release name. |
+| `deploy.usePrefixedLabels` | Use project-specific prefixed keys for internal selector labels to avoid collisions with admission controllers (e.g. Kyverno). | `false` | When `false`, selector labels use `app` and `clusterName`. When `true`, they use `infinispan_app` and `infinispan_clusterName`. Changing this value on an existing cluster requires deleting and recreating the StatefulSet due to the immutability of the `selector` field. |
 | `deploy.securityContext` | Defines the securityContext settings used by the cluster's StatefulSet | `{}` | - |
 | `deploy.ssl.endpointSecretName` | Specifies the name of the secret that contains certificate for endpoint encryption | `""` | - |
 | `deploy.ssl.transportSecretName` | Specifies the name of the secret that contains certificate for transport encryption | `""` | - |

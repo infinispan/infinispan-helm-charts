@@ -13,8 +13,7 @@ spec:
   replicas: {{ .Values.deploy.replicas }}
   selector:
     matchLabels:
-      infinispan_clusterName: {{ include "infinispan-helm-charts.name" . }}
-      infinispan_app: infinispan-pod
+      {{- include "infinispan-helm-charts.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
@@ -24,8 +23,7 @@ spec:
         {{- end }}
         {{- include "infinispan-helm-charts.podAnnotations" . | nindent 8 }}
       labels:
-        infinispan_clusterName: {{ include "infinispan-helm-charts.name" . }}
-        infinispan_app: infinispan-pod
+        {{- include "infinispan-helm-charts.selectorLabels" . | nindent 8 }}
         {{- include "infinispan-helm-charts.podLabels" . | nindent 8 }}
     spec:
       {{- if .Values.deploy.nodeSelector }}
