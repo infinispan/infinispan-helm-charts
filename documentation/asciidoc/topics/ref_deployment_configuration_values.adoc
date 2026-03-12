@@ -86,6 +86,13 @@ If you do not specify a port, the platform selects an available one.
 |Adds annotations to the service that exposes {brandname} on the network.
 |No default value.
 
+|`deploy.logging.console.json`
+|Outputs logs as JSON on stdout instead of the default colored text format.
+Useful for log aggregation pipelines such as ELK or Loki.
+When enabled, each log line includes the following extra fields: `time`, `service`, `namespace`, and `pod`.
+The `POD_NAME` and `POD_NAMESPACE` environment variables are automatically injected via the Kubernetes Downward API.
+|`false`
+
 |`deploy.logging.categories`
 |Configures {brandname} cluster log categories and levels.
 |No default value.

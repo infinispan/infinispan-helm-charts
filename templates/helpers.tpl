@@ -97,6 +97,14 @@ Include for indentation
   value: /etc/security/identities-batch
 - name: SERVER_LIBS
   value: {{ .libraries }}
+- name: POD_NAME
+  valueFrom:
+    fieldRef:
+      fieldPath: metadata.name
+- name: POD_NAMESPACE
+  valueFrom:
+    fieldRef:
+      fieldPath: metadata.namespace
 {{- if .env -}}
 {{ .env | toYaml | nindent 0 }}
 {{- end -}}
