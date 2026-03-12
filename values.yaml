@@ -96,8 +96,8 @@ deploy:
       - podAffinityTerm:
           labelSelector:
             matchLabels:
-              clusterName: {{ include "infinispan-helm-charts.name" . }}
-              app: infinispan-pod
+              infinispan_clusterName: {{ include "infinispan-helm-charts.name" . }}
+              infinispan_app: infinispan-pod
           topologyKey: kubernetes.io/hostname
         weight: 100
 

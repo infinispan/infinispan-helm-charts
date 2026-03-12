@@ -37,7 +37,7 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- range .Values.deploy.resourceLabels }}
-{{ .key }}: {{ .value }}
+{{ .key }}: {{ .value | quote }}
 {{- end }}
 {{- end }}
 
@@ -47,7 +47,7 @@ Pod custom Annotations
 
 {{- define "infinispan-helm-charts.podAnnotations" -}}
 {{- range .Values.deploy.podAnnotations }}
-{{ .key }}: {{ .value }}
+{{ .key }}: {{ .value | quote }}
 {{- end }}
 {{- end }}
 
@@ -57,7 +57,9 @@ Pod custom labels
 
 {{- define "infinispan-helm-charts.podLabels" -}}
 {{- range .Values.deploy.podLabels }}
-{{ .key }}: {{ .value }}
+{{- if and (ne .key "infinispan_clusterName") (ne .key "infinispan_app") }}
+{{ .key }}: {{ .value | quote }}
+{{- end }}
 {{- end }}
 {{- end }}
 
@@ -67,7 +69,7 @@ Service custom labels
 
 {{- define "infinispan-helm-charts.svcLabels" -}}
 {{- range .Values.deploy.svcLabels }}
-{{ .key }}: {{ .value }}
+{{ .key }}: {{ .value | quote }}
 {{- end }}
 {{- end }}
 
@@ -75,8 +77,8 @@ Service custom labels
 Service selector labels
 */}}
 {{- define "infinispan-helm-charts.selectorLabels" -}}
-clusterName: {{ include "infinispan-helm-charts.name" . }}
-app: infinispan-pod
+infinispan_clusterName: {{ include "infinispan-helm-charts.name" . }}
+infinispan_app: infinispan-pod
 {{- end }}
 
 {{/*
