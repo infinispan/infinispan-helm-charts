@@ -61,6 +61,11 @@ deploy:
     enabled: false
 
   logging:
+    console:
+      # [USER] Set to true to output logs as JSON on stdout instead of the default colored text format.
+      # Useful for log aggregation pipelines (ELK, Loki, etc.).
+      # When enabled, each log line includes extra fields: time, service, namespace, pod.
+      json: false
     categories:
       # [USER] Specify the FQN of a package from which you want to collect logs.
       - category: com.arjuna

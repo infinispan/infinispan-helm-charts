@@ -10,6 +10,16 @@
       <PatternLayout pattern="%highlight{%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p (%t) [%c] %m%throwable}{INFO=normal, DEBUG=normal, TRACE=normal}%n"/>
     </Console>
 
+    <!-- JSON output on the console for log aggregation (ELK, Loki, etc.) -->
+    <Console name="JSON-STDOUT">
+      <JsonLayout compact="true" eventEol="true" stacktraceAsString="true">
+        <KeyValuePair key="time"      value="$${date:yyyy-MM-dd'T'HH:mm:ss.SSSZ}" />
+        <KeyValuePair key="service"   value="infinispan" />
+        <KeyValuePair key="namespace" value="$${env:POD_NAMESPACE:-unknown}" />
+        <KeyValuePair key="pod"       value="$${env:POD_NAME:-unknown}" />
+      </JsonLayout>
+    </Console>
+
     <!-- Rolling file -->
     <RollingFile name="FILE" createOnDemand="true"
                  fileName="${path}/server.log"
@@ -70,7 +80,11 @@
 
   <Loggers>
     <Root level="INFO">
+      {{- if .Values.deploy.logging.console.json }}
+      <AppenderRef ref="JSON-STDOUT"/>
+      {{- else }}
       <AppenderRef ref="STDOUT"/>
+      {{- end }}
 
       <!-- Uncomment just one of the two lines bellow to use alternatively JSON logging or plain-text logging to file-->
       <AppenderRef ref="FILE"/>

@@ -37,6 +37,7 @@ Configure your Infinispan cluster by specifying values in the `deploy.*` section
 | `deploy.expose.nodePort` | Specifies a network port for node port services within the default range of 30000 to 32767. | 0 | If you do not specify a port, the platform selects an available one. |
 | `deploy.expose.host` | Specifies the hostname where the Ingress is exposed, if required. | `""` | |
 | `deploy.expose.annotations` | Adds annotations to the service that exposes Infinispan on the network. | `{}` | - |
+| `deploy.logging.console.json` | Outputs logs as JSON on stdout instead of the default colored text format. Useful for log aggregation pipelines (ELK, Loki, etc.). Each log line includes `time`, `service`, `namespace`, and `pod` fields. | `false` | The `POD_NAME` and `POD_NAMESPACE` environment variables are automatically injected via the Downward API and used to populate the `pod` and `namespace` fields. |
 | `deploy.logging.categories` | Configures Infinispan cluster log categories and levels. | `{}` | - |
 | `deploy.podAnnotations` | Adds annotations to each Infinispan pod that you create. | `{}` | - |
 | `deploy.podLabels` | Adds labels to each Infinispan pod that you create. | `{}` | - |

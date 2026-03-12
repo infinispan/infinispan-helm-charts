@@ -285,6 +285,20 @@
                 "logging": {
                     "description": "Configures logging categories and levels for Infinispan Server.",
                     "properties": {
+                        "console": {
+                            "description": "Configures the console (stdout) log output format.",
+                            "properties": {
+                                "json": {
+                                    "description": "Set to true to output logs as JSON on stdout for log aggregation (ELK, Loki, etc.). Adds time, service, namespace, and pod fields to each log entry.",
+                                    "default": false,
+                                    "type": "boolean"
+                                }
+                            },
+                            "type": [
+                                "object",
+                                "null"
+                            ]
+                        },
                         "categories": {
                             "description": "Adjusts the type and number of messages that Infinispan logs.",
                             "items": {
