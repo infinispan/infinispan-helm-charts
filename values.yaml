@@ -103,7 +103,7 @@ deploy:
       - podAffinityTerm:
           labelSelector:
             matchLabels:
-              {{- include "infinispan-helm-charts.selectorLabels" . | nindent 14 }}
+              {{- include "infinispan-helm-charts.selectorLabels" . | nindent 10 }}
           topologyKey: kubernetes.io/hostname
         weight: 100
 
