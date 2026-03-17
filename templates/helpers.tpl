@@ -77,10 +77,10 @@ Service custom labels
 Service selector labels
 */}}
 {{- define "infinispan-helm-charts.selectorLabels" -}}
-{{- if .Values.deploy.usePrefixedLabels }}
+{{- if .Values.deploy.usePrefixedLabels -}}
 infinispan_clusterName: {{ include "infinispan-helm-charts.name" . }}
 infinispan_app: infinispan-pod
-{{- else }}
+{{- else -}}
 clusterName: {{ include "infinispan-helm-charts.name" . }}
 app: infinispan-pod
 {{- end }}
