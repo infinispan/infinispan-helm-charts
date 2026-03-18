@@ -99,7 +99,7 @@ The `POD_NAME` and `POD_NAMESPACE` environment variables are automatically injec
 
 |`deploy.podLabels`
 | Adds labels to each {brandname} pod that you create.
-| No default value. The keys `app`, `clusterName`, `infinispan_app` and `infinispan_clusterName` are reserved for internal selector labels and are ignored if provided.
+| No default value. When `deploy.usePrefixedLabels` is `false`, the keys `app` and `clusterName` are reserved and ignored. When `true`, the keys `infinispan_app` and `infinispan_clusterName` are reserved and ignored.
 
 |`deploy.svcLabels`
 | Adds labels to each service that you create.

@@ -40,7 +40,7 @@ Configure your {brandname} cluster by specifying values in the `deploy.*` sectio
 | `deploy.logging.console.json` | Outputs logs as JSON on stdout instead of the default colored text format. Useful for log aggregation pipelines (ELK, Loki, etc.). Each log line includes `time`, `service`, `namespace`, and `pod` fields. | `false` | The `POD_NAME` and `POD_NAMESPACE` environment variables are automatically injected via the Downward API and used to populate the `pod` and `namespace` fields. |
 | `deploy.logging.categories` | Configures {brandname} cluster log categories and levels. | `{}` | - |
 | `deploy.podAnnotations` | Adds annotations to each Infinispan pod that you create. | `{}` | - |
-| `deploy.podLabels` | Adds labels to each Infinispan pod that you create. | `{}` | The keys `app`, `clusterName`, `infinispan_app` and `infinispan_clusterName` are reserved for internal selector labels and are ignored if provided. |
+| `deploy.podLabels` | Adds labels to each Infinispan pod that you create. | `{}` | When `deploy.usePrefixedLabels` is `false`, the keys `app` and `clusterName` are reserved and ignored. When `true`, the keys `infinispan_app` and `infinispan_clusterName` are reserved and ignored. |
 | `deploy.svcLabels` | Adds labels to each service that you create.| `{}` | - |
 | `deploy.resourceLabels` | Adds labels to all {brandname} resources including pods and services. | `{}` | - |
 | `deploy.tolerations` | Node taints to tolerate | `[]` | - |

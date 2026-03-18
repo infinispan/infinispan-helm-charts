@@ -57,8 +57,14 @@ Pod custom labels
 
 {{- define "infinispan-helm-charts.podLabels" -}}
 {{- range .Values.deploy.podLabels }}
-{{- if and (ne .key "clusterName") (ne .key "app") (ne .key "infinispan_clusterName") (ne .key "infinispan_app") }}
+{{- if $.Values.deploy.usePrefixedLabels }}
+{{- if and (ne .key "infinispan_clusterName") (ne .key "infinispan_app") }}
 {{ .key }}: {{ .value | quote }}
+{{- end }}
+{{- else }}
+{{- if and (ne .key "clusterName") (ne .key "app") }}
+{{ .key }}: {{ .value | quote }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
