@@ -99,7 +99,7 @@ The `POD_NAME` and `POD_NAMESPACE` environment variables are automatically injec
 
 |`deploy.podLabels`
 | Adds labels to each {brandname} pod that you create.
-| No default value.
+| No default value. When `deploy.usePrefixedLabels` is `false`, the keys `app` and `clusterName` are reserved and ignored. When `true`, the keys `infinispan_app` and `infinispan_clusterName` are reserved and ignored.
 
 |`deploy.svcLabels`
 | Adds labels to each service that you create.
@@ -108,6 +108,12 @@ The `POD_NAME` and `POD_NAMESPACE` environment variables are automatically injec
 |`deploy.resourceLabels`
 |Adds labels to all {brandname} resources including pods and services.
 |No default value.
+
+|`deploy.usePrefixedLabels`
+|Use project-specific prefixed keys for internal selector labels to avoid collisions with admission controllers (e.g. Kyverno).
+When `false`, selector labels use `app` and `clusterName`. When `true`, they use `infinispan_app` and `infinispan_clusterName`.
+Changing this value on an existing cluster requires deleting and recreating the StatefulSet due to the immutability of the `selector` field.
+|`false`
 
 |`deploy.makeDataDirWritable`
 |Allows write access to the `data` directory for each {brandname} Server node. |`false`
