@@ -1,0 +1,114 @@
+Thank you for installing {{ .Chart.Name }}.
+Your release is named {{ .Release.Name }}.
+Namespace: {{ .Release.Namespace }}
+Infinispan Server cluster "{{ include "infinispan-helm-charts.name" . }}" has been deployed with {{ .Values.deploy.replicas }} replica(s).
+
+To learn more about the release, try:
+
+  $ helm status {{ .Release.Name }}
+  $ helm get all {{ .Release.Name }}
+
+{{- if .Values.deploy.expose.type }}
+
+The cluster is exposed via {{ .Values.deploy.expose.type }}.
+
+{{- if eq .Values.deploy.expose.type "Route" }}
+To get the route hostname:
+
+  $ {{ if .Capabilities.APIVersions.Has "route.openshift.io/v1" }}oc{{ else }}kubectl{{ end }} get route {{ include "infinispan-helm-charts.name" . }} -o jsonpath='{.spec.host}'
+
+{{- else if eq .Values.deploy.expose.type "LoadBalancer" }}
+To get the LoadBalancer IP:
+
+  $ kubectl get svc {{ include "infinispan-helm-charts.name" . }} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+
+{{- else if eq .Values.deploy.expose.type "NodePort" }}
+To get the NodePort:
+
+  $ kubectl get svc {{ include "infinispan-helm-charts.name" . }} -o jsonpath='{.spec.ports[0].nodePort}'
+
+{{- end }}
+{{- else }}
+The cluster is not exposed outside the Kubernetes cluster.
+To access it from within the cluster, use: {{ include "infinispan-helm-charts.name" . }}.{{ .Release.Namespace }}.svc.{{ .Values.deploy.clusterDomain }}:11222
+
+{{- end }}
+
+Connecting to the cluster:
+{{- if .Values.deploy.expose.type }}
+{{- if eq .Values.deploy.expose.type "Route" }}
+{{- if .Capabilities.APIVersions.Has "route.openshift.io/v1/Route" }}
+REST API example (OpenShift Route):
+
+  $ ROUTE_HOST=$(oc get route {{ include "infinispan-helm-charts.name" . }} -n {{ .Release.Namespace }} -o jsonpath='{.spec.host}')
+  $ curl -u developer:<password> {{ include "infinispan-helm-charts.defaultEndpointSchema" . | lower | trim }}://$ROUTE_HOST/rest/v2/cluster
+
+Hot Rod client configuration:
+
+  infinispan.client.hotrod.server_list=$ROUTE_HOST:443
+  {{- if and .Values.deploy.ssl (ne .Values.deploy.ssl.endpointSecretName "") }}
+  infinispan.client.hotrod.use_ssl=true
+  infinispan.client.hotrod.sni_host_name=$ROUTE_HOST
+  {{- end }}
+{{- else if .Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress" }}
+REST API example (Kubernetes Ingress):
+{{- if .Values.deploy.expose.host }}
+
+  $ INGRESS_HOST={{ .Values.deploy.expose.host }}
+  $ curl -u developer:<password> {{ include "infinispan-helm-charts.defaultEndpointSchema" . | lower | trim }}://$INGRESS_HOST/rest/v2/cluster
+
+Hot Rod client configuration:
+
+  infinispan.client.hotrod.server_list=$INGRESS_HOST:{{ if and .Values.deploy.ssl (ne .Values.deploy.ssl.endpointSecretName "") }}443{{ else }}80{{ end }}
+  {{- if and .Values.deploy.ssl (ne .Values.deploy.ssl.endpointSecretName "") }}
+  infinispan.client.hotrod.use_ssl=true
+  {{- end }}
+{{- else }}
+NOTE: Ingress requires deploy.expose.host to be set. Please set this value and upgrade the release.
+{{- end }}
+{{- end }}
+{{- else if eq .Values.deploy.expose.type "LoadBalancer" }}
+REST API example:
+
+  $ LB_IP=$(kubectl get svc {{ include "infinispan-helm-charts.name" . }} -n {{ .Release.Namespace }} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+  $ curl -u developer:<password> {{ include "infinispan-helm-charts.defaultEndpointSchema" . | lower | trim }}://$LB_IP:11222/rest/v2/cluster
+
+Hot Rod client configuration:
+
+  infinispan.client.hotrod.server_list=$LB_IP:11222
+{{- else if eq .Values.deploy.expose.type "NodePort" }}
+REST API example:
+
+  $ NODE_IP=$(kubectl get nodes -o jsonpath='{.items[0].status.addresses[0].address}')
+  $ NODE_PORT=$(kubectl get svc {{ include "infinispan-helm-charts.name" . }} -n {{ .Release.Namespace }} -o jsonpath='{.spec.ports[0].nodePort}')
+  $ curl -u developer:<password> {{ include "infinispan-helm-charts.defaultEndpointSchema" . | lower | trim }}://$NODE_IP:$NODE_PORT/rest/v2/cluster
+
+Hot Rod client configuration:
+
+  infinispan.client.hotrod.server_list=$NODE_IP:$NODE_PORT
+{{- end }}
+{{- else }}
+
+To connect from outside the cluster, use port-forwarding:
+
+  $ kubectl port-forward -n {{ .Release.Namespace }} svc/{{ include "infinispan-helm-charts.name" . }} 11222:11222
+
+Then connect to localhost:11222
+{{- end }}
+
+{{- if .Values.deploy.security.secretName }}
+
+Security is enabled using your provided secret: {{ .Values.deploy.security.secretName }}
+{{- else }}
+
+Security is enabled with auto-generated credentials.
+Default users created: developer (with admin role), monitor (for metrics)
+
+To retrieve the password:
+
+  $ kubectl get secret {{ include "infinispan-helm-charts.secret" . }} -n {{ .Release.Namespace }} -o jsonpath='{.data.password}' | base64 -d
+{{- end }}
+
+For more information, visit:
+  - Documentation: https://infinispan.org/documentation/
+  - GitHub: https://github.com/infinispan/infinispan-helm-charts
