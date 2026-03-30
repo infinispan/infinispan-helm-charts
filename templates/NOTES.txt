@@ -1,0 +1,295 @@
+{{- $cliTool := "kubectl" -}}
+{{- $gateResource := "Ingress" -}}
+{{- $authMethod := "" -}}
+{{- $clusterName := include "infinispan-helm-charts.name" . -}}
+{{- $endpointSchema := include "infinispan-helm-charts.defaultEndpointSchema" . | lower | trim -}}
+{{- if .Capabilities.APIVersions.Has "route.openshift.io/v1" -}}
+  {{- $cliTool = "oc" -}}
+  {{- $gateResource = "Route" -}}
+{{- end -}}
+{{- if not (and .Values.deploy.ssl (ne .Values.deploy.ssl.endpointSecretName "")) -}}
+  {{- $authMethod = "--digest " -}}
+{{- end }}
+## Thank you for installing {{ .Chart.Name }}
+
+| Properties    |                              |
+|---------------|------------------------------|
+| Release name  | {{ .Release.Name }}          |
+| Namespace     | {{ .Release.Namespace }}     |
+| Cluster Name  | {{ $clusterName }}           |
+| Replicas      | {{ .Values.deploy.replicas }}|
+
+To learn more about the release, try:
+
+    helm status {{ .Release.Name }} -n {{ .Release.Namespace }}
+    helm get all {{ .Release.Name }} -n {{ .Release.Namespace }}
+
+{{if .Values.deploy.expose.type }}
+## Connecting Info
+  {{if eq .Values.deploy.expose.type "Route" }}
+
+    {{- if .Capabilities.APIVersions.Has "route.openshift.io/v1" -}}
+Cluster {{ $clusterName}} is exposed via Route
+    {{- else }}
+Cluster {{ $clusterName}} is exposed via Ingress
+    {{- end }}
+
+    {{- if .Capabilities.APIVersions.Has "route.openshift.io/v1" }}
+
+To get the Route address:
+
+    INFINISPAN_HOST=$({{ $cliTool }} get route {{ $clusterName }} -n {{ .Release.Namespace }} -o jsonpath='{.spec.host}')
+    {{- else }}
+
+To get the Ingress address:
+
+    INFINISPAN_HOST=$({{ $cliTool }} get ingress {{ $clusterName }} -n {{ .Release.Namespace }} -o jsonpath='{.spec.rules[0].host}')
+    {{- end }}
+### Connecting via REST API example:
+    {{- if eq $endpointSchema "https" }}
+    export CURL_CA_BUNDLE=/path/to/truststore.pem # Use your certificate
+    {{- end }}
+    {{- if .Values.deploy.security.secretName }}
+    curl {{ $authMethod }}-u <username>:<password> {{ $endpointSchema }}://$INFINISPAN_HOST/rest/v3/caches
+    {{- else }}
+    PASSWORD=$({{ $cliTool }} get secret {{ include "infinispan-helm-charts.secret" . }} -n {{ .Release.Namespace }} -o jsonpath='{.data.password}' | base64 -d)
+    curl {{ $authMethod }}-u developer:$PASSWORD {{ $endpointSchema }}://$INFINISPAN_HOST/rest/v3/caches
+    {{- end }}
+
+### Hot Rod client configuration (hotrod-client.properties):
+    {{if and .Values.deploy.ssl (ne .Values.deploy.ssl.endpointSecretName "") -}}
+      {{if .Values.deploy.expose.host -}}
+    # Server connection
+    infinispan.client.hotrod.server_list={{ .Values.deploy.expose.host }}:443
+    infinispan.client.intelligence=BASIC
+    infinispan.client.hotrod.use_ssl=true
+    infinispan.client.hotrod.sni_host_name={{ .Values.deploy.expose.host }}
+    infinispan.client.hotrod.trust_store_file_name=<path-to-trust-store-file>
+    infinispan.client.hotrod.trust_store_password=<trust-store-password>
+    # Authentication
+    infinispan.client.hotrod.use_auth=true
+    infinispan.client.hotrod.sasl_mechanism=PLAIN
+        {{- if .Values.deploy.security.secretName }}
+    infinispan.client.hotrod.auth_username=<your-username>
+    infinispan.client.hotrod.auth_password=<your-password>
+        {{- else }}
+    infinispan.client.hotrod.auth_username=developer
+    infinispan.client.hotrod.auth_password=$PASSWORD
+        {{- end }}
+    infinispan.client.hotrod.auth_realm=default
+      {{- else }}
+  NOTE: {{ $gateResource }} is configured with TLS but deploy.expose.host is not set.
+  Infinispan requires both TLS and SNI hostname for external access via {{ $gateResource }}.
+
+  To fix this, set deploy.expose.host to your desired hostname and upgrade the release.
+      {{- end }}
+    {{- else }}
+  NOTE: {{ $gateResource }} is configured but TLS is not enabled (deploy.ssl.endpointSecretName is not set).
+  Infinispan requires TLS for external access via {{ $gateResource }}. The {{ $gateResource }} will be created but connections will fail.
+
+  To enable TLS, set deploy.ssl.endpointSecretName to your TLS secret name and upgrade the release.
+    {{- end }}
+   
+  {{- else if eq .Values.deploy.expose.type "LoadBalancer" }}
+Cluster {{ $clusterName}} is exposed via LoadBalancer
+
+To get the LoadBalancer address:
+
+    LB_ADDRESS=$({{ $cliTool }} get svc {{ include "infinispan-helm-charts.name" . }} -n {{ .Release.Namespace }} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+    [ -z "$LB_ADDRESS" ] && LB_ADDRESS=$({{ $cliTool }} get svc {{ include "infinispan-helm-charts.name" . }} -n {{ .Release.Namespace }} -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+    echo $LB_ADDRESS
+
+REST API example:
+
+    {{if eq $endpointSchema "https" }}
+    export CURL_CA_BUNDLE=/path/to/truststore.pem # Use your certificate
+    {{- end }}
+    {{if .Values.deploy.security.secretName }}
+    curl {{ $authMethod }}-u <username>:<password> {{ $endpointSchema }}://$LB_ADDRESS:11222/rest/v3/caches
+    {{- else }}
+    PASSWORD=$({{ $cliTool }} get secret {{ include "infinispan-helm-charts.secret" . }} -n {{ .Release.Namespace }} -o jsonpath='{.data.password}' | base64 -d)
+    curl {{ $authMethod }}-u developer:$PASSWORD {{ $endpointSchema }}://$LB_ADDRESS:11222/rest/v3/caches
+    {{- end }}
+
+Hot Rod client configuration (hotrod-client.properties):
+
+    # Server connection
+    infinispan.client.hotrod.server_list=$LB_ADDRESS:11222
+    infinispan.client.hotrod.intelligence=BASIC
+  
+    # Authentication
+    infinispan.client.hotrod.use_auth=true
+      {{- if and .Values.deploy.ssl (ne .Values.deploy.ssl.endpointSecretName "") }}
+    infinispan.client.hotrod.use_ssl=true
+    infinispan.client.hotrod.sasl_mechanism=PLAIN
+    infinispan.client.hotrod.sni_host_name=$LB_ADDRESS
+    infinispan.client.hotrod.trust_store_file_name=<path-to-trust-store-file>
+    infinispan.client.hotrod.trust_store_password=<trust-store-password>
+    {{- else }}
+    infinispan.client.hotrod.sasl_mechanism=DIGEST-SHA-256
+    {{- end }}
+    {{- if .Values.deploy.security.secretName }}
+    infinispan.client.hotrod.auth_username=<your-username>
+    infinispan.client.hotrod.auth_password=<your-password>
+    {{- else }}
+    infinispan.client.hotrod.auth_username=developer
+    infinispan.client.hotrod.auth_password=$PASSWORD
+    {{- end }}
+    infinispan.client.hotrod.auth_realm=default
+  {{- else if eq .Values.deploy.expose.type "NodePort" }}
+Cluster {{ $clusterName}} is exposed via NodePort
+
+To get the NodePort:
+
+    {{ $cliTool }} get svc {{ $clusterName }} -n {{ .Release.Namespace }} -o jsonpath='{.spec.ports[0].nodePort}'
+
+REST API example:
+
+    NODE_IP=$({{ $cliTool }} get nodes -o jsonpath='{.items[0].status.addresses[0].address}')
+    NODE_PORT=$({{ $cliTool }} get svc {{ $clusterName }} -n {{ .Release.Namespace }} -o jsonpath='{.spec.ports[0].nodePort}')
+    {{- if eq $endpointSchema "https" }}
+    export CURL_CA_BUNDLE=/path/to/truststore.pem # Use your certificate
+    {{- end }}
+    {{- if .Values.deploy.security.secretName }}
+    curl {{ $authMethod }}-u <username>:<password> {{ $endpointSchema }}://$NODE_IP:$NODE_PORT/rest/v3/caches
+    {{- else }}
+    PASSWORD=$({{ $cliTool }} get secret {{ include "infinispan-helm-charts.secret" . }} -n {{ .Release.Namespace }} -o jsonpath='{.data.password}' | base64 -d)
+    curl {{ $authMethod }}-u developer:$PASSWORD {{ $endpointSchema }}://$NODE_IP:$NODE_PORT/rest/v3/caches
+    {{- end }}
+
+Hot Rod client configuration (hotrod-client.properties):
+
+    # Server connection
+    infinispan.client.hotrod.server_list=$NODE_IP
+    infinispan.client.hotrod.intelligence=BASIC
+  
+    # Authentication
+    infinispan.client.hotrod.use_auth=true
+    {{- if and .Values.deploy.ssl (ne .Values.deploy.ssl.endpointSecretName "") }}
+    infinispan.client.hotrod.use_ssl=true
+    infinispan.client.hotrod.sasl_mechanism=PLAIN
+    infinispan.client.hotrod.sni_host_name=$NODE_IP
+    infinispan.client.hotrod.trust_store_file_name=<path-to-trust-store-file>
+    infinispan.client.hotrod.trust_store_password=<trust-store-password>
+    {{- else }}
+    infinispan.client.hotrod.sasl_mechanism=DIGEST-SHA-256
+    {{- end }}
+    {{- if .Values.deploy.security.secretName }}
+    infinispan.client.hotrod.auth_username=<your-username>
+    infinispan.client.hotrod.auth_password=<your-password>
+    {{- else }}
+    infinispan.client.hotrod.auth_username=developer
+    infinispan.client.hotrod.auth_password=$PASSWORD
+    {{- end }}
+    infinispan.client.hotrod.auth_realm=default
+  {{- end }}
+{{- else }}
+  {{- $internalUrl := print $clusterName "." .Release.Namespace ".svc." .Values.deploy.clusterDomain ":11222" }}
+The cluster is not exposed outside the Kubernetes cluster.
+
+To access it from within the cluster, use: {{ $internalUrl }}
+
+REST API example:
+
+    {{if eq $endpointSchema "https" }}
+    export CURL_CA_BUNDLE=/path/to/truststore.pem # Use your certificate
+    {{- end }}
+    {{if .Values.deploy.security.secretName }}
+    curl {{ $authMethod }}-u <username>:<password> {{ $endpointSchema }}://{{ $internalUrl }}/rest/v3/caches
+    {{else }}
+    PASSWORD=$({{ $cliTool }} get secret {{ include "infinispan-helm-charts.secret" . }} -n {{ .Release.Namespace }} -o jsonpath='{.data.password}' | base64 -d)
+    curl {{ $authMethod }}-u developer:$PASSWORD {{ $endpointSchema }}://{{ $internalUrl }}/rest/v3/caches
+    {{- end }}
+
+Hot Rod client configuration (hotrod-client.properties):
+
+    # Server connection
+    infinispan.client.hotrod.server_list={{ $internalUrl }}
+  
+    # Authentication
+    infinispan.client.hotrod.use_auth=true
+    {{- if and .Values.deploy.ssl (ne .Values.deploy.ssl.endpointSecretName "") }}
+    infinispan.client.hotrod.use_ssl=true
+    infinispan.client.hotrod.sasl_mechanism=PLAIN
+    infinispan.client.hotrod.sni_host_name={{ $internalUrl }}
+    infinispan.client.hotrod.trust_store_file_name=<path-to-trust-store-file>
+    infinispan.client.hotrod.trust_store_password=<trust-store-password>
+    {{- else }}
+    infinispan.client.hotrod.sasl_mechanism=DIGEST-SHA-256
+    {{- end }}
+    {{- if .Values.deploy.security.secretName }}
+    infinispan.client.hotrod.auth_username=<your-username>
+    infinispan.client.hotrod.auth_password=<your-password>
+    {{- else }}
+    infinispan.client.hotrod.auth_username=developer
+    infinispan.client.hotrod.auth_password=$PASSWORD
+    {{- end }}
+    infinispan.client.hotrod.auth_realm=default
+
+To connect from outside the cluster, use port-forwarding:
+
+  $ {{ $cliTool }} port-forward -n {{ .Release.Namespace }} svc/{{ $clusterName }} 11222:11222
+
+Then connect to localhost:11222 from your local machine.
+
+### REST API example:
+    {{- if eq $endpointSchema "https" }}
+    export CURL_CA_BUNDLE=/path/to/truststore.pem # Use your certificate
+    {{- end }}
+    {{- if .Values.deploy.security.secretName }}
+    curl {{ $authMethod }}-u <username>:<password> {{ $endpointSchema }}://localhost:11222/rest/v3/caches
+    {{- else }}
+    PASSWORD=$({{ $cliTool }} get secret {{ include "infinispan-helm-charts.secret" . }} -n {{ .Release.Namespace }} -o jsonpath='{.data.password}' | base64 -d)
+    curl {{ $authMethod }}-u developer:$PASSWORD {{ $endpointSchema }}://localhost:11222/rest/v3/caches
+    {{- end }}
+
+### Hot Rod client configuration (hotrod-client.properties):
+
+    # Server connection
+    infinispan.client.hotrod.server_list=localhost:11222
+    infinispan.client.hotrod.intelligence=BASIC
+  
+    # Authentication
+    infinispan.client.hotrod.use_auth=true
+    {{- if and .Values.deploy.ssl (ne .Values.deploy.ssl.endpointSecretName "") }}
+    infinispan.client.hotrod.use_ssl=true
+    infinispan.client.hotrod.sasl_mechanism=PLAIN
+    infinispan.client.hotrod.sni_host_name=localhost
+    infinispan.client.hotrod.trust_store_file_name=<path-to-trust-store-file>
+    infinispan.client.hotrod.trust_store_password=<trust-store-password>
+    {{- else }}
+    infinispan.client.hotrod.sasl_mechanism=DIGEST-SHA-256
+    {{- end }}
+    {{- if .Values.deploy.security.secretName }}
+    infinispan.client.hotrod.auth_username=<your-username>
+    infinispan.client.hotrod.auth_password=<your-password>
+    {{- else }}
+    infinispan.client.hotrod.auth_username=developer
+    infinispan.client.hotrod.auth_password=$PASSWORD
+    {{- end }}
+    infinispan.client.hotrod.auth_realm=default
+{{- end }}
+
+## Authentication
+
+{{- if .Values.deploy.security.secretName }}
+
+Authentication is enabled using your provided secret: {{ .Values.deploy.security.secretName }}
+
+Use the credentials from your secret to authenticate.
+{{- else }}
+
+Authentication is enabled with auto-generated credentials.
+
+Default users created: developer (with admin role), monitor (for metrics)
+
+To retrieve the password:
+
+    {{ $cliTool }} get secret {{ include "infinispan-helm-charts.secret" . }} -n {{ .Release.Namespace }} -o jsonpath='{.data.password}' | base64 -d
+{{end }}
+
+## References
+
+For more information, visit:
+  - [Infinispan Documentation - https://infinispan.org/documentation/](https://infinispan.org/documentation/)
+  - [Infinispan Helm Charts - https://github.com/infinispan/infinispan-helm-charts](https://github.com/infinispan/infinispan-helm-charts)
