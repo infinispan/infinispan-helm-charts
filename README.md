@@ -44,6 +44,7 @@ Configure your Infinispan cluster by specifying values in the `deploy.*` section
 | `deploy.svcLabels` | Adds labels to each service that you create.| `{}` | - |
 | `deploy.resourceLabels` | Adds labels to all Infinispan resources including pods and services. | `{}` | - |
 | `deploy.tolerations` | Node taints to tolerate | `[]` | - |
+| `deploy.topologySpreadConstraints` | Defines the topologySpreadConstraints used by the cluster's StatefulSet for pod scheduling. | `[]` | See [Kubernetes docs](https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/) for details. |
 | `deploy.nodeSelector` | Defines the nodeSelector policy used by the cluster's StatefulSet | `{}` | - |
 | `deploy.nodeAffinity` | Defines the nodeAffinity policy used by the cluster's StatefulSet | `{}` | - |
 | `deploy.podAffinity` | Defines the podAffinity policy used by the cluster's StatefulSet | `{}` | - |

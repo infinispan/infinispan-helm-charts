@@ -444,6 +444,54 @@
                         "null"
                     ]
                 },
+                "topologySpreadConstraints": {
+                    "description": "Defines the topologySpreadConstraints used by the cluster's StatefulSet for pod scheduling",
+                    "items": {
+                        "properties": {
+                            "maxSkew": {
+                                "type": "integer",
+                                "description": "MaxSkew describes the degree to which pods may be unevenly distributed"
+                            },
+                            "topologyKey": {
+                                "type": "string",
+                                "description": "TopologyKey is the key of node labels"
+                            },
+                            "whenUnsatisfiable": {
+                                "type": "string",
+                                "description": "WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint",
+                                "enum": ["DoNotSchedule", "ScheduleAnyway"]
+                            },
+                            "labelSelector": {
+                                "type": "object",
+                                "description": "LabelSelector is used to find matching pods"
+                            },
+                            "matchLabelKeys": {
+                                "type": "array",
+                                "description": "MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "minDomains": {
+                                "type": "integer",
+                                "description": "MinDomains indicates a minimum number of eligible domains"
+                            },
+                            "nodeAffinityPolicy": {
+                                "type": "string",
+                                "description": "NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew"
+                            },
+                            "nodeTaintsPolicy": {
+                                "type": "string",
+                                "description": "NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew"
+                            }
+                        },
+                        "additionalProperties": true
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "volumeMounts": {
                     "description": "Add custome volume mounts to infinispan",
                     "items": {
