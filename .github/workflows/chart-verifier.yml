@@ -1,0 +1,93 @@
+# This workflow verifies the Infinispan Helm chart using Red Hat's chart-verifier tool.
+# It packages the chart, runs verification checks, and fails only on non-certification errors.
+# Red Hat certification warnings (e.g., "Image is not Red Hat certified") are ignored.
+#
+# Triggers:
+# - Push to main branch
+# - Pull requests to any branch
+#
+name: Chart Verifier
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+jobs:
+  verify-chart:
+    name: Verify Helm Chart
+    runs-on: ubuntu-latest
+    env:
+      KUBECONFIG: ${{ github.workspace }}/.kube/config
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Verify branded files are up to date
+        run: |
+          ./brand.sh infinispan.conf
+
+          if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
+            echo "❌ Generated branded files are out of date."
+            echo "Run ./brand.sh infinispan.conf and commit the updated files."
+            git status --short --untracked-files=no
+            exit 1
+          fi
+
+      # Install helm CLI
+      - uses: azure/setup-helm@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+        id: install
+
+      # Extract version from Chart.yaml and package the chart
+      - name: Package Helm Chart
+        id: package
+        run: |
+          VERSION=$(grep '^version:' Chart.yaml | awk '{print $2}')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          helm package .
+          echo "chart_file=infinispan-${VERSION}.tgz" >> $GITHUB_OUTPUT
+
+      # Install chart-verifier CLI
+      - uses: redhat-actions/openshift-tools-installer@v1
+        with:
+          source: github
+          chart-verifier: latest
+
+      - name: Create k8s Kind Cluster
+        uses: helm/kind-action@v1
+        with:
+          node_image: kindest/node:v1.21.14
+
+      - name: Print Kube context info
+        run: |
+          echo $KUBECONFIG
+
+      # Verify the packaged chart
+      - uses: redhat-actions/chart-verifier@v1.3
+        with:
+          chart_uri: ${{ steps.package.outputs.chart_file }}
+          fail: false
+
+      # Check for non-certification errors in report
+      - name: Check Chart Verifier Results
+        run: |
+          REPORT_FILE="${{ github.workspace }}/chartverifier/report-info.json"
+
+          # Extract messages that don't contain "Image is not Red Hat certified"
+          NON_CERT_ERRORS=$(jq -r '.results.message[]? | select(contains("Image is not Red Hat certified") | not)' "$REPORT_FILE" 2>/dev/null || echo "")
+
+          if [ -n "$NON_CERT_ERRORS" ]; then
+            echo "❌ Unexpected errors found:"
+            echo "$NON_CERT_ERRORS"
+            exit 1
+          else
+            echo "✅ No unexpected errors"
+          fi
+
+      # Upload chart-verifier report as artifact
+      - name: Upload Chart Verifier Report
+        uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: chart-verifier-report
+          path: ${{ github.workspace }}/chartverifier/report-info.json
