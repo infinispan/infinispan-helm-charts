@@ -4,15 +4,13 @@ on:
     branches:
       - main
   pull_request:
-    branches:
-      - main
 jobs:
   kind:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v6
 
-      - uses: azure/setup-helm@v3.4
+      - uses: azure/setup-helm@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
         id: install
@@ -21,7 +19,7 @@ jobs:
         run: helm lint .
 
       - name: Create k8s Kind Cluster
-        uses: helm/kind-action@v1.3.0
+        uses: helm/kind-action@v1
         with:
           node_image: kindest/node:v1.21.14
 
