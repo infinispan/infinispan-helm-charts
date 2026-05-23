@@ -186,6 +186,10 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.deploy.topologySpreadConstraints }}
+      topologySpreadConstraints:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
   updateStrategy:
     type: RollingUpdate
   {{- if not .Values.deploy.container.storage.ephemeral }}

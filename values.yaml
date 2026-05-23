@@ -107,6 +107,8 @@ deploy:
           topologyKey: kubernetes.io/hostname
         weight: 100
 
+  topologySpreadConstraints: []
+
   nodeSelector: {}
 
   securityContext: {}
