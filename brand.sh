@@ -14,3 +14,4 @@ function brand() {
 
 brand README.md.tpl README.md
 brand values.schema.json.tpl values.schema.json
+brand NOTES.txt.tpl templates/NOTES.txt
