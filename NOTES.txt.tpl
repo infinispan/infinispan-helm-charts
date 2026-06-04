@@ -290,5 +290,5 @@ To retrieve the password:
 ## References
 
 For more information, visit:
-  - [{brandname} Documentation]({website})
+  - [{brandname} Website]({website})
   - [Infinispan Helm Charts](https://github.com/infinispan/infinispan-helm-charts)
