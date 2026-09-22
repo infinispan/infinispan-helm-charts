@@ -6,6 +6,7 @@ ifdef::context[:parent-context: {context}]
 Configure encryption for your {brandname}.
 
 include::{topics}/proc_enabling_encryption.adoc[leveloffset=+1]
+include::{topics}/proc_enabling_encryption_certmanager.adoc[leveloffset=+1]
 
 // Restore the parent context.
 ifdef::parent-context[:context: {parent-context}]

@@ -4,6 +4,12 @@
 [role="_abstract"]
 Encryption can be independently enabled for endpoint and cluster transport.
 
+[TIP]
+====
+The chart can create the required secrets for you with cert-manager instead of
+providing them manually. See xref:enabling-encryption-certmanager_{context}[Issuing TLS certificates with cert-manager].
+====
+
 .Prerequisites
 
 * A secret containing a certificate or a keystore. Endpoint and cluster should use different secrets.
