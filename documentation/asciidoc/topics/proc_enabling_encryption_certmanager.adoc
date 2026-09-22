@@ -1,0 +1,74 @@
+[id='enabling-encryption-certmanager_{context}']
+= Issuing TLS certificates with cert-manager
+
+[role="_abstract"]
+Instead of providing a pre-existing secret, you can let the chart create TLS secrets automatically with link:https://cert-manager.io/[cert-manager].
+When enabled, the chart generates a `Certificate` resource for the endpoint, the cluster transport, or both, and cert-manager populates the corresponding secret.
+
+.Prerequisites
+
+* cert-manager is installed in your cluster.
+
+.Procedure
+
+. Enable cert-manager for the endpoint and generate a keystore.
++
+[source,yaml,options="nowrap",subs=attributes+]
+----
+include::yaml/certmanager_endpoint.yaml[]
+----
+<1> Names the secret that cert-manager creates and that the server mounts for endpoint encryption.
+<2> Requests a `Certificate` for the endpoint.
+<3> Adds a PKCS12 `keystore.p12` entry to the secret. This is required: the server loads a keystore, so without a keystore password cert-manager writes only the raw `tls.crt` and `tls.key` and the server has nothing to load. The chart stores the password in a dedicated secret and references it from the `Certificate`.
++
+The certificate `commonName` and DNS names are computed automatically from the release name, namespace, and cluster domain.
+Use `certmanager.endpoint.additionalDnsNames` to add extra Subject Alternative Names.
++
+[NOTE]
+====
+On a fresh install the pods stay in `ContainerCreating` until cert-manager issues the certificate and creates the secret.
+This usually resolves within a few seconds.
+====
+
+. Reference the generated keystore from the server security realm.
++
+The keystore is mounted at `/etc/encrypt/endpoint/keystore.p12`.
+Configure the server to load it, and supply the keystore password through a credentials store as described in xref:enabling-encryption_{context}[Enabling TLS encryption].
++
+[source,yaml,options="nowrap",subs=attributes+]
+----
+include::yaml/certmanager_endpoint_realm.yaml[]
+----
+<1> Adds the keystore password to the credentials store. This value must match the `keystorePassword` set in the previous step.
+<2> Points the server identity at the keystore cert-manager mounts into the pod.
+<3> cert-manager stores the certificate under the alias `1`. You must set this alias so the server can find the entry.
+<4> References the credentials-store entry that holds the keystore password.
+
+. Optional: Use an existing issuer.
++
+By default the chart creates a self-signed `Issuer`.
+To sign certificates with your own `Issuer` or `ClusterIssuer`, provide an `issuerRef`:
++
+[source,yaml,options="nowrap",subs=attributes+]
+----
+include::yaml/certmanager_issuer.yaml[]
+----
+<1> References an existing issuer. When set, the chart does not create the self-signed issuer.
+
+. Optional: Secure cluster transport.
++
+Enable cert-manager for the transport in the same way.
+The transport keystore is mounted at `/etc/encrypt/transport/keystore.p12`; reference it from the transport security realm as shown in xref:enabling-encryption_{context}[Enabling TLS encryption].
++
+[source,yaml,options="nowrap",subs=attributes+]
+----
+include::yaml/certmanager_transport.yaml[]
+----
+<1> Names the secret that cert-manager creates for transport encryption.
+<2> Requests a `Certificate` for the cluster transport.
+<3> Adds a PKCS12 `keystore.p12` entry to the transport secret.
+
+[role="_additional-resources"]
+.Additional resources
+* link:https://cert-manager.io/docs/usage/certificate/[cert-manager Certificate resource]
+* link:{security_docs}[{brandname} Security Guide]

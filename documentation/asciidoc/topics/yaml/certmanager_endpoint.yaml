@@ -1,0 +1,7 @@
+deploy:
+  ssl:
+    endpointSecretName: "tls-secret" #<1>
+    certmanager:
+      endpoint:
+        enabled: true #<2>
+        keystorePassword: "changeit" #<3>

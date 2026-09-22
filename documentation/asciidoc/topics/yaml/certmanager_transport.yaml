@@ -1,0 +1,7 @@
+deploy:
+  ssl:
+    transportSecretName: "tls-transport-secret" #<1>
+    certmanager:
+      transport:
+        enabled: true #<2>
+        keystorePassword: "changeit" #<3>
