@@ -1,0 +1,9 @@
+deploy:
+  ssl:
+    endpointSecretName: "tls-secret"
+    certmanager:
+      endpoint:
+        enabled: true
+        issuerRef: #<1>
+          name: my-issuer
+          kind: ClusterIssuer

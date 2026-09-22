@@ -1,0 +1,63 @@
+[id='enabling-encryption-certmanager_{context}']
+= Issuing TLS certificates with cert-manager
+
+[role="_abstract"]
+Instead of providing a pre-existing secret, you can let the chart create TLS
+secrets automatically with link:https://cert-manager.io/[cert-manager]. When
+enabled, the chart generates a `Certificate` resource for the endpoint, the
+cluster transport, or both, and cert-manager populates the corresponding secret.
+
+.Prerequisites
+
+* cert-manager is installed in your cluster.
+
+.Procedure
+
+. Enable cert-manager for the endpoint.
++
+[source,yaml,options="nowrap",subs=attributes+]
+----
+include::yaml/certmanager_endpoint.yaml[]
+----
+<1> Names the secret that cert-manager creates and that the server mounts for endpoint encryption.
+<2> Requests a `Certificate` for the endpoint. Set `certmanager.transport.enabled` to do the same for cluster transport, using `transportSecretName`.
++
+The certificate `commonName` and DNS names are computed automatically from the
+release name, namespace, and cluster domain. Use
+`certmanager.endpoint.additionalDnsNames` to add extra Subject Alternative Names.
++
+[NOTE]
+====
+On a fresh install the pods stay in `ContainerCreating` until cert-manager
+issues the certificate and creates the secret. This usually resolves within a
+few seconds.
+====
+
+. Optional: Use an existing issuer.
++
+By default the chart creates a self-signed `Issuer`. To sign certificates with
+your own `Issuer` or `ClusterIssuer`, provide an `issuerRef`:
++
+[source,yaml,options="nowrap",subs=attributes+]
+----
+include::yaml/certmanager_issuer.yaml[]
+----
+<1> References an existing issuer. When set, the chart does not create the self-signed issuer.
+
+. Optional: Generate a PKCS12 keystore.
++
+Provide a keystore password to have cert-manager add a `keystore.p12` entry to
+the secret. The keystore is mounted at `/etc/encrypt/endpoint/keystore.p12`
+(or `/etc/encrypt/transport/keystore.p12` for transport) and can be referenced
+from the server security realm as described in xref:enabling-encryption_{context}[Enabling TLS encryption].
++
+[source,yaml,options="nowrap",subs=attributes+]
+----
+include::yaml/certmanager_keystore.yaml[]
+----
+<1> Password for the generated PKCS12 keystore. The chart stores it in a dedicated secret and references it from the `Certificate`.
+
+[role="_additional-resources"]
+.Additional resources
+* link:https://cert-manager.io/docs/usage/certificate/[cert-manager Certificate resource]
+* link:{security_docs}[{brandname} Security Guide]

@@ -88,6 +88,8 @@ deploy:
 This creates a `Certificate` resource that provisions the secret specified by `endpointSecretName`.
 DNS names for the certificate are computed automatically from the release name, namespace, and cluster domain.
 
+> **Note:** On a fresh install the pods stay in `ContainerCreating` until cert-manager issues the certificate and creates the secret; this usually resolves within a few seconds.
+
 ### Custom Issuer
 
 By default, a self-signed `Issuer` is created automatically. To use your own Issuer or ClusterIssuer:
