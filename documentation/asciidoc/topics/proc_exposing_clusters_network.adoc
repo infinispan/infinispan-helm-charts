@@ -16,10 +16,12 @@ You can also configure the {brandname} chart so that deployments are not exposed
 
 |`Route`
 ifdef::community[]
-|Exposes {brandname} through an ingress. This is the default value.
+|Exposes {brandname} through the cluster's native HTTP router, which creates an `Ingress` on {k8s} and a `Route` on {openshiftshort}.
+This is the default value.
 endif::community[]
 ifdef::downstream[]
-|Exposes {brandname} through a route. This is the default value.
+|Exposes {brandname} through the cluster's native HTTP router, which creates a `Route`.
+This is the default value.
 endif::downstream[]
 
 |`LoadBalancer`
@@ -32,11 +34,6 @@ endif::downstream[]
 |Disables exposing {brandname} on the network.
 |===
 +
-ifdef::community[]
-. Optionally specify a hostname with the `deploy.expose.host` field if you expose {brandname} through an ingress.
-endif::community[]
-ifdef::downstream[]
-. Optionally specify a hostname with the `deploy.expose.host` field if you expose {brandname} through a route.
-endif::downstream[]
-. Optionally specify a port with the `deploy.expose.nodePort` field if you expose {brandname} through a node port service.
+. Optionally specify a hostname with the `deploy.expose.host` field if you expose {brandname} through `deploy.expose.type: Route`.
+. Optionally specify a port with the `deploy.expose.nodePort` field if you expose {brandname} through `deploy.expose.type: NodePort`.
 . Install or upgrade your {brandname} Helm release.
