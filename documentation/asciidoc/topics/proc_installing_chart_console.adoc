@@ -1,5 +1,10 @@
 [id='installing-chart-console_{context}']
+ifdef::community[]
+= OpenShift only: Installing the {brandname} chart through the console
+endif::community[]
+ifdef::downstream[]
 = Installing the {brandname} chart through the {openshiftshort} console
+endif::downstream[]
 
 [role="_abstract"]
 Use the {osweb} to install the {brandname} chart from the Red Hat developer catalog.

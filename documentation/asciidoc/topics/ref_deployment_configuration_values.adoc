@@ -69,6 +69,12 @@ If you create a custom security secret then `deploy.security.batch` does not tak
 
 |`deploy.expose.type`
 |Specifies the service that exposes Hot Rod and REST endpoints on the network and provides access to your {brandname} cluster, including the {brandname} Console.
+ifdef::community[]
+The `Route` value exposes {brandname} through the cluster's native HTTP router, which creates an `Ingress` on {k8s} and a `Route` on {openshiftshort}.
+endif::community[]
+ifdef::downstream[]
+The `Route` value exposes {brandname} through the cluster's native HTTP router, which creates a `Route`.
+endif::downstream[]
 |`Route`
 Valid options are: `""` (empty value), `Route`, `LoadBalancer`, and `NodePort`.
 Set an empty value (`""`) if you do not want to expose {brandname} on the network.
@@ -125,7 +131,12 @@ This can be used to change the group of mounted file systems. Set `securityConte
 
 |`deploy.monitoring.enabled`
 |Enable or disable monitoring using `ServiceMonitor`.
+ifdef::community[]
+| `false` Users must have permission to create `ServiceMonitor` resources to deploy the Helm chart with `ServiceMonitor` enabled. On {openshiftshort}, an admin grants this with the `monitoring-edit` role.
+endif::community[]
+ifdef::downstream[]
 | `false` Users must have `monitoring-edit` role assigned by the admin to deploy the Helm chart with `ServiceMonitor` enabled.
+endif::downstream[]
 
 |`deploy.nameOverride`
 |Specifies a name for all {brandname} cluster resources.

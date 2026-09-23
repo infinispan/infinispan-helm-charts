@@ -1,0 +1,30 @@
+[id='uninstalling-chart-console_{context}']
+ifdef::community[]
+= OpenShift only: Uninstalling the {brandname} chart through the console
+endif::community[]
+ifdef::downstream[]
+= Uninstalling the {brandname} chart through the {openshiftshort} console
+endif::downstream[]
+
+[role="_abstract"]
+Use the {osweb} to uninstall a {brandname} Helm release and remove the pods and other deployment artifacts it created.
+
+.Prerequisites
+
+* Have access to {openshiftshort}.
+* Have an installed {brandname} Helm release.
+
+.Procedure
+
+. Log in to the {osweb}.
+. Select the **Developer** perspective.
+. Select the **Helm** view to list the Helm releases in your project.
+. Locate and select the {brandname} Helm release to open its side panel.
+. Select the **Actions** button and then select **Uninstall Helm Release**.
++
+[TIP]
+====
+Alternatively, in the **Topology** view, right-click the {brandname} Helm release and select **Uninstall Helm Release**.
+====
++
+. In the confirmation prompt, enter the name of the release and then select **Uninstall**.
