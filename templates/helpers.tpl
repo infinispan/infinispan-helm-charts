@@ -138,3 +138,40 @@ Schema for default endpoint
       {{- end -}}
    {{ end -}}
 {{ end }}
+
+{{/*
+Fail fast when a TLS secret is configured but the matching security realm is
+missing its serverIdentities.ssl section. Without this cross-check the server
+would start unencrypted while the chart (routes, NOTES.txt) advertises TLS.
+Scoped to the "default" (endpoint) and "cluster-transport" (transport) realms.
+*/}}
+{{- define "infinispan-helm-charts.validateSsl" -}}
+{{- $ssl := .Values.deploy.ssl -}}
+{{- if $ssl -}}
+{{- $realms := dig "infinispan" "server" "security" "securityRealms" (list) .Values.deploy -}}
+{{- $endpointEnabled := or (ne (dig "endpointSecretName" "" $ssl) "") (dig "certmanager" "endpoint" "enabled" false $ssl) -}}
+{{- if $endpointEnabled -}}
+{{- $hasSsl := false -}}
+{{- range $realms -}}
+{{- if and (eq (dig "name" "" .) "default") (dig "serverIdentities" "ssl" false .) -}}
+{{- $hasSsl = true -}}
+{{- end -}}
+{{- end -}}
+{{- if not $hasSsl -}}
+{{- fail "deploy.ssl.endpointSecretName (or deploy.ssl.certmanager.endpoint) is set but the \"default\" security realm has no serverIdentities.ssl. Add the ssl keystore config to the \"default\" realm under deploy.infinispan.server.security.securityRealms, or unset deploy.ssl.endpointSecretName." -}}
+{{- end -}}
+{{- end -}}
+{{- $transportEnabled := or (ne (dig "transportSecretName" "" $ssl) "") (dig "certmanager" "transport" "enabled" false $ssl) -}}
+{{- if $transportEnabled -}}
+{{- $hasSsl := false -}}
+{{- range $realms -}}
+{{- if and (eq (dig "name" "" .) "cluster-transport") (dig "serverIdentities" "ssl" false .) -}}
+{{- $hasSsl = true -}}
+{{- end -}}
+{{- end -}}
+{{- if not $hasSsl -}}
+{{- fail "deploy.ssl.transportSecretName (or deploy.ssl.certmanager.transport) is set but the \"cluster-transport\" security realm has no serverIdentities.ssl. Add the ssl keystore config to the \"cluster-transport\" realm under deploy.infinispan.server.security.securityRealms, or unset deploy.ssl.transportSecretName." -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
