@@ -18,6 +18,37 @@ jobs:
       - name: Lint
         run: helm lint .
 
+      # Regression guard for #158: a TLS secret configured without the matching
+      # security realm's serverIdentities.ssl must fail rendering (template-only,
+      # no cluster needed).
+      - name: Validate fail-fast on incomplete TLS config
+        run: |
+          set -u
+          expect_fail() {
+            local desc="$1"; shift
+            local pattern="$1"; shift
+            local out
+            if out=$(helm template x . "$@" 2>&1); then
+              echo "❌ $desc: expected rendering to fail, but it succeeded"
+              exit 1
+            fi
+            if ! echo "$out" | grep -q "$pattern"; then
+              echo "❌ $desc: failed for the wrong reason"
+              echo "$out"
+              exit 1
+            fi
+            echo "✅ $desc: failed as expected"
+          }
+          expect_fail "endpoint secret without default-realm ssl" \
+            'the "default" security realm has no serverIdentities.ssl' \
+            --set deploy.ssl.endpointSecretName=tls-secret
+          expect_fail "transport secret without cluster-transport-realm ssl" \
+            'the "cluster-transport" security realm has no serverIdentities.ssl' \
+            --set deploy.ssl.transportSecretName=tls-transport-secret
+          # Sanity: a fully configured chart still renders.
+          helm template x . -f values.yaml -f test/tls_values.snippet.yaml >/dev/null
+          echo "✅ complete TLS config renders"
+
       - name: Create k8s Kind Cluster
         uses: helm/kind-action@v1
         with:
