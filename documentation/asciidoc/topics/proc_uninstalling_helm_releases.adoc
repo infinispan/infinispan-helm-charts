@@ -4,12 +4,6 @@
 [role="_abstract"]
 Uninstall a release of the {brandname} chart to remove pods and other deployment artifacts.
 
-[NOTE]
-====
-This procedure shows you how to uninstall a {brandname} deployment on the command line but you can use the {osweb} instead.
-Refer to the {openshiftshort} documentation for specific instructions.
-====
-
 .Prerequisites
 
 * Deploy the {brandname} chart.
