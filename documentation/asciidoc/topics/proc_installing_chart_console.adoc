@@ -1,14 +1,17 @@
 [id='installing-chart-console_{context}']
-ifdef::community[]
-= OpenShift only: Installing the {brandname} chart through the console
-endif::community[]
-ifdef::downstream[]
 = Installing the {brandname} chart through the {openshiftshort} console
-endif::downstream[]
 
 [role="_abstract"]
-Use the {osweb} to install the {brandname} chart from the Red Hat developer catalog.
+Use the {osweb} to install the {brandname} chart from the Software Catalog.
 Installing the chart creates a Helm release that deploys a {brandname} cluster.
+
+ifdef::community[]
+[NOTE]
+====
+This procedure applies to {openshiftshort} only.
+On other {k8s} clusters, install the chart using the command-line method.
+====
+endif::community[]
 
 .Prerequisites
 
@@ -17,8 +20,7 @@ Installing the chart creates a Helm release that deploys a {brandname} cluster.
 .Procedure
 
 . Log in to the {osweb}.
-. Select the **Developer** perspective.
-. Open the **Add** view and then select **Helm Chart** to browse the Red Hat developer catalog.
+. Navigate to **Ecosystem** -> **Software Catalog**.
 . Locate and select the {brandname} chart.
 . Specify a name for the chart and select a version.
 . Define values in the following sections of the {brandname} chart:
@@ -32,9 +34,9 @@ To find descriptions for each value, select the **YAML view** option and access 
 Edit the yaml configuration to customize your {brandname} chart.
 ====
 +
-. Select **Install**.
+. Select **Create**.
 
 .Verification
 
-. Select the **Helm** view in the **Developer** perspective.
+. Navigate to **Ecosystem** -> **Helm**.
 . Select the Helm release you created to view details, resources, and other information.

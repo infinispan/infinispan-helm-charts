@@ -1,0 +1,44 @@
+[id='upgrading-chart-console_{context}']
+= Upgrading {brandname} Helm releases through the {openshiftshort} console
+
+[role="_abstract"]
+Use the {osweb} to modify your {brandname} cluster configuration at runtime by upgrading a Helm release.
+
+ifdef::community[]
+[NOTE]
+====
+This procedure applies to {openshiftshort} only.
+On other {k8s} clusters, upgrade the release using the command-line method.
+====
+endif::community[]
+
+.Prerequisites
+
+* Have access to {openshiftshort}.
+* Have an installed {brandname} Helm release.
+
+.Procedure
+
+. Log in to the {osweb}.
+. Navigate to **Ecosystem** -> **Helm** to list the Helm releases in your project.
+. Locate the {brandname} Helm release and select the options menu (three vertical dots).
+. Select **Upgrade**.
++
+[TIP]
+====
+Alternatively, navigate to **Workloads** -> **Topology**, right-click the {brandname} Helm release, and select **Upgrade**.
+====
++
+. Select a version from the **Chart version** drop-down menu and modify the configuration values as required.
++
+[TIP]
+====
+To find descriptions for each value, select the **YAML view** option and access the schema.
+====
++
+. Select **Upgrade**.
+
+.Verification
+
+. Navigate to **Ecosystem** -> **Helm** and select the {brandname} Helm release.
+. Confirm that the revision number increased and that the pods rebuild to apply your changes.

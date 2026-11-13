@@ -3,7 +3,12 @@
 
 [role="_abstract"]
 Make {brandname} clusters available on the network so you can access {brandname} Console as well as REST and Hot Rod endpoints.
-By default, the {brandname} chart exposes deployments through a Route but you can configure it to expose clusters via Load Balancer or Node Port.
+ifdef::community[]
+By default, the {brandname} chart exposes deployments through the cluster's native HTTP router, which creates an `Ingress` on {k8s} and a `Route` on {openshiftshort}, but you can configure it to expose clusters via Load Balancer or Node Port.
+endif::community[]
+ifdef::downstream[]
+By default, the {brandname} chart exposes deployments through a `Route` but you can configure it to expose clusters via Load Balancer or Node Port.
+endif::downstream[]
 You can also configure the {brandname} chart so that deployments are not exposed on the network and only available internally to the {k8s} cluster.
 
 .Procedure

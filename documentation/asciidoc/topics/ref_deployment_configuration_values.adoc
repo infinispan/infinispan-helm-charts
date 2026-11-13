@@ -85,7 +85,12 @@ Set an empty value (`""`) if you do not want to expose {brandname} on the networ
 If you do not specify a port, the platform selects an available one.
 
 |`deploy.expose.host`
-|Optionally specifies the hostname where the Route is exposed.
+ifdef::community[]
+|Optionally specifies the hostname where the `Ingress` is exposed.
+endif::community[]
+ifdef::downstream[]
+|Optionally specifies the hostname where the `Route` is exposed.
+endif::downstream[]
 |No default value.
 
 |`deploy.expose.annotations`
